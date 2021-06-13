@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">FitUp</string>
+    <string name="navigation_home">Home</string>
+    <string name="navigation_favorites">Favorites</string>
     <string name="loginButtonText">Login</string>
     <string name="registerButtonText">Register</string>
     <string name="confirmButtonText">Confirm</string>

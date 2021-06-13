@@ -2,6 +2,7 @@ package es.upsa.mimo.v2021.fitup
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import es.upsa.mimo.v2021.fitup.databinding.ActivityMainBinding
 
 private lateinit var binding: ActivityMainBinding
 
