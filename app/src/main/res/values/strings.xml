@@ -2,7 +2,10 @@
     <string name="app_name">FitUp</string>
     <string name="navigation_home">Home</string>
     <string name="navigation_favorites">Favorites</string>
+    <string name="usernameText">Username</string>
+    <string name="passwordText">Password</string>
     <string name="loginButtonText">Login</string>
+    <string name="newUserText">¿Are you new?</string>
     <string name="registerButtonText">Register</string>
     <string name="confirmButtonText">Confirm</string>
 </resources>

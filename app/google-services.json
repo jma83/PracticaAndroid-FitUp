@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "646158351786",
+    "project_id": "fitup-android-2021",
+    "storage_bucket": "fitup-android-2021.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:646158351786:android:1e981a5ca7fb2ec442ffd3",
+        "android_client_info": {
+          "package_name": "es.upsa.mimo.v2021.fitup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "646158351786-ecopnln03f6a2lighflkl7gi7i4jqam7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoCHCUXwI89xjSDkWx6DKOfXa39uZl2t4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "646158351786-ecopnln03f6a2lighflkl7gi7i4jqam7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
