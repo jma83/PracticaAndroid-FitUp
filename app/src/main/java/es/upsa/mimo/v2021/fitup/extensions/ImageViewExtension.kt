@@ -1,4 +1,4 @@
-package es.upsa.mimo.v2021.fitup.extension
+package es.upsa.mimo.v2021.fitup.extensions
 
 import android.widget.ImageView
 import com.bumptech.glide.Glide
