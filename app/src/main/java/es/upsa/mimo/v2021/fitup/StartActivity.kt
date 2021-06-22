@@ -28,7 +28,7 @@ class StartActivity : AppCompatActivity() {
             if (binding.editTextEmail.text.isNotEmpty() && binding.editTextPassword.text.isNotEmpty()) {
                 FirebaseAuth.getInstance().signInWithEmailAndPassword(binding.editTextEmail.text.toString(), binding.editTextPassword.text.toString()).addOnCompleteListener{
                     if (it.isSuccessful){
-                        showHome(it.result?.user?.email ?: "" , ProviderType.BASIC)
+                        showHome(it.result?.user?.email ?: "" )
                     }else{
                         showAlert("An error ocurred during authentication process. Please try again later.")
                     }
@@ -52,10 +52,10 @@ class StartActivity : AppCompatActivity() {
         startActivity(registerIntent)
     }
 
-    private fun showHome(email: String, provider: ProviderType) {
+    private fun showHome(email: String) {
         val homeIntent = Intent(this, HomeActivity::class.java).apply {
             putExtra("email", email)
-            putExtra("provider", provider.name)
+            putExtra("provider", "email")
         }
 
         startActivity(homeIntent)

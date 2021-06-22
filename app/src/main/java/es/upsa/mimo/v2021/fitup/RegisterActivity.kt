@@ -30,7 +30,7 @@ class RegisterActivity : AppCompatActivity() {
                 FirebaseAuth.getInstance().createUserWithEmailAndPassword(binding.editTextEmail.text.toString(), binding.editTextPassword.text.toString()).addOnCompleteListener {
 
                     if (!it.isSuccessful) {
-                        showHome(it.result?.user?.email ?: "", ProviderType.BASIC)
+                        showHome(it.result?.user?.email ?: "")
                         try {
                             throw it.getException()!!
                         } catch (e: FirebaseAuthException) {
@@ -56,10 +56,10 @@ class RegisterActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    private fun showHome(email: String, provider: ProviderType) {
+    private fun showHome(email: String) {
         val homeIntent = Intent(this, HomeActivity::class.java).apply {
             putExtra("email", email)
-            putExtra("provider", provider.name)
+            putExtra("provider", "email")
         }
 
         startActivity(homeIntent)

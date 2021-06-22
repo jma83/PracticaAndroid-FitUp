@@ -2,28 +2,38 @@ package es.upsa.mimo.v2021.fitup
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
 import es.upsa.mimo.v2021.fitup.databinding.FragmentHomeBinding
-import es.upsa.mimo.v2021.fitup.model.Exercise
-import es.upsa.mimo.v2021.fitup.model.ExerciseDataSet
+import es.upsa.mimo.v2021.fitup.extensions.observe
+import es.upsa.mimo.v2021.fitup.viewmodels.HomeViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-private lateinit var binding: FragmentHomeBinding
-private val exerciseDataSet = mutableListOf<ExerciseDataSet>()
-private lateinit var exerciseAdapter: ExerciseAdapter
+
 class HomeActivity : AppCompatActivity() {
+    private lateinit var binding: FragmentHomeBinding
+    private val viewModel: HomeViewModel by viewModel()
+    val exerciseAdapter by lazy { ExerciseAdapter { viewModel.onItemClicked(it) } }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = FragmentHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+        with(viewModel) {
+            observe(items) { exerciseAdapter.items = it }
+            // observe(navigateToDetail) { event -> event.getContentIfNotHandled()?.let { navigateToDetail(it) } }
+        }
+
+        binding.recyclerHome.adapter = exerciseAdapter
+        viewModel.onLoad()
+        setup()
+    }
+
+    private fun setup() {
+        title = "Home"
         val bundle = intent.extras
         val email = bundle?.getString("email")
         val provider = bundle?.getString("provider")
-        setup(email ?: "", provider ?: "")
-    }
-
-    private fun setup(email: String, provider: String) {
-        title = "Home"
 
         binding.textField1.text = email
         binding.textField2.text = provider
@@ -31,10 +41,8 @@ class HomeActivity : AppCompatActivity() {
         //logoutButto{ FirebaseAuth.getInstance().signOut() }
     }
 
-    private fun initList() {
-        exerciseAdapter = ExerciseAdapter(exerciseDataSet)
-        //binding.rvStreamers.layoutManager = LinearLayoutManager(this)
-        //binding.rvStreamers.adapter = streamersAdapter
-    }
 
+    private fun navigateToDetail(id: Int) {
+        // startActivity<DetailActivity>(DetailActivity.EXTRA_ID to id)
+    }
 }
