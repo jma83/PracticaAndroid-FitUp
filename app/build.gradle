@@ -59,9 +59,11 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-auth-ktx'
 
-    implementation("io.insert-koin:koin-android:3.0.1")
-    implementation("io.insert-koin:koin-android-ext:3.0.1")
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
+
+    implementation 'org.jetbrains.kotlin:kotlin-reflect:1.4.32'
+    implementation 'org.koin:koin-androidx-viewmodel:2.2.2'
+
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

@@ -20,7 +20,6 @@ interface ExerciseProvider {
     suspend fun getExercises() : Exercises?
     suspend fun getExerciseImages() : ExerciseImages?
     suspend fun getExerciseDataSet() : List<ExerciseDataSet>?
-
 }
 
 object ExerciseProviderImpl: ExerciseProvider {
@@ -33,20 +32,18 @@ object ExerciseProviderImpl: ExerciseProvider {
                 .execute()
         val exercises: Exercises? = call.body()
         if (!call.isSuccessful) {
-            Log.e("upsa.mimo.v2021.fitup", "ERROR! que pasa? " + call.errorBody())
-            // Toast.makeText(coroutineContext, "Error", Toast.LENGTH_SHORT).show()("")
-
+            Log.e("upsa.mimo.v2021.fitup", "ERROR! " + call.errorBody())
         }
         return@withContext exercises
     }
 
     override suspend fun getExerciseImages(): ExerciseImages? = withContext(Dispatchers.IO) {
         val call = Retrofit.Builder().getRetrofit().create(APIService::class.java)
-                .getExerciseImages("pepe")
+                .getExerciseImages("exerciseImage")
                 .execute()
         val images: ExerciseImages? = call.body()
         if (!call.isSuccessful) {
-            Log.e("upsa.mimo.v2021.fitup", "ERROR! que pasa? " + call.errorBody())
+            Log.e("upsa.mimo.v2021.fitup", "ERROR! " + call.errorBody())
         }
         return@withContext images
     }
@@ -59,7 +56,7 @@ object ExerciseProviderImpl: ExerciseProvider {
         }
         val list:List<ExerciseDataSet> = images.images.flatMap { image: ExerciseImage ->
             exercises.exercises.filter{
-               (it.id === image.exercise_base)
+               (it.id == image.exercise_base)
             }.map {
                 ExerciseDataSet(it,image)
             }

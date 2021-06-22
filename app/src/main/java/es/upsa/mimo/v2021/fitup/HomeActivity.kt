@@ -1,7 +1,7 @@
 package es.upsa.mimo.v2021.fitup
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import es.upsa.mimo.v2021.fitup.databinding.FragmentHomeBinding
 import es.upsa.mimo.v2021.fitup.extensions.observe
 import es.upsa.mimo.v2021.fitup.viewmodels.HomeViewModel
@@ -20,8 +20,12 @@ class HomeActivity : AppCompatActivity() {
 
 
         with(viewModel) {
-            observe(items) { exerciseAdapter.items = it }
-            // observe(navigateToDetail) { event -> event.getContentIfNotHandled()?.let { navigateToDetail(it) } }
+            observe(items) {
+                exerciseAdapter.items = it
+            }
+            observe(navigateToDetail) { event ->
+                event.getContentIfNotHandled()?.let { navigateToDetail(it) }
+            }
         }
 
         binding.recyclerHome.adapter = exerciseAdapter

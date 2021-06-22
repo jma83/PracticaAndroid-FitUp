@@ -5,14 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import es.upsa.mimo.v2021.fitup.Event
+import es.upsa.mimo.v2021.fitup.extensions.io
+import es.upsa.mimo.v2021.fitup.extensions.ui
 import es.upsa.mimo.v2021.fitup.model.ExerciseDataSet
 import es.upsa.mimo.v2021.fitup.providers.ExerciseProvider
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import kotlin.coroutines.CoroutineContext
 
-class HomeViewModel (private val exerciseProvider: ExerciseProvider,
-                     private val ioDispatcher: CoroutineContext) : ViewModel() {
+class HomeViewModel(private val exerciseProvider: ExerciseProvider) : ViewModel() {
 
     private val _items = MutableLiveData<List<ExerciseDataSet>>()
     val items: LiveData<List<ExerciseDataSet>> get() = _items
@@ -27,7 +26,12 @@ class HomeViewModel (private val exerciseProvider: ExerciseProvider,
 
     fun onLoad() {
         viewModelScope.launch {
-            _items.value = withContext(ioDispatcher) { getItems() }
+            io {
+                val result = getItems()
+                ui {
+                    _items.value = result
+                }
+            }
         }
     }
 

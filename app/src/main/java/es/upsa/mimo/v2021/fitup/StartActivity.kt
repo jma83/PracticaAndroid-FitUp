@@ -25,15 +25,15 @@ class StartActivity : AppCompatActivity() {
         }
 
         binding.button1.setOnClickListener{
-            if (binding.editTextEmail.text.isNotEmpty() && binding.editTextPassword.text.isNotEmpty()) {
-                FirebaseAuth.getInstance().signInWithEmailAndPassword(binding.editTextEmail.text.toString(), binding.editTextPassword.text.toString()).addOnCompleteListener{
-                    if (it.isSuccessful){
-                        showHome(it.result?.user?.email ?: "" )
-                    }else{
-                        showAlert("An error ocurred during authentication process. Please try again later.")
-                    }
-                }
-            }
+            showHome("")
+//            if (binding.editTextEmail.text.isNotEmpty() && binding.editTextPassword.text.isNotEmpty()) {
+//                FirebaseAuth.getInstance().signInWithEmailAndPassword(binding.editTextEmail.text.toString(), binding.editTextPassword.text.toString()).addOnCompleteListener{
+//                    if (it.isSuccessful){
+//                    }else{
+//                        showAlert("An error ocurred during authentication process. Please try again later.")
+//                    }
+//                }
+//            }
         }
     }
 
