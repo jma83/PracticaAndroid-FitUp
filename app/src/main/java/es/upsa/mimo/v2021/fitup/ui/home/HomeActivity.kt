@@ -4,10 +4,18 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import es.upsa.mimo.v2021.fitup.databinding.FragmentHomeBinding
 import es.upsa.mimo.v2021.fitup.extensions.observe
+import es.upsa.mimo.v2021.fitup.extensions.startActivity
+import es.upsa.mimo.v2021.fitup.model.ExerciseDataSet
+import es.upsa.mimo.v2021.fitup.ui.detail.DetailActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class HomeActivity : AppCompatActivity() {
+
+    companion object {
+        const val EXTRA_EMAIL = "HomeActivity:email"
+    }
+
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: HomeViewModel by viewModel()
     val exerciseAdapter by lazy {
@@ -52,6 +60,6 @@ class HomeActivity : AppCompatActivity() {
 
 
     private fun navigateToDetail(id: Int) {
-        // startActivity<DetailActivity>(DetailActivity.EXTRA_ID to id)
+        startActivity<DetailActivity>(DetailActivity.EXTRA_ID to id)
     }
 }

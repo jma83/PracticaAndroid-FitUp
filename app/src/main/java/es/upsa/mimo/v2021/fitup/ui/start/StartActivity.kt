@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import es.upsa.mimo.v2021.fitup.databinding.ActivityStartBinding
+import es.upsa.mimo.v2021.fitup.extensions.startActivity
+import es.upsa.mimo.v2021.fitup.ui.detail.DetailActivity
 import es.upsa.mimo.v2021.fitup.ui.home.HomeActivity
 import es.upsa.mimo.v2021.fitup.ui.register.RegisterActivity
 
@@ -47,18 +49,11 @@ class StartActivity : AppCompatActivity() {
     }
 
     private fun showRegister() {
-        val registerIntent = Intent(this, RegisterActivity::class.java)
-
-        startActivity(registerIntent)
+        startActivity<RegisterActivity>()
     }
 
     private fun showHome() {
-        val homeIntent = Intent(this, HomeActivity::class.java).apply {
-            putExtra("email", binding.editTextEmail.text.toString())
-            putExtra("provider", "email")
-        }
-
-        startActivity(homeIntent)
+        startActivity<HomeActivity>(HomeActivity.EXTRA_EMAIL to binding.editTextEmail.text.toString())
     }
 
 }

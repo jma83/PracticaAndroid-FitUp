@@ -36,7 +36,7 @@ class HomeViewModel(private val exerciseProvider: ExerciseProvider) : ViewModel(
     }
 
     private suspend fun getItems(): List<ExerciseDataSet>? {
-        return exerciseProvider.getExerciseDataSet()
+        return exerciseProvider.getExerciseDataSets()
     }
 
 }

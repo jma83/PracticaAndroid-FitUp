@@ -9,10 +9,12 @@ import retrofit2.Response
 import retrofit2.Retrofit
 
 interface ExerciseProvider {
+    suspend fun getExercise(exerciseId: Int) : Exercise?
+    suspend fun getExerciseImage(exerciseId: Int) : ExerciseImage?
+    suspend fun getExerciseDataSet(exerciseId: Int) : ExerciseDataSet?
     suspend fun getExercises() : Exercises?
     suspend fun getExerciseImages() : ExerciseImages?
-    suspend fun getExerciseImage(exerciseId: Int) : ExerciseImage?
-    suspend fun getExerciseDataSet() : List<ExerciseDataSet>?
+    suspend fun getExerciseDataSets() : List<ExerciseDataSet>?
 }
 
 val language = "?language=2"
@@ -30,6 +32,17 @@ object ExerciseProviderImpl: ExerciseProvider {
             Log.e("upsa.mimo.v2021.fitup", "ERROR! " + call.errorBody())
         }
         return@withContext exercises
+    }
+
+    override suspend fun getExercise(exerciseId: Int): Exercise? = withContext(Dispatchers.IO) {
+        val call = Retrofit.Builder().getRetrofit().create(APIService::class.java)
+            .getExercises("exercise$language&$limit")
+            .execute()
+        val exercises: Exercises? = call.body()
+        if (!call.isSuccessful) {
+            Log.e("upsa.mimo.v2021.fitup", "ERROR! " + call.errorBody())
+        }
+        return@withContext exercises?.exercises?.first()
     }
 
     override suspend fun getExerciseImages(): ExerciseImages? = withContext(Dispatchers.IO) {
@@ -55,14 +68,26 @@ object ExerciseProviderImpl: ExerciseProvider {
             return@withContext null
         }
         var image: ExerciseImage? = null;
-        if (images!!.images.size > 0) {
+        if (images.images.size > 0) {
             image = images.images.first();
         }
 
         return@withContext image
     }
 
-    override suspend fun getExerciseDataSet(): List<ExerciseDataSet>? = withContext(Dispatchers.IO) {
+    override suspend fun getExerciseDataSet(exerciseId: Int): ExerciseDataSet? = withContext(Dispatchers.IO) {
+        val exercises: Exercises? = getExercises()
+        if (exercises == null){
+            return@withContext null
+        }
+        val list:List<ExerciseDataSet> =
+            exercises.exercises.map {
+                ExerciseDataSet(it, getExerciseImage(it.id))
+            }
+        return@withContext list.first()
+    }
+
+    override suspend fun getExerciseDataSets(): List<ExerciseDataSet>? = withContext(Dispatchers.IO) {
         val exercises: Exercises? = getExercises()
         if (exercises == null){
             return@withContext null
