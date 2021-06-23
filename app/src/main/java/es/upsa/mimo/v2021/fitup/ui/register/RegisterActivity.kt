@@ -1,15 +1,14 @@
-package es.upsa.mimo.v2021.fitup
+package es.upsa.mimo.v2021.fitup.ui.register
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.SavedStateViewModelFactory
-import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import es.upsa.mimo.v2021.fitup.databinding.ActivityRegisterBinding
+import es.upsa.mimo.v2021.fitup.ui.home.HomeActivity
 
 
 private lateinit var binding: ActivityRegisterBinding

@@ -1,8 +1,9 @@
-package es.upsa.mimo.v2021.fitup
+package es.upsa.mimo.v2021.fitup.ui.home
 
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import es.upsa.mimo.v2021.fitup.R
 import es.upsa.mimo.v2021.fitup.databinding.ItemExerciseBinding
 import es.upsa.mimo.v2021.fitup.extensions.inflate
 import es.upsa.mimo.v2021.fitup.extensions.fromUrl
@@ -35,7 +36,11 @@ class ExerciseAdapter(items: List<ExerciseDataSet> = emptyList(), private val li
         fun bind(exerciseDataSet: ExerciseDataSet) {
             with(binding) {
                 exerciseText.text = exerciseDataSet.exerciseInfo.name
-                exerciseImage.fromUrl(exerciseDataSet.exerciseImage.image)
+                var pepe: String? = exerciseDataSet.exerciseImage?.image
+                if (pepe == null) {
+                    pepe = "https://www.vippng.com/png/detail/221-2210873_aerobic-exercise-icon.png"
+                }
+                exerciseImage.fromUrl(pepe)
                 root.setOnClickListener { listener(exerciseDataSet) }
 
             }

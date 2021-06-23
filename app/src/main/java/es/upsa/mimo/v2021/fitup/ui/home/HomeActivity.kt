@@ -1,17 +1,22 @@
-package es.upsa.mimo.v2021.fitup
+package es.upsa.mimo.v2021.fitup.ui.home
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import es.upsa.mimo.v2021.fitup.databinding.FragmentHomeBinding
 import es.upsa.mimo.v2021.fitup.extensions.observe
-import es.upsa.mimo.v2021.fitup.viewmodels.HomeViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: HomeViewModel by viewModel()
-    val exerciseAdapter by lazy { ExerciseAdapter { viewModel.onItemClicked(it) } }
+    val exerciseAdapter by lazy {
+        ExerciseAdapter {
+            viewModel.onItemClicked(
+                it
+            )
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
