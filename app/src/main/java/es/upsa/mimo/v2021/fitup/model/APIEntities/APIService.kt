@@ -1,4 +1,4 @@
-package es.upsa.mimo.v2021.fitup.model
+package es.upsa.mimo.v2021.fitup.model.APIEntities
 
 import retrofit2.Call
 import retrofit2.http.GET

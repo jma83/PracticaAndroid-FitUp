@@ -1,6 +1,5 @@
 package es.upsa.mimo.v2021.fitup.ui.register
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
@@ -8,7 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import es.upsa.mimo.v2021.fitup.databinding.ActivityRegisterBinding
-import es.upsa.mimo.v2021.fitup.ui.home.HomeActivity
+import es.upsa.mimo.v2021.fitup.extensions.startActivity1
+import es.upsa.mimo.v2021.fitup.ui.main.MainActivity
 
 
 private lateinit var binding: ActivityRegisterBinding
@@ -29,7 +29,7 @@ class RegisterActivity : AppCompatActivity() {
                 FirebaseAuth.getInstance().createUserWithEmailAndPassword(binding.editTextEmail.text.toString(), binding.editTextPassword.text.toString()).addOnCompleteListener {
 
                     if (!it.isSuccessful) {
-                        showHome(it.result?.user?.email ?: "")
+                        showHome()
                         try {
                             throw it.getException()!!
                         } catch (e: FirebaseAuthException) {
@@ -55,13 +55,8 @@ class RegisterActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    private fun showHome(email: String) {
-        val homeIntent = Intent(this, HomeActivity::class.java).apply {
-            putExtra("email", email)
-            putExtra("provider", "email")
-        }
-
-        startActivity(homeIntent)
+    private fun showHome() {
+        startActivity1<MainActivity>(MainActivity.EXTRA_EMAIL to "email")
     }
 
 }

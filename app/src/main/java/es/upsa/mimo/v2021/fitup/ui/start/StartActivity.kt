@@ -5,9 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import es.upsa.mimo.v2021.fitup.databinding.ActivityStartBinding
-import es.upsa.mimo.v2021.fitup.extensions.startActivity
-import es.upsa.mimo.v2021.fitup.ui.detail.DetailActivity
-import es.upsa.mimo.v2021.fitup.ui.home.HomeActivity
+import es.upsa.mimo.v2021.fitup.extensions.startActivity1
+import es.upsa.mimo.v2021.fitup.ui.main.MainActivity
 import es.upsa.mimo.v2021.fitup.ui.register.RegisterActivity
 
 private lateinit var binding: ActivityStartBinding
@@ -49,11 +48,11 @@ class StartActivity : AppCompatActivity() {
     }
 
     private fun showRegister() {
-        startActivity<RegisterActivity>()
+        startActivity1<RegisterActivity>()
     }
 
     private fun showHome() {
-        startActivity<HomeActivity>(HomeActivity.EXTRA_EMAIL to binding.editTextEmail.text.toString())
+        startActivity1<MainActivity>(MainActivity.EXTRA_EMAIL to binding.editTextEmail.text.toString())
     }
 
 }

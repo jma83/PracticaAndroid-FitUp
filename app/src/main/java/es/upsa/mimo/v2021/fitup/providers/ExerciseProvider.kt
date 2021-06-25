@@ -2,7 +2,7 @@ package es.upsa.mimo.v2021.fitup.providers
 
 import android.util.Log
 import es.upsa.mimo.v2021.fitup.extensions.getRetrofit
-import es.upsa.mimo.v2021.fitup.model.*
+import es.upsa.mimo.v2021.fitup.model.APIEntities.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Response
@@ -82,7 +82,10 @@ object ExerciseProviderImpl: ExerciseProvider {
         }
         val list:List<ExerciseDataSet> =
             exercises.exercises.map {
-                ExerciseDataSet(it, getExerciseImage(it.id))
+                ExerciseDataSet(
+                    it,
+                    getExerciseImage(it.id)
+                )
             }
         return@withContext list.first()
     }
@@ -94,7 +97,10 @@ object ExerciseProviderImpl: ExerciseProvider {
         }
         val list:List<ExerciseDataSet> =
             exercises.exercises.map {
-                ExerciseDataSet(it, getExerciseImage(it.id))
+                ExerciseDataSet(
+                    it,
+                    getExerciseImage(it.id)
+                )
             }
         return@withContext list
     }

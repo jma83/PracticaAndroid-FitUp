@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import es.upsa.mimo.v2021.fitup.Event
 import es.upsa.mimo.v2021.fitup.extensions.io
 import es.upsa.mimo.v2021.fitup.extensions.ui
-import es.upsa.mimo.v2021.fitup.model.ExerciseDataSet
+import es.upsa.mimo.v2021.fitup.model.APIEntities.ExerciseDataSet
 import es.upsa.mimo.v2021.fitup.providers.ExerciseProvider
 import kotlinx.coroutines.launch
 

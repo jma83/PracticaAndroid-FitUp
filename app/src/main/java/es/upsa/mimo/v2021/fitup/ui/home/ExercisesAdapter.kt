@@ -7,7 +7,7 @@ import es.upsa.mimo.v2021.fitup.R
 import es.upsa.mimo.v2021.fitup.databinding.ItemExerciseBinding
 import es.upsa.mimo.v2021.fitup.extensions.inflate
 import es.upsa.mimo.v2021.fitup.extensions.fromUrl
-import es.upsa.mimo.v2021.fitup.model.ExerciseDataSet
+import es.upsa.mimo.v2021.fitup.model.APIEntities.ExerciseDataSet
 import kotlin.properties.Delegates
 
 private typealias ExerciseDataSetListener = (ExerciseDataSet) -> Unit
@@ -36,11 +36,11 @@ class ExerciseAdapter(items: List<ExerciseDataSet> = emptyList(), private val li
         fun bind(exerciseDataSet: ExerciseDataSet) {
             with(binding) {
                 exerciseText.text = exerciseDataSet.exerciseInfo.name
-                var pepe: String? = exerciseDataSet.exerciseImage?.image
-                if (pepe == null) {
-                    pepe = "https://www.vippng.com/png/detail/221-2210873_aerobic-exercise-icon.png"
+                var img: String? = exerciseDataSet.exerciseImage?.image
+                if (img == null) {
+                    img = "https://www.vippng.com/png/detail/221-2210873_aerobic-exercise-icon.png"
                 }
-                exerciseImage.fromUrl(pepe)
+                exerciseImage.fromUrl(img)
                 root.setOnClickListener { listener(exerciseDataSet) }
 
             }
