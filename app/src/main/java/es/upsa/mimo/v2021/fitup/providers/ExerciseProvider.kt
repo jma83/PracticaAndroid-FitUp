@@ -17,15 +17,17 @@ interface ExerciseProvider {
     suspend fun getExerciseDataSets() : List<ExerciseDataSet>?
 }
 
-val language = "?language=2"
 
 object ExerciseProviderImpl: ExerciseProvider {
     val numLimit: Int = 10;
     val limit: String = "limit=$numLimit"
+    val language = "?language=2"
+    val route = "exercise"
+    val routeImage = "exerciseimage"
 
     override suspend fun getExercises(): Exercises? = withContext(Dispatchers.IO) {
         val call = Retrofit.Builder().getRetrofit().create(APIService::class.java)
-                .getExercises("exercise$language&$limit")
+                .getExercises("$route$language&$limit")
                 .execute()
         val exercises: Exercises? = call.body()
         if (!call.isSuccessful) {
@@ -36,7 +38,7 @@ object ExerciseProviderImpl: ExerciseProvider {
 
     override suspend fun getExercise(exerciseId: Int): Exercise? = withContext(Dispatchers.IO) {
         val call = Retrofit.Builder().getRetrofit().create(APIService::class.java)
-            .getExercises("exercise$language&$limit")
+            .getExercises("$route$language&$limit")
             .execute()
         val exercises: Exercises? = call.body()
         if (!call.isSuccessful) {
@@ -47,7 +49,7 @@ object ExerciseProviderImpl: ExerciseProvider {
 
     override suspend fun getExerciseImages(): ExerciseImages? = withContext(Dispatchers.IO) {
         val call = Retrofit.Builder().getRetrofit().create(APIService::class.java)
-                .getExerciseImages("exerciseImage$language")
+                .getExerciseImages("$routeImage$language")
                 .execute()
         val images: ExerciseImages? = call.body()
         if (!call.isSuccessful) {
@@ -60,7 +62,7 @@ object ExerciseProviderImpl: ExerciseProvider {
         val exercise = "exercise_base=$exerciseId"
         val call: Response<ExerciseImages> = Retrofit.Builder().getRetrofit()
             .create(APIService::class.java)
-            .getExerciseImages("exerciseimage$language&$exercise")
+            .getExerciseImages("$routeImage$language&$exercise")
             .execute()
         val images: ExerciseImages? = call.body()
         if (!call.isSuccessful || images == null) {

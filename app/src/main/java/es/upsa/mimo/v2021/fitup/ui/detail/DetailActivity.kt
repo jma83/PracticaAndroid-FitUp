@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import es.upsa.mimo.v2021.fitup.databinding.FragmentExerciseDetailBinding
 import es.upsa.mimo.v2021.fitup.fragments.ExerciseDetailFragment
+import es.upsa.mimo.v2021.fitup.model.APIEntities.ExerciseDataSet
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailActivity: AppCompatActivity() {
@@ -15,7 +16,6 @@ class DetailActivity: AppCompatActivity() {
     }
 
     private lateinit var binding: FragmentExerciseDetailBinding
-    private val viewModel: DetailViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,10 +28,9 @@ class DetailActivity: AppCompatActivity() {
         binding = FragmentExerciseDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel.onCreate(intent.getIntExtra(EXTRA_ID, 0))
-
         if (savedInstanceState == null) {
-            val exerciseDetailFragment: ExerciseDetailFragment = ExerciseDetailFragment.newInstance(intent.extras?.getInt(EXTRA_ID) ?: 0)
+            val exercise = intent.extras?.getSerializable(EXTRA_ID) as ExerciseDataSet
+            val exerciseDetailFragment: ExerciseDetailFragment = ExerciseDetailFragment.newInstance(exercise)
             supportFragmentManager.beginTransaction()
                 .add(R.id.content, exerciseDetailFragment).commit()
         }

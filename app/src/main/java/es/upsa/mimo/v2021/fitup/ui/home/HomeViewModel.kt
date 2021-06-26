@@ -16,12 +16,12 @@ class HomeViewModel(private val exerciseProvider: ExerciseProvider) : ViewModel(
     private val _items = MutableLiveData<List<ExerciseDataSet>>()
     val items: LiveData<List<ExerciseDataSet>> get() = _items
 
-    private val _navigateToDetail = MutableLiveData<Event<Int>>()
-    val navigateToDetail: LiveData<Event<Int>> get() = _navigateToDetail
+    private val _navigateToDetail = MutableLiveData<Event<ExerciseDataSet>>()
+    val navigateToDetail: LiveData<Event<ExerciseDataSet>> get() = _navigateToDetail
 
 
     fun onItemClicked(item: ExerciseDataSet) {
-        _navigateToDetail.value = Event(item.exerciseInfo.id)
+        _navigateToDetail.value = Event(item)
     }
 
     fun onLoad() {

@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import es.upsa.mimo.v2021.fitup.R
 import es.upsa.mimo.v2021.fitup.extensions.observe
 import es.upsa.mimo.v2021.fitup.extensions.startActivity1
+import es.upsa.mimo.v2021.fitup.model.APIEntities.Exercise
+import es.upsa.mimo.v2021.fitup.model.APIEntities.ExerciseDataSet
 import es.upsa.mimo.v2021.fitup.ui.detail.DetailActivity
 import es.upsa.mimo.v2021.fitup.ui.home.ExerciseAdapter
 import es.upsa.mimo.v2021.fitup.ui.home.HomeViewModel
@@ -63,8 +65,9 @@ class ExerciseListFragment : Fragment() {
         getView()?.let { setupRecyclerView(it) }
         setLoading(true)
         viewModel.onLoad()
-        if (mDualPane) {
-            showDetail(viewModel.items.value?.first()?.exerciseInfo?.id ?: 0)
+        val exerciseDataSet: ExerciseDataSet? = viewModel.items.value?.first()
+        if (mDualPane && exerciseDataSet != null) {
+            showDetail(exerciseDataSet)
         }
         setLoading(false)
     }
@@ -92,20 +95,20 @@ class ExerciseListFragment : Fragment() {
         }
     }
 
-    private fun showDetail(id: Int) {
+    private fun showDetail(exerciseDataSet: ExerciseDataSet) {
         if (mDualPane) {
-            val exerciseDetailFragment: ExerciseDetailFragment = ExerciseDetailFragment.newInstance(id)
+            val exerciseDetailFragment: ExerciseDetailFragment = ExerciseDetailFragment.newInstance(exerciseDataSet)
             parentFragmentManager.beginTransaction()
                 .replace(R.id.flExerciseDetail, exerciseDetailFragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .commit()
         } else {
-            navigateToDetail(id)
+            navigateToDetail(exerciseDataSet)
         }
     }
 
 
-    private fun navigateToDetail(id: Int) {
-        activity?.startActivity1<DetailActivity>(DetailActivity.EXTRA_ID to id)
+    private fun navigateToDetail(exerciseDataSet: ExerciseDataSet) {
+        activity?.startActivity1<DetailActivity>(DetailActivity.EXTRA_ID to exerciseDataSet)
     }
 }

@@ -8,11 +8,15 @@ interface APIService {
     @GET
     fun getExercises(@Url url:String): Call<Exercises>
     @GET
-    fun getExerciseImages(@Url url:String): Call<ExerciseImages>
+    fun getExercise(@Url url:String): Call<Exercise>
     @GET
-    fun getExerciseDataSet(@Url url:String): Call<ExerciseDataSet>
+    fun getExerciseImages(@Url url:String): Call<ExerciseImages>
     @GET
     fun getCategories(@Url url:String): Call<Categories>
     @GET
+    fun getCategory(@Url url:String): Call<Category>
+    @GET
     fun getMuscles(@Url url:String): Call<Muscles>
+    @GET
+    fun getMuscle(@Url url:String): Call<Muscle>
 }
