@@ -1,6 +1,5 @@
 package es.upsa.mimo.v2021.fitup.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +8,6 @@ import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import es.upsa.mimo.v2021.fitup.R
 import es.upsa.mimo.v2021.fitup.extensions.observe
@@ -48,6 +46,12 @@ class ExerciseListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mProgressBar = view.findViewById(R.id.progressBar)
+        val detailsFrame: View? = activity?.findViewById(R.id.flExerciseDetail)
+        mDualPane = detailsFrame != null && detailsFrame.visibility == View.VISIBLE
+        if (savedInstanceState != null) {
+            return
+        }
         with(viewModel) {
             observe(items) {
                 exerciseAdapter.items = it
@@ -59,10 +63,10 @@ class ExerciseListFragment : Fragment() {
         getView()?.let { setupRecyclerView(it) }
         setLoading(true)
         viewModel.onLoad()
+        if (mDualPane) {
+            showDetail(viewModel.items.value?.first()?.exerciseInfo?.id ?: 0)
+        }
         setLoading(false)
-
-        val detailsFrame: View? = activity?.findViewById(R.id.flExerciseDetail)
-        mDualPane = detailsFrame != null && detailsFrame.visibility == View.VISIBLE
     }
 
     private fun setupRecyclerView(view: View) {
@@ -91,7 +95,7 @@ class ExerciseListFragment : Fragment() {
     private fun showDetail(id: Int) {
         if (mDualPane) {
             val exerciseDetailFragment: ExerciseDetailFragment = ExerciseDetailFragment.newInstance(id)
-            childFragmentManager.beginTransaction()
+            parentFragmentManager.beginTransaction()
                 .replace(R.id.flExerciseDetail, exerciseDetailFragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .commit()

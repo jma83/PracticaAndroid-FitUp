@@ -31,11 +31,7 @@ class DetailActivity: AppCompatActivity() {
         viewModel.onCreate(intent.getIntExtra(EXTRA_ID, 0))
 
         if (savedInstanceState == null) {
-            var pepe: Int? = intent.extras?.getInt(EXTRA_ID)
-            if (pepe == null) {
-                pepe = 0
-            }
-            val exerciseDetailFragment: ExerciseDetailFragment = ExerciseDetailFragment.newInstance(pepe)
+            val exerciseDetailFragment: ExerciseDetailFragment = ExerciseDetailFragment.newInstance(intent.extras?.getInt(EXTRA_ID) ?: 0)
             supportFragmentManager.beginTransaction()
                 .add(R.id.content, exerciseDetailFragment).commit()
         }

@@ -13,13 +13,12 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class ExerciseDetailFragment: Fragment() {
-    private lateinit var binding: FragmentExerciseDetailBinding
     private val viewModel: DetailViewModel by viewModel()
     companion object {
         fun newInstance(id: Int): ExerciseDetailFragment {
             val exerciseDetailFragment = ExerciseDetailFragment()
             val args = Bundle()
-            args.putString(DetailActivity.EXTRA_ID, id.toString())
+            args.putInt(DetailActivity.EXTRA_ID, id)
             exerciseDetailFragment.setArguments(args)
 
             return exerciseDetailFragment

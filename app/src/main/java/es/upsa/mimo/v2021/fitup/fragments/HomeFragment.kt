@@ -17,17 +17,15 @@ class HomeFragment: Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_exercise_list, container, false)
+        return inflater.inflate(R.layout.activity_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getChildFragmentManager().beginTransaction()
+        parentFragmentManager.beginTransaction()
             .replace(R.id.flExerciseList, ExerciseListFragment.newInstance())
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             .commit()
-
-
     }
 
 }
