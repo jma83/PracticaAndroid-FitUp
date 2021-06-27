@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import es.upsa.mimo.v2021.fitup.R
 import es.upsa.mimo.v2021.fitup.databinding.FragmentExerciseDetailBinding
-import es.upsa.mimo.v2021.fitup.databinding.ItemExerciseBinding
 import es.upsa.mimo.v2021.fitup.extensions.fromUrl
+import es.upsa.mimo.v2021.fitup.extensions.observe
 import es.upsa.mimo.v2021.fitup.model.APIEntities.ExerciseDataSet
 import es.upsa.mimo.v2021.fitup.ui.detail.DetailActivity
 import es.upsa.mimo.v2021.fitup.ui.detail.DetailViewModel
@@ -39,15 +39,16 @@ class ExerciseDetailFragment: Fragment() {
         if (exercise != null) {
             viewModel.onCreate(exercise)
         }
-        val binding = FragmentExerciseDetailBinding.bind(view)
+        binding = FragmentExerciseDetailBinding.bind(view)
 
-        with(binding) {
-            this.exerciseText.text = viewModel.item.value?.exerciseInfo?.name ?: "Nada?"
-
-            val img: String = viewModel.item.value?.exerciseImage?.image ?: "https://www.vippng.com/png/detail/221-2210873_aerobic-exercise-icon.png"
-
-            detailThumb.fromUrl(img)
-
+        with(viewModel) {
+            observe(item){
+                with(binding) {
+                    this.exerciseTitle.text = viewModel.item.value?.exerciseInfo?.name ?: "N/A"
+                    val img: String = viewModel.item.value?.exerciseImage?.image ?: "https://www.vippng.com/png/detail/221-2210873_aerobic-exercise-icon.png"
+                    detailThumb.fromUrl(img)
+                }
+            }
         }
     }
 }
