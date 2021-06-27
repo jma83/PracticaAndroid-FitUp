@@ -16,16 +16,13 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <FrameLayout
+
+        <ImageView
+            android:id="@+id/detailThumb"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <ImageView
-                android:id="@+id/detailThumb"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:scaleType="centerCrop"
-                tools:src="@mipmap/ic_launcher"/>
-        </FrameLayout>
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            tools:src="@mipmap/ic_launcher"/>
 
         <TextView
             android:id="@+id/exerciseTitle"
@@ -42,19 +39,35 @@
             android:layout_height="wrap_content"
             android:padding="16dp"
             android:layout_marginTop="10dp"
-            tools:text="Title"/>
-        <LinearLayout
+            tools:text="Title" />
+
+        <TextView
+            android:id="@+id/categoryText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-                <TextView
-                    android:id="@+id/pepe"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:layout_marginTop="10dp"
-                    tools:text="Title"/>
-        </LinearLayout>
+            android:padding="16dp"
+            android:layout_marginTop="10dp"
+            tools:text="Title" />
+
+        <TextView
+            android:id="@+id/muscleTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:layout_marginTop="20dp"
+            tools:text="Title" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerMuscleList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="1dp"
+            android:clipToPadding="false"
+            android:layout_marginTop="10dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2"
+            tools:listitem="@layout/item_muscle" />
+
     </LinearLayout>
 
 

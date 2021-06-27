@@ -9,9 +9,6 @@ import es.upsa.mimo.v2021.fitup.R
 import es.upsa.mimo.v2021.fitup.databinding.ActivityMainBinding
 import es.upsa.mimo.v2021.fitup.fragments.HomeFragment
 import es.upsa.mimo.v2021.fitup.fragments.MyListsFragment
-import es.upsa.mimo.v2021.fitup.ui.home.ExerciseAdapter
-import es.upsa.mimo.v2021.fitup.ui.home.HomeViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
