@@ -16,13 +16,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textField1"
-            android:text="miau1"
+            android:text="Home"
             android:textSize="30sp"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textField2"
-            android:text="miau2"
+            android:text="Exercise list"
             android:textSize="30sp"/>
     </LinearLayout>
 

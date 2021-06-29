@@ -5,70 +5,75 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <LinearLayout
-        android:id="@+id/firstDetailContainer"
-        android:layout_width="match_parent"
+    <ScrollView
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="2dp"
+        android:id="@+id/scrollView"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
-        <ImageView
-            android:id="@+id/detailThumb"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop"
-            tools:src="@mipmap/ic_launcher"/>
-
-        <TextView
-            android:id="@+id/exerciseTitle"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#333"
-            android:padding="16dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
-            tools:text="Title"/>
-
-        <TextView
-            android:id="@+id/exerciseDescription"
+        <LinearLayout
+            android:id="@+id/firstDetailContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:layout_marginTop="10dp"
-            tools:text="Title" />
+            android:orientation="vertical"
+            android:padding="2dp">
 
-        <TextView
-            android:id="@+id/categoryText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:layout_marginTop="10dp"
-            tools:text="Title" />
 
-        <TextView
-            android:id="@+id/muscleTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:layout_marginTop="20dp"
-            tools:text="Title" />
+            <ImageView
+                android:id="@+id/detailThumb"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                tools:src="@mipmap/ic_launcher"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerMuscleList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="1dp"
-            android:clipToPadding="false"
-            android:layout_marginTop="10dp"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="2"
-            tools:listitem="@layout/item_muscle" />
+            <TextView
+                android:id="@+id/exerciseTitle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#333"
+                android:padding="16dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
+                tools:text="Title"/>
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/exerciseDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:layout_marginTop="10dp"
+                tools:text="Title"
+                android:background="@color/white"/>
 
+            <TextView
+                android:id="@+id/categoryText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:layout_marginTop="10dp"
+                tools:text="Title" />
+
+            <TextView
+                android:id="@+id/muscleTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:layout_marginTop="20dp"
+                tools:text="Muscles" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerMuscleList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="1dp"
+                android:clipToPadding="false"
+                android:layout_marginTop="10dp"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"
+                tools:listitem="@layout/item_muscle" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

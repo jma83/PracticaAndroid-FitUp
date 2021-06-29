@@ -1,9 +1,12 @@
 package es.upsa.mimo.v2021.fitup.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.RecyclerView
@@ -53,14 +56,15 @@ class ExerciseDetailFragment: Fragment() {
                 with(binding) {
                     exerciseTitle.text = item.value?.exerciseInfo?.name ?: "N/A"
                     val img: String = item.value?.exerciseImage?.image ?: "https://www.vippng.com/png/detail/221-2210873_aerobic-exercise-icon.png"
+                    Log.i("es.upsa.mimo.fitup", img);
                     detailThumb.fromUrl(img)
-                    exerciseDescription.text = item.value?.exerciseInfo?.description ?: "N/A"
+                    exerciseDescription.text = item.value?.exerciseInfo?.description?.let { it1 ->
+                        HtmlCompat.fromHtml(
+                            it1, 0)
+                    } ?: "N/A"
                 }
             }
             observe(muscles){
-                with(binding) {
-                    muscleTitle.text = "Muscles"
-                }
                 muscleAdapter.items = muscles.value ?: emptyList()
             }
 

@@ -3,7 +3,9 @@
     <string name="register">Create an account!</string>
     <string name="app_name">FitUp</string>
     <string name="navigation_home">Home</string>
-    <string name="navigation_favorites">Favorites</string>
+    <string name="navigation_categories">Categories</string>
+    <string name="navigation_lists">Training Lists</string>
+    <string name="navigation_profile">Profile</string>
     <string name="emailText">Email</string>
     <string name="passwordText">Password</string>
     <string name="nameText">Name</string>

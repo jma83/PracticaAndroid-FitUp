@@ -20,8 +20,8 @@ import es.upsa.mimo.v2021.fitup.ui.home.HomeViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ExerciseListFragment : Fragment() {
-    private var mProgressBar: ProgressBar? = null
     var mDualPane = false
+    private var mProgressBar: ProgressBar? = null
     private var mRecyclerView: RecyclerView? = null
     private val viewModel: HomeViewModel by viewModel()
     val exerciseAdapter by lazy {
@@ -51,37 +51,35 @@ class ExerciseListFragment : Fragment() {
         mProgressBar = view.findViewById(R.id.progressBar)
         val detailsFrame: View? = activity?.findViewById(R.id.flExerciseDetail)
         mDualPane = detailsFrame != null && detailsFrame.visibility == View.VISIBLE
-        if (savedInstanceState != null) {
-            return
-        }
         with(viewModel) {
             observe(items) {
                 exerciseAdapter.items = it
+                val exerciseDataSet: ExerciseDataSet? = it.first()
+                if (mDualPane && exerciseDataSet != null) {
+                    showDetail(exerciseDataSet)
+                }
             }
             observe(navigateToDetail) { event ->
                 event.getContentIfNotHandled()?.let { showDetail(it) }
             }
         }
         getView()?.let { setupRecyclerView(it) }
+        if (viewModel.items.value != null && viewModel.items.value?.size!! > 0) {
+             return
+        }
+        if (savedInstanceState != null) {
+            return
+        }
+
         setLoading(true)
         viewModel.onLoad()
-        val exerciseDataSet: ExerciseDataSet? = viewModel.items.value?.first()
-        if (mDualPane && exerciseDataSet != null) {
-            showDetail(exerciseDataSet)
-        }
+
         setLoading(false)
     }
 
     private fun setupRecyclerView(view: View) {
         mRecyclerView = view.findViewById(R.id.recyclerExerciseList)
         if (mRecyclerView != null ) {
-            /*mRecyclerView!!.setLayoutManager(
-                LinearLayoutManager(
-                    getActivity(),
-                    LinearLayoutManager.VERTICAL,
-                    false
-                )
-            )*/
             mRecyclerView!!.adapter = exerciseAdapter
             mRecyclerView!!.setItemAnimator(DefaultItemAnimator())
         }
@@ -97,9 +95,8 @@ class ExerciseListFragment : Fragment() {
 
     private fun showDetail(exerciseDataSet: ExerciseDataSet) {
         if (mDualPane) {
-            val exerciseDetailFragment: ExerciseDetailFragment = ExerciseDetailFragment.newInstance(exerciseDataSet)
             parentFragmentManager.beginTransaction()
-                .replace(R.id.flExerciseDetail, exerciseDetailFragment)
+                .replace(R.id.flExerciseDetail, ExerciseDetailFragment.newInstance(exerciseDataSet))
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .commit()
         } else {

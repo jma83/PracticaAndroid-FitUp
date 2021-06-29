@@ -14,7 +14,7 @@
         <ImageView
             android:id="@+id/exerciseImage"
             android:layout_width="140dp"
-            android:layout_height="140dp"
+            android:layout_height="120dp"
             android:scaleType="centerCrop"
             tools:src="@mipmap/ic_launcher"/>
     </FrameLayout>
