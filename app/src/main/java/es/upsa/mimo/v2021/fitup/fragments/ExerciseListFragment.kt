@@ -12,18 +12,19 @@ import androidx.recyclerview.widget.RecyclerView
 import es.upsa.mimo.v2021.fitup.R
 import es.upsa.mimo.v2021.fitup.extensions.observe
 import es.upsa.mimo.v2021.fitup.extensions.startActivity1
-import es.upsa.mimo.v2021.fitup.model.APIEntities.Exercise
+import es.upsa.mimo.v2021.fitup.model.APIEntities.Category
 import es.upsa.mimo.v2021.fitup.model.APIEntities.ExerciseDataSet
 import es.upsa.mimo.v2021.fitup.ui.detail.DetailActivity
+import es.upsa.mimo.v2021.fitup.ui.exercises.ExercisesActivity
 import es.upsa.mimo.v2021.fitup.ui.home.ExerciseAdapter
-import es.upsa.mimo.v2021.fitup.ui.home.HomeViewModel
+import es.upsa.mimo.v2021.fitup.ui.home.ExercisesViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ExerciseListFragment : Fragment() {
     var mDualPane = false
     private var mProgressBar: ProgressBar? = null
     private var mRecyclerView: RecyclerView? = null
-    private val viewModel: HomeViewModel by viewModel()
+    private val viewModel: ExercisesViewModel by viewModel()
     val exerciseAdapter by lazy {
         ExerciseAdapter {
             viewModel.onItemClicked(
@@ -33,8 +34,12 @@ class ExerciseListFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(): ExerciseListFragment {
-            return ExerciseListFragment()
+        fun newInstance(category: Category? = null): ExerciseListFragment {
+            val exerciseListFragment = ExerciseListFragment()
+            val args = Bundle()
+            args.putSerializable(ExercisesActivity.EXTRA_CATEGORY, category)
+            exerciseListFragment.setArguments(args)
+            return exerciseListFragment
         }
     }
 
@@ -72,7 +77,8 @@ class ExerciseListFragment : Fragment() {
         }
 
         setLoading(true)
-        viewModel.onLoad()
+        val category: Category? = getArguments()?.getSerializable(ExercisesActivity.EXTRA_CATEGORY) as Category?
+        viewModel.onLoad(category)
 
         setLoading(false)
     }

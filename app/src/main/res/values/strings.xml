@@ -5,7 +5,7 @@
     <string name="navigation_home">Home</string>
     <string name="navigation_categories">Categories</string>
     <string name="navigation_lists">Training Lists</string>
-    <string name="navigation_profile">Profile</string>
+    <string name="navigation_profile_settings">Settings</string>
     <string name="emailText">Email</string>
     <string name="passwordText">Password</string>
     <string name="nameText">Name</string>
@@ -14,4 +14,6 @@
     <string name="newUserText">¿Are you new?</string>
     <string name="registerButtonText">Register</string>
     <string name="confirmButtonText">Confirm</string>
+    <string name="suggested_exercises">Suggested exercises:</string>
+    <string name="fitup_logo">FitUp logo</string>
 </resources>

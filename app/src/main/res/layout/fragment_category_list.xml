@@ -7,22 +7,8 @@
     android:layout_height="match_parent"
     tools:context=".ui.start.StartActivity">
 
-    <LinearLayout android:id="@+id/flContent"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textField2"
-            android:text="@string/suggested_exercises"
-            android:padding="8dp"
-            android:textSize="20sp"/>
-    </LinearLayout>
-
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerExerciseList"
+        android:id="@+id/recyclerCategoryList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="3dp"
@@ -30,8 +16,8 @@
         android:layout_marginTop="50dp"
         android:layout_marginBottom="50dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="1"
-        tools:listitem="@layout/item_exercise"/>
+        app:spanCount="2"
+        tools:listitem="@layout/item_category"/>
 
     <ProgressBar
         android:id="@+id/progressBar"

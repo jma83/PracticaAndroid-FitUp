@@ -7,11 +7,12 @@ import androidx.lifecycle.viewModelScope
 import es.upsa.mimo.v2021.fitup.Event
 import es.upsa.mimo.v2021.fitup.extensions.io
 import es.upsa.mimo.v2021.fitup.extensions.ui
+import es.upsa.mimo.v2021.fitup.model.APIEntities.Category
 import es.upsa.mimo.v2021.fitup.model.APIEntities.ExerciseDataSet
 import es.upsa.mimo.v2021.fitup.providers.ExerciseProvider
 import kotlinx.coroutines.launch
 
-class HomeViewModel(private val exerciseProvider: ExerciseProvider) : ViewModel() {
+class ExercisesViewModel(private val exerciseProvider: ExerciseProvider) : ViewModel() {
 
     private val _items = MutableLiveData<List<ExerciseDataSet>>()
     val items: LiveData<List<ExerciseDataSet>> get() = _items
@@ -24,10 +25,10 @@ class HomeViewModel(private val exerciseProvider: ExerciseProvider) : ViewModel(
         _navigateToDetail.value = Event(item)
     }
 
-    fun onLoad() {
+    fun onLoad(category: Category?) {
         viewModelScope.launch {
             io {
-                val result = getItems()
+                val result = getItems(category)
                 ui {
                     _items.value = result
                 }
@@ -35,8 +36,11 @@ class HomeViewModel(private val exerciseProvider: ExerciseProvider) : ViewModel(
         }
     }
 
-    private suspend fun getItems(): List<ExerciseDataSet>? {
-        return exerciseProvider.getExerciseDataSets()
+    private suspend fun getItems(category: Category?): List<ExerciseDataSet>? {
+        if (category != null){
+            return exerciseProvider.getExerciseDataSetsByCategory(category)
+        }
+        return exerciseProvider.getExerciseDataSets(true)
     }
 
 }

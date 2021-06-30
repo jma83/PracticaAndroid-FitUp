@@ -50,16 +50,15 @@
                 android:id="@+id/categoryText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:layout_marginTop="10dp"
+                android:padding="2dp"
                 tools:text="Title" />
 
             <TextView
                 android:id="@+id/muscleTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:layout_marginTop="20dp"
+                android:padding="8dp"
+                android:layout_marginTop="2dp"
                 tools:text="Muscles" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -68,7 +67,6 @@
                 android:layout_height="match_parent"
                 android:padding="1dp"
                 android:clipToPadding="false"
-                android:layout_marginTop="10dp"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="2"
                 tools:listitem="@layout/item_muscle" />

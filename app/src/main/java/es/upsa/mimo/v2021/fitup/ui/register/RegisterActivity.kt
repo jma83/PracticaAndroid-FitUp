@@ -36,7 +36,7 @@ class RegisterActivity : AppCompatActivity() {
                             showAlert(e.message ?: "Error")
 
                         } catch (e: Exception) {
-                            Log.e("upsa.mimo.v2021.fitup", e.message)
+                            Log.e("upsa.mimo.v2021.fitup", e.message!!)
                         }
                     }
                 }

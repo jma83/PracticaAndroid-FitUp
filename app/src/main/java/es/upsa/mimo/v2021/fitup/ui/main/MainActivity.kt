@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import es.upsa.mimo.v2021.fitup.R
 import es.upsa.mimo.v2021.fitup.databinding.ActivityMainBinding
+import es.upsa.mimo.v2021.fitup.fragments.CategoriesFragment
 import es.upsa.mimo.v2021.fitup.fragments.HomeFragment
 import es.upsa.mimo.v2021.fitup.fragments.MyListsFragment
 
@@ -35,6 +36,7 @@ class MainActivity : AppCompatActivity() {
 
         when (it.itemId) {
             R.id.navigation_home -> fragmentClicked = HomeFragment.newInstance()
+            R.id.navigation_categories -> fragmentClicked = CategoriesFragment.newInstance()
             else -> fragmentClicked = MyListsFragment.newInstance()
         }
 

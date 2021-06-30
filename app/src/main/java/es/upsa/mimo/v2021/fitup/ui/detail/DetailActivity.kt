@@ -20,10 +20,10 @@ class DetailActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        /*if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             finish()
             return
-        }
+        }*/
 
         binding = FragmentExerciseDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)

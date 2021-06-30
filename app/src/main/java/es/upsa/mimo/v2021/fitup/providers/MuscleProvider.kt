@@ -41,7 +41,7 @@ object MuscleProviderImpl: MuscleProvider {
             .execute()
         val muscles: Muscles? = call.body()
         if (!call.isSuccessful) {
-            Log.e("upsa.mimo.v2021.fitup", "ERROR! " + call.errorBody())
+            Log.e("upsa.mimo.v2021.fitup", "ERROR! " + call.errorBody().toString())
         }
         return@withContext muscles
     }
