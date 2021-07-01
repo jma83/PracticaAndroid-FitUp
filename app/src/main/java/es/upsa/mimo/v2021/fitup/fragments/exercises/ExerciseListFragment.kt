@@ -1,4 +1,4 @@
-package es.upsa.mimo.v2021.fitup.fragments
+package es.upsa.mimo.v2021.fitup.fragments.exercises
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,10 +14,10 @@ import es.upsa.mimo.v2021.fitup.extensions.observe
 import es.upsa.mimo.v2021.fitup.extensions.startActivity1
 import es.upsa.mimo.v2021.fitup.model.APIEntities.Category
 import es.upsa.mimo.v2021.fitup.model.APIEntities.ExerciseDataSet
-import es.upsa.mimo.v2021.fitup.ui.detail.DetailActivity
+import es.upsa.mimo.v2021.fitup.ui.activities.detail.DetailActivity
 import es.upsa.mimo.v2021.fitup.ui.exercises.ExercisesActivity
-import es.upsa.mimo.v2021.fitup.ui.home.ExerciseAdapter
-import es.upsa.mimo.v2021.fitup.ui.home.ExercisesViewModel
+import es.upsa.mimo.v2021.fitup.ui.exercises.ExerciseAdapter
+import es.upsa.mimo.v2021.fitup.ui.exercises.ExercisesViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ExerciseListFragment : Fragment() {
@@ -35,7 +35,8 @@ class ExerciseListFragment : Fragment() {
 
     companion object {
         fun newInstance(category: Category? = null): ExerciseListFragment {
-            val exerciseListFragment = ExerciseListFragment()
+            val exerciseListFragment =
+                ExerciseListFragment()
             val args = Bundle()
             args.putSerializable(ExercisesActivity.EXTRA_CATEGORY, category)
             exerciseListFragment.setArguments(args)

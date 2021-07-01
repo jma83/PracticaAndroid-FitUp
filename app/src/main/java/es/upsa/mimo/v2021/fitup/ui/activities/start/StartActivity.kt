@@ -1,13 +1,12 @@
-package es.upsa.mimo.v2021.fitup.ui.start
+package es.upsa.mimo.v2021.fitup.ui.activities.start
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import es.upsa.mimo.v2021.fitup.databinding.ActivityStartBinding
 import es.upsa.mimo.v2021.fitup.extensions.startActivity1
-import es.upsa.mimo.v2021.fitup.ui.main.MainActivity
-import es.upsa.mimo.v2021.fitup.ui.register.RegisterActivity
+import es.upsa.mimo.v2021.fitup.ui.MainActivity
+import es.upsa.mimo.v2021.fitup.ui.activities.register.RegisterActivity
 
 private lateinit var binding: ActivityStartBinding
 
@@ -52,7 +51,8 @@ class StartActivity : AppCompatActivity() {
     }
 
     private fun showHome() {
-        startActivity1<MainActivity>(MainActivity.EXTRA_EMAIL to binding.editTextEmail.text.toString())
+        startActivity1<MainActivity>(
+            MainActivity.EXTRA_EMAIL to binding.editTextEmail.text.toString())
     }
 
 }

@@ -1,4 +1,4 @@
-package es.upsa.mimo.v2021.fitup.ui.detail
+package es.upsa.mimo.v2021.fitup.ui.activities.detail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

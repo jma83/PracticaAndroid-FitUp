@@ -1,12 +1,12 @@
-package es.upsa.mimo.v2021.fitup.ui.detail
+package es.upsa.mimo.v2021.fitup.ui.activities.detail
 
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import es.upsa.mimo.v2021.fitup.R
 import es.upsa.mimo.v2021.fitup.databinding.ItemMuscleBinding
-import es.upsa.mimo.v2021.fitup.extensions.inflate
 import es.upsa.mimo.v2021.fitup.extensions.fromUrl
+import es.upsa.mimo.v2021.fitup.extensions.inflate
 import es.upsa.mimo.v2021.fitup.model.APIEntities.Muscle
 import kotlin.properties.Delegates
 

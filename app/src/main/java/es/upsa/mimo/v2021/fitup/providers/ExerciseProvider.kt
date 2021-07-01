@@ -15,6 +15,7 @@ interface ExerciseProvider {
     suspend fun getExercisesByCategory(category: Category?, offset: Int? = 0, limit: Int? = 10) : Exercises?
     suspend fun getExerciseImage(exerciseId: Int) : ExerciseImage?
     suspend fun getExerciseImages() : ExerciseImages?
+    suspend fun getExerciseDataSetFromExercises(exercises: List<Exercise>?) : List<ExerciseDataSet>?
     suspend fun getExerciseDataSet(exerciseId: Int) : ExerciseDataSet?
     suspend fun getExerciseDataSets(random: Boolean? = false, offset: Int? = 0, limit: Int? = 10) : List<ExerciseDataSet>?
     suspend fun getExerciseDataSetsByCategory(category: Category?, offset: Int? = 0, limit: Int? = 10) : List<ExerciseDataSet>?
@@ -88,6 +89,10 @@ object ExerciseProviderImpl: ExerciseProvider {
         }
 
         return@withContext image
+    }
+
+    override suspend fun getExerciseDataSetFromExercises(exercises: List<Exercise>?) : List<ExerciseDataSet>? {
+        return exercises?.map { ExerciseDataSet(it, getExerciseImage(it.id)) }
     }
 
     override suspend fun getExerciseDataSet(exerciseId: Int): ExerciseDataSet? = withContext(Dispatchers.IO) {

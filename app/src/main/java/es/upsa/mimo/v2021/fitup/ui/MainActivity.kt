@@ -1,4 +1,4 @@
-package es.upsa.mimo.v2021.fitup.ui.main
+package es.upsa.mimo.v2021.fitup.ui
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -7,9 +7,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import es.upsa.mimo.v2021.fitup.R
 import es.upsa.mimo.v2021.fitup.databinding.ActivityMainBinding
-import es.upsa.mimo.v2021.fitup.fragments.CategoriesFragment
-import es.upsa.mimo.v2021.fitup.fragments.HomeFragment
-import es.upsa.mimo.v2021.fitup.fragments.MyListsFragment
+import es.upsa.mimo.v2021.fitup.fragments.categories.CategoriesFragment
+import es.upsa.mimo.v2021.fitup.fragments.exercises.ExercisesFragment
+import es.upsa.mimo.v2021.fitup.fragments.trainingLists.TrainingListsFragment
+import es.upsa.mimo.v2021.fitup.fragments.settings.SettingsFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,9 +36,11 @@ class MainActivity : AppCompatActivity() {
         val fragmentClicked: Fragment
 
         when (it.itemId) {
-            R.id.navigation_home -> fragmentClicked = HomeFragment.newInstance()
+            R.id.navigation_home -> fragmentClicked = ExercisesFragment.newInstance()
             R.id.navigation_categories -> fragmentClicked = CategoriesFragment.newInstance()
-            else -> fragmentClicked = MyListsFragment.newInstance()
+            R.id.navigation_lists -> fragmentClicked = TrainingListsFragment.newInstance()
+            R.id.navigation_profile -> fragmentClicked = SettingsFragment.newInstance()
+            else -> fragmentClicked = ExercisesFragment.newInstance()
         }
 
         val ft = supportFragmentManager.beginTransaction()

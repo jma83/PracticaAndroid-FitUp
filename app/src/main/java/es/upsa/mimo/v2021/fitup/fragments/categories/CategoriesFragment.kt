@@ -1,4 +1,4 @@
-package es.upsa.mimo.v2021.fitup.fragments
+package es.upsa.mimo.v2021.fitup.fragments.categories
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -23,7 +23,9 @@ class CategoriesFragment: Fragment()  {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         parentFragmentManager.beginTransaction()
-            .replace(R.id.flContentCategories, CategoryListFragment.newInstance())
+            .replace(R.id.flContentCategories,
+                CategoryListFragment.newInstance()
+            )
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             .commit()
     }

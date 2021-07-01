@@ -2,8 +2,8 @@ package es.upsa.mimo.v2021.fitup.di
 
 import es.upsa.mimo.v2021.fitup.providers.*
 import es.upsa.mimo.v2021.fitup.ui.categories.CategoriesViewModel
-import es.upsa.mimo.v2021.fitup.ui.detail.DetailViewModel
-import es.upsa.mimo.v2021.fitup.ui.home.ExercisesViewModel
+import es.upsa.mimo.v2021.fitup.ui.activities.detail.DetailViewModel
+import es.upsa.mimo.v2021.fitup.ui.exercises.ExercisesViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

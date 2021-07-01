@@ -1,4 +1,4 @@
-package es.upsa.mimo.v2021.fitup.ui.register
+package es.upsa.mimo.v2021.fitup.ui.activities.register
 
 import android.os.Bundle
 import android.util.Log
@@ -8,7 +8,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import es.upsa.mimo.v2021.fitup.databinding.ActivityRegisterBinding
 import es.upsa.mimo.v2021.fitup.extensions.startActivity1
-import es.upsa.mimo.v2021.fitup.ui.main.MainActivity
+import es.upsa.mimo.v2021.fitup.ui.MainActivity
 
 
 private lateinit var binding: ActivityRegisterBinding
@@ -56,7 +56,8 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun showHome() {
-        startActivity1<MainActivity>(MainActivity.EXTRA_EMAIL to "email")
+        startActivity1<MainActivity>(
+            MainActivity.EXTRA_EMAIL to "email")
     }
 
 }

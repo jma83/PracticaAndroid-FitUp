@@ -1,13 +1,11 @@
-package es.upsa.mimo.v2021.fitup.ui.detail
+package es.upsa.mimo.v2021.fitup.ui.activities.detail
 
 import android.R
-import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import es.upsa.mimo.v2021.fitup.databinding.FragmentExerciseDetailBinding
-import es.upsa.mimo.v2021.fitup.fragments.ExerciseDetailFragment
+import es.upsa.mimo.v2021.fitup.fragments.exercises.ExerciseDetailFragment
 import es.upsa.mimo.v2021.fitup.model.APIEntities.ExerciseDataSet
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailActivity: AppCompatActivity() {
 
@@ -20,10 +18,7 @@ class DetailActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        /*if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            finish()
-            return
-        }*/
+        // if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) { finish(); return; }
 
         binding = FragmentExerciseDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)

@@ -1,4 +1,4 @@
-package es.upsa.mimo.v2021.fitup.ui.home
+package es.upsa.mimo.v2021.fitup.ui.exercises
 
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +19,10 @@ class ExerciseAdapter(items: List<ExerciseDataSet> = emptyList(), private val li
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = parent.inflate(R.layout.item_exercise, false)
-        return ViewHolder(v, listener)
+        return ViewHolder(
+            v,
+            listener
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
