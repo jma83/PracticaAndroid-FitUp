@@ -16,7 +16,8 @@
             android:layout_width="140dp"
             android:layout_height="120dp"
             android:scaleType="centerCrop"
-            tools:src="@mipmap/ic_launcher"/>
+            android:src="@drawable/muscleicon"
+            tools:src="@drawable/muscleicon"/>
     </FrameLayout>
 
     <TextView

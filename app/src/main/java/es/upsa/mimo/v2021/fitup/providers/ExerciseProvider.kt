@@ -13,7 +13,7 @@ interface ExerciseProvider {
     suspend fun getExercise(exerciseId: Int) : Exercise?
     suspend fun getExercises(random: Boolean? = false, offset: Int? = 0, limit: Int? = 10) : Exercises?
     suspend fun getExercisesByCategory(category: Category?, offset: Int? = 0, limit: Int? = 10) : Exercises?
-    suspend fun getExerciseImage(exerciseId: Int) : ExerciseImage?
+    suspend fun getExerciseImage(exerciseId: Int, exerciseName: String) : ExerciseImage?
     suspend fun getExerciseImages() : ExerciseImages?
     suspend fun getExerciseDataSetFromExercises(exercises: List<Exercise>?) : List<ExerciseDataSet>?
     suspend fun getExerciseDataSet(exerciseId: Int) : ExerciseDataSet?
@@ -72,7 +72,7 @@ object ExerciseProviderImpl: ExerciseProvider {
         return@withContext images
     }
 
-    override suspend fun getExerciseImage(exerciseId: Int): ExerciseImage? = withContext(Dispatchers.IO) {
+    override suspend fun getExerciseImage(exerciseId: Int, exerciseName: String): ExerciseImage? = withContext(Dispatchers.IO) {
         val call: Response<ExerciseImages> = Retrofit.Builder().getRetrofit()
             .create(APIService::class.java)
             .getExerciseImages("$routeImage$language&$exerciseBaseParam$exerciseId")
@@ -82,7 +82,7 @@ object ExerciseProviderImpl: ExerciseProvider {
             Log.e("upsa.mimo.v2021.fitup", "ERROR!4 " + call.errorBody().toString())
             return@withContext null
         }
-        var image: ExerciseImage? = null;
+        var image: ExerciseImage? = ExerciseImage(0,"", exerciseId, "https://source.unsplash.com/200x200/?exercise,$exerciseName", true, 0)
         if (images != null && images.images.size > 0) {
             Log.e("upsa.mimo.v2021.fitup", "se deberia de ver una imagen!!!")
             image = images.images.first();
@@ -92,7 +92,7 @@ object ExerciseProviderImpl: ExerciseProvider {
     }
 
     override suspend fun getExerciseDataSetFromExercises(exercises: List<Exercise>?) : List<ExerciseDataSet>? {
-        return exercises?.map { ExerciseDataSet(it, getExerciseImage(it.id)) }
+        return exercises?.map { ExerciseDataSet(it, getExerciseImage(it.id, it.name)) }
     }
 
     override suspend fun getExerciseDataSet(exerciseId: Int): ExerciseDataSet? = withContext(Dispatchers.IO) {
@@ -100,7 +100,7 @@ object ExerciseProviderImpl: ExerciseProvider {
         if (exercise == null){
             return@withContext null
         }
-        return@withContext ExerciseDataSet(exercise, getExerciseImage(exerciseId))
+        return@withContext ExerciseDataSet(exercise, getExerciseImage(exerciseId, exercise.name))
     }
 
     override suspend fun getExerciseDataSets(random: Boolean?, offset: Int?, limit: Int?): List<ExerciseDataSet>? = withContext(Dispatchers.IO) {
@@ -119,7 +119,7 @@ object ExerciseProviderImpl: ExerciseProvider {
             return@withContext null
         }
         return@withContext exercises.exercises.map {
-            ExerciseDataSet(it, getExerciseImage(it.id))
+            ExerciseDataSet(it, getExerciseImage(it.id, it.name))
         }
     }
 

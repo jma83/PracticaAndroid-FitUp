@@ -39,11 +39,11 @@ class ExerciseAdapter(items: List<ExerciseDataSet> = emptyList(), private val li
         fun bind(exerciseDataSet: ExerciseDataSet) {
             with(binding) {
                 exerciseText.text = exerciseDataSet.exerciseInfo.name
-                var img: String? = exerciseDataSet.exerciseImage?.image
-                if (img == null) {
-                    img = "https://www.vippng.com/png/detail/221-2210873_aerobic-exercise-icon.png"
+                val img: String? = exerciseDataSet.exerciseImage?.image
+                if (img != null) {
+                    exerciseImage.fromUrl(img)
                 }
-                exerciseImage.fromUrl(img)
+
                 root.setOnClickListener { listener(exerciseDataSet) }
 
             }

@@ -55,9 +55,14 @@ class ExerciseDetailFragment: Fragment() {
             observe(item){
                 with(binding) {
                     exerciseTitle.text = item.value?.exerciseInfo?.name ?: "N/A"
-                    val img: String = item.value?.exerciseImage?.image ?: "https://www.vippng.com/png/detail/221-2210873_aerobic-exercise-icon.png"
-                    Log.i("es.upsa.mimo.fitup", img);
-                    detailThumb.fromUrl(img)
+                    val img: String? = item.value?.exerciseImage?.image
+                    if (img != null) {
+                        Log.i("es.upsa.mimo.fitup", img);
+                        detailThumb.fromUrl(img)
+                    }
+                    if (item.value?.exerciseInfo?.muscles != null && item.value?.exerciseInfo?.muscles!!.size > 0) {
+                        muscleTitle.text = "Muscles:"
+                    }
                     exerciseDescription.text = item.value?.exerciseInfo?.description?.let { it1 ->
                         HtmlCompat.fromHtml(
                             it1, 0)
