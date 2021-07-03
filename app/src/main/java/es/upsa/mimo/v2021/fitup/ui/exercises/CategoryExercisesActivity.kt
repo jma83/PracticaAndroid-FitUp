@@ -7,9 +7,9 @@ import es.upsa.mimo.v2021.fitup.databinding.ActivityCategoriesBinding
 import es.upsa.mimo.v2021.fitup.fragments.exercises.ExercisesFragment
 import es.upsa.mimo.v2021.fitup.model.APIEntities.Category
 
-class ExercisesActivity: AppCompatActivity() {
+class CategoryExercisesActivity: AppCompatActivity() {
     companion object {
-        const val EXTRA_CATEGORY = "ExercisesActivity:extraCategory"
+        const val EXTRA_CATEGORY = "CategoryExercisesActivity:extraCategory"
     }
 
     private lateinit var binding: ActivityCategoriesBinding

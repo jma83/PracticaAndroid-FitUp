@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import es.upsa.mimo.v2021.fitup.databinding.ActivityStartBinding
+import es.upsa.mimo.v2021.fitup.persistence.FitUpDatabase
 import es.upsa.mimo.v2021.fitup.extensions.startActivity1
 import es.upsa.mimo.v2021.fitup.ui.MainActivity
 import es.upsa.mimo.v2021.fitup.ui.activities.register.RegisterActivity
@@ -15,6 +16,7 @@ class StartActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityStartBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        FitUpDatabase.invoke(applicationContext)
         setup()
     }
 

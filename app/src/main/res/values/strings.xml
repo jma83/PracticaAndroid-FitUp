@@ -16,4 +16,5 @@
     <string name="confirmButtonText">Confirm</string>
     <string name="suggested_exercises">Suggested exercises:</string>
     <string name="fitup_logo">FitUp logo</string>
+    <string name="musclesList">Muscles:</string>
 </resources>

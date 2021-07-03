@@ -1,5 +1,6 @@
 package es.upsa.mimo.v2021.fitup.fragments.exercises
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -42,6 +43,7 @@ class ExerciseDetailFragment: Fragment() {
         return inflater.inflate(R.layout.fragment_exercise_detail, container, false)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val exercise: ExerciseDataSet? = getArguments()?.getSerializable(DetailActivity.EXTRA_ID) as ExerciseDataSet?
@@ -61,7 +63,7 @@ class ExerciseDetailFragment: Fragment() {
                         detailThumb.fromUrl(img)
                     }
                     if (item.value?.exerciseInfo?.muscles != null && item.value?.exerciseInfo?.muscles!!.size > 0) {
-                        muscleTitle.text = "Muscles:"
+                        muscleTitle.text = R.string.musclesList.toString()
                     }
                     exerciseDescription.text = item.value?.exerciseInfo?.description?.let { it1 ->
                         HtmlCompat.fromHtml(

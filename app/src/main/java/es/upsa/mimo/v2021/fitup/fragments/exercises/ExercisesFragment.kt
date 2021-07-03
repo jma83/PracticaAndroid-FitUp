@@ -4,38 +4,53 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.RecyclerView
 import es.upsa.mimo.v2021.fitup.R
+import es.upsa.mimo.v2021.fitup.extensions.startActivity1
 import es.upsa.mimo.v2021.fitup.model.APIEntities.Category
-import es.upsa.mimo.v2021.fitup.ui.exercises.ExercisesActivity
+import es.upsa.mimo.v2021.fitup.model.APIEntities.ExerciseDataSet
+import es.upsa.mimo.v2021.fitup.ui.activities.detail.DetailActivity
+import es.upsa.mimo.v2021.fitup.ui.exercises.CategoryExercisesActivity
+import es.upsa.mimo.v2021.fitup.ui.exercises.ExerciseAdapter
 
-class ExercisesFragment: Fragment() {
-
-    companion object {
-        fun newInstance(category: Category? = null): ExercisesFragment {
-            val exercisesFragment =
-                ExercisesFragment()
-            if (category != null) {
-                val args = Bundle()
-                args.putSerializable(ExercisesActivity.EXTRA_CATEGORY, category)
-                exercisesFragment.setArguments(args)
-            }
-            return exercisesFragment
+open class ExercisesFragment: Fragment() {
+    protected var mDualPane = false
+    protected var mProgressBar: ProgressBar? = null
+    protected var mRecyclerView: RecyclerView? = null
+    protected fun setupRecyclerView(view: View, exerciseAdapter: ExerciseAdapter) {
+        mRecyclerView = view.findViewById(R.id.recyclerExerciseList)
+        if (mRecyclerView != null ) {
+            mRecyclerView!!.adapter = exerciseAdapter
+            mRecyclerView!!.setItemAnimator(DefaultItemAnimator())
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.activity_home, container, false)
+    protected fun setLoading(loading: Boolean) {
+        if (loading) {
+            mProgressBar!!.visibility = View.VISIBLE
+        } else {
+            mProgressBar!!.visibility = View.GONE
+        }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val category: Category? = getArguments()?.getSerializable(ExercisesActivity.EXTRA_CATEGORY) as Category?
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.flExerciseList, ExerciseListFragment.newInstance(category))
-            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-            .commit()
+    protected fun showDetail(exerciseDataSet: ExerciseDataSet) {
+        if (mDualPane) {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.flExerciseDetail, ExerciseDetailFragment.newInstance(exerciseDataSet))
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .commit()
+        } else {
+            navigateToDetail(exerciseDataSet)
+        }
+    }
+
+
+    protected fun navigateToDetail(exerciseDataSet: ExerciseDataSet) {
+        activity?.startActivity1<DetailActivity>(DetailActivity.EXTRA_ID to exerciseDataSet)
     }
 
 }

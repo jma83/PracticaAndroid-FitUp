@@ -21,7 +21,7 @@
         <activity android:name="es.upsa.mimo.v2021.fitup.ui.activities.register.RegisterActivity"/>
         <activity android:name=".ui.MainActivity"/>
         <activity android:name="es.upsa.mimo.v2021.fitup.ui.activities.detail.DetailActivity"/>
-        <activity android:name=".ui.exercises.ExercisesActivity"/>
+        <activity android:name=".ui.exercises.CategoryExercisesActivity"/>
 
 
     </application>

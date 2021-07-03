@@ -1,9 +1,7 @@
-package es.upsa.mimo.v2021.fitup.fragments.categories
+package es.upsa.mimo.v2021.fitup.fragments.trainingLists
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -12,17 +10,20 @@ import es.upsa.mimo.v2021.fitup.R
 import es.upsa.mimo.v2021.fitup.extensions.observe
 import es.upsa.mimo.v2021.fitup.extensions.startActivity1
 import es.upsa.mimo.v2021.fitup.model.APIEntities.Category
-import es.upsa.mimo.v2021.fitup.ui.categories.CategoriesViewModel
-import es.upsa.mimo.v2021.fitup.ui.categories.CategoryAdapter
+import es.upsa.mimo.v2021.fitup.model.DBEntities.TrainingListItem
+import es.upsa.mimo.v2021.fitup.persistence.PreferencesManager
 import es.upsa.mimo.v2021.fitup.ui.exercises.CategoryExercisesActivity
+import es.upsa.mimo.v2021.fitup.ui.trainingLists.TrainingListsAdapter
+import es.upsa.mimo.v2021.fitup.ui.trainingLists.TrainingListsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class CategoryListFragment: Fragment()  {
+class TrainingListFragment: Fragment() {
+
     private var mProgressBar: ProgressBar? = null
     private var mRecyclerView: RecyclerView? = null
-    private val viewModel: CategoriesViewModel by viewModel()
-    val categoryAdapter by lazy {
-        CategoryAdapter {
+    private val viewModel: TrainingListsViewModel by viewModel()
+    val trainingListsAdapter by lazy {
+        TrainingListsAdapter {
             viewModel.onItemClicked(
                 it
             )
@@ -30,17 +31,9 @@ class CategoryListFragment: Fragment()  {
     }
 
     companion object {
-        fun newInstance(): CategoryListFragment {
-            return CategoryListFragment()
+        fun newInstance(): TrainingListFragment {
+            return TrainingListFragment()
         }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_category_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,14 +41,14 @@ class CategoryListFragment: Fragment()  {
         mProgressBar = view.findViewById(R.id.progressBar)
         with(viewModel) {
             observe(items) {
-                categoryAdapter.items = it.categories
+                trainingListsAdapter.items = it
             }
             observe(navigateToExerciseList) { event ->
                 event.getContentIfNotHandled()?.let { showExerciseList(it) }
             }
         }
         getView()?.let { setupRecyclerView(it) }
-        if (viewModel.items.value != null && viewModel.items.value?.categories != null && viewModel.items.value?.categories?.size!! > 0) {
+        if (viewModel.items.value != null && viewModel.items.value?.size!! > 0) {
             return
         }
         if (savedInstanceState != null) {
@@ -63,14 +56,15 @@ class CategoryListFragment: Fragment()  {
         }
 
         setLoading(true)
-        viewModel.onCreate()
+
+        viewModel.onCreate(context?.let { PreferencesManager(it).email })
         setLoading(false)
     }
 
     private fun setupRecyclerView(view: View) {
         mRecyclerView = view.findViewById(R.id.recyclerCategoryList)
         if (mRecyclerView != null ) {
-            mRecyclerView!!.adapter = categoryAdapter
+            mRecyclerView!!.adapter = trainingListsAdapter
             mRecyclerView!!.setItemAnimator(DefaultItemAnimator())
         }
     }
@@ -83,7 +77,7 @@ class CategoryListFragment: Fragment()  {
         }
     }
 
-    private fun showExerciseList(category: Category) {
-        activity?.startActivity1<CategoryExercisesActivity>(CategoryExercisesActivity.EXTRA_CATEGORY to category)
+    private fun showExerciseList(trainingListItem: TrainingListItem) {
+        activity?.startActivity1<CategoryExercisesActivity>(CategoryExercisesActivity.EXTRA_CATEGORY to trainingListItem.exercises)
     }
 }

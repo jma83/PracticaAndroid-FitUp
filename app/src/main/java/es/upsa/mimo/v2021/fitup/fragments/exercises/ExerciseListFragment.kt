@@ -15,7 +15,7 @@ import es.upsa.mimo.v2021.fitup.extensions.startActivity1
 import es.upsa.mimo.v2021.fitup.model.APIEntities.Category
 import es.upsa.mimo.v2021.fitup.model.APIEntities.ExerciseDataSet
 import es.upsa.mimo.v2021.fitup.ui.activities.detail.DetailActivity
-import es.upsa.mimo.v2021.fitup.ui.exercises.ExercisesActivity
+import es.upsa.mimo.v2021.fitup.ui.exercises.CategoryExercisesActivity
 import es.upsa.mimo.v2021.fitup.ui.exercises.ExerciseAdapter
 import es.upsa.mimo.v2021.fitup.ui.exercises.ExercisesViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -38,7 +38,7 @@ class ExerciseListFragment : Fragment() {
             val exerciseListFragment =
                 ExerciseListFragment()
             val args = Bundle()
-            args.putSerializable(ExercisesActivity.EXTRA_CATEGORY, category)
+            args.putSerializable(CategoryExercisesActivity.EXTRA_CATEGORY, category)
             exerciseListFragment.setArguments(args)
             return exerciseListFragment
         }
@@ -78,7 +78,7 @@ class ExerciseListFragment : Fragment() {
         }
 
         setLoading(true)
-        val category: Category? = getArguments()?.getSerializable(ExercisesActivity.EXTRA_CATEGORY) as Category?
+        val category: Category? = getArguments()?.getSerializable(CategoryExercisesActivity.EXTRA_CATEGORY) as Category?
         viewModel.onLoad(category)
 
         setLoading(false)
