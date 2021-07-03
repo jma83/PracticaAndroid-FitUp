@@ -9,15 +9,15 @@ import androidx.recyclerview.widget.RecyclerView
 import es.upsa.mimo.v2021.fitup.R
 import es.upsa.mimo.v2021.fitup.extensions.observe
 import es.upsa.mimo.v2021.fitup.extensions.startActivity1
-import es.upsa.mimo.v2021.fitup.model.APIEntities.Category
 import es.upsa.mimo.v2021.fitup.model.DBEntities.TrainingListItem
 import es.upsa.mimo.v2021.fitup.persistence.PreferencesManager
 import es.upsa.mimo.v2021.fitup.ui.exercises.CategoryExercisesActivity
 import es.upsa.mimo.v2021.fitup.ui.trainingLists.TrainingListsAdapter
+import es.upsa.mimo.v2021.fitup.ui.trainingLists.TrainingListsExercisesActivity
 import es.upsa.mimo.v2021.fitup.ui.trainingLists.TrainingListsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class TrainingListFragment: Fragment() {
+class TrainingListsListFragment: Fragment() {
 
     private var mProgressBar: ProgressBar? = null
     private var mRecyclerView: RecyclerView? = null
@@ -31,8 +31,8 @@ class TrainingListFragment: Fragment() {
     }
 
     companion object {
-        fun newInstance(): TrainingListFragment {
-            return TrainingListFragment()
+        fun newInstance(): TrainingListsListFragment {
+            return TrainingListsListFragment()
         }
     }
 
@@ -78,6 +78,6 @@ class TrainingListFragment: Fragment() {
     }
 
     private fun showExerciseList(trainingListItem: TrainingListItem) {
-        activity?.startActivity1<CategoryExercisesActivity>(CategoryExercisesActivity.EXTRA_CATEGORY to trainingListItem.exercises)
+        activity?.startActivity1<CategoryExercisesActivity>(TrainingListsExercisesActivity.EXTRA_TRAINING_LIST_ITEM to trainingListItem)
     }
 }

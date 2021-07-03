@@ -1,29 +1,20 @@
-package es.upsa.mimo.v2021.fitup.fragments.exercises
+package es.upsa.mimo.v2021.fitup.fragments.categories
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.RecyclerView
 import es.upsa.mimo.v2021.fitup.R
 import es.upsa.mimo.v2021.fitup.extensions.observe
-import es.upsa.mimo.v2021.fitup.extensions.startActivity1
+import es.upsa.mimo.v2021.fitup.fragments.exercises.ExercisesFragment
 import es.upsa.mimo.v2021.fitup.model.APIEntities.Category
 import es.upsa.mimo.v2021.fitup.model.APIEntities.ExerciseDataSet
-import es.upsa.mimo.v2021.fitup.ui.activities.detail.DetailActivity
 import es.upsa.mimo.v2021.fitup.ui.exercises.CategoryExercisesActivity
 import es.upsa.mimo.v2021.fitup.ui.exercises.ExerciseAdapter
 import es.upsa.mimo.v2021.fitup.ui.exercises.ExercisesViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ExerciseListFragment : Fragment() {
-    var mDualPane = false
-    private var mProgressBar: ProgressBar? = null
-    private var mRecyclerView: RecyclerView? = null
+class CategoryExerciseListFragment : ExercisesFragment() {
     private val viewModel: ExercisesViewModel by viewModel()
     val exerciseAdapter by lazy {
         ExerciseAdapter {
@@ -34,22 +25,14 @@ class ExerciseListFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(category: Category? = null): ExerciseListFragment {
+        fun newInstance(category: Category? = null): CategoryExerciseListFragment {
             val exerciseListFragment =
-                ExerciseListFragment()
+                CategoryExerciseListFragment()
             val args = Bundle()
             args.putSerializable(CategoryExercisesActivity.EXTRA_CATEGORY, category)
             exerciseListFragment.setArguments(args)
             return exerciseListFragment
         }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_exercise_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -69,7 +52,7 @@ class ExerciseListFragment : Fragment() {
                 event.getContentIfNotHandled()?.let { showDetail(it) }
             }
         }
-        getView()?.let { setupRecyclerView(it) }
+        getView()?.let { setupRecyclerView(it, exerciseAdapter) }
         if (viewModel.items.value != null && viewModel.items.value?.size!! > 0) {
              return
         }
@@ -82,37 +65,5 @@ class ExerciseListFragment : Fragment() {
         viewModel.onLoad(category)
 
         setLoading(false)
-    }
-
-    private fun setupRecyclerView(view: View) {
-        mRecyclerView = view.findViewById(R.id.recyclerExerciseList)
-        if (mRecyclerView != null ) {
-            mRecyclerView!!.adapter = exerciseAdapter
-            mRecyclerView!!.setItemAnimator(DefaultItemAnimator())
-        }
-    }
-
-    private fun setLoading(loading: Boolean) {
-        if (loading) {
-            mProgressBar!!.visibility = View.VISIBLE
-        } else {
-            mProgressBar!!.visibility = View.GONE
-        }
-    }
-
-    private fun showDetail(exerciseDataSet: ExerciseDataSet) {
-        if (mDualPane) {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.flExerciseDetail, ExerciseDetailFragment.newInstance(exerciseDataSet))
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .commit()
-        } else {
-            navigateToDetail(exerciseDataSet)
-        }
-    }
-
-
-    private fun navigateToDetail(exerciseDataSet: ExerciseDataSet) {
-        activity?.startActivity1<DetailActivity>(DetailActivity.EXTRA_ID to exerciseDataSet)
     }
 }

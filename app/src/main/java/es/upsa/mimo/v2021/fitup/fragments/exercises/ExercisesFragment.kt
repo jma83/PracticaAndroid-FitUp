@@ -29,6 +29,14 @@ open class ExercisesFragment: Fragment() {
         }
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_exercise_list, container, false)
+    }
+
     protected fun setLoading(loading: Boolean) {
         if (loading) {
             mProgressBar!!.visibility = View.VISIBLE

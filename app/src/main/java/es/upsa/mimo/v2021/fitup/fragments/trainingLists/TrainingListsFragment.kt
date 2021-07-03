@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import es.upsa.mimo.v2021.fitup.R
-import es.upsa.mimo.v2021.fitup.fragments.categories.CategoryListFragment
 
 class TrainingListsFragment: Fragment() {
     companion object {
@@ -25,7 +24,7 @@ class TrainingListsFragment: Fragment() {
         parentFragmentManager.beginTransaction()
             .replace(
                 R.id.flContentTrainingLists,
-                CategoryListFragment.newInstance()
+                TrainingListsListFragment.newInstance()
             )
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             .commit()

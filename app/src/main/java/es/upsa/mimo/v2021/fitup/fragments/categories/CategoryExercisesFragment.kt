@@ -1,4 +1,4 @@
-package es.upsa.mimo.v2021.fitup.fragments.exercises
+package es.upsa.mimo.v2021.fitup.fragments.categories
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -33,7 +33,7 @@ class CategoryExercisesFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val category: Category? = getArguments()?.getSerializable(CategoryExercisesActivity.EXTRA_CATEGORY) as Category?
         parentFragmentManager.beginTransaction()
-            .replace(R.id.flExerciseList, ExerciseListFragment.newInstance(category))
+            .replace(R.id.flExerciseList, CategoryExerciseListFragment.newInstance(category))
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             .commit()
     }
