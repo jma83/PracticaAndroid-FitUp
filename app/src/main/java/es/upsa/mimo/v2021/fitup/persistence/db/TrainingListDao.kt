@@ -1,4 +1,4 @@
-package es.upsa.mimo.v2021.fitup.persistence
+package es.upsa.mimo.v2021.fitup.persistence.db
 
 import androidx.room.*
 import es.upsa.mimo.v2021.fitup.model.DBEntities.TrainingListItem

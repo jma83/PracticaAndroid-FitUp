@@ -12,18 +12,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FitUp">
-        <activity android:name="es.upsa.mimo.v2021.fitup.ui.activities.start.StartActivity">
+        <activity android:name="es.upsa.mimo.v2021.fitup.ui.start.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="es.upsa.mimo.v2021.fitup.ui.activities.register.RegisterActivity"/>
+        <activity android:name=".ui.register.RegisterActivity"/>
         <activity android:name=".ui.MainActivity"/>
-        <activity android:name="es.upsa.mimo.v2021.fitup.ui.activities.detail.DetailActivity"/>
-        <activity android:name=".ui.exercises.CategoryExercisesActivity"/>
-
-
+        <activity android:name=".ui.detail.DetailActivity"/>
+        <activity android:name=".ui.categories.CategoryExercisesActivity"/>
+        <activity android:name=".ui.trainingLists.exercises.TrainingListsExercisesActivity"/>
     </application>
 
 </manifest>

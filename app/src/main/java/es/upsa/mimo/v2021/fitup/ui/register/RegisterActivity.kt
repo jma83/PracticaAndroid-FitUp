@@ -1,4 +1,4 @@
-package es.upsa.mimo.v2021.fitup.ui.activities.register
+package es.upsa.mimo.v2021.fitup.ui.register
 
 import android.os.Bundle
 import android.util.Log

@@ -15,9 +15,9 @@ import es.upsa.mimo.v2021.fitup.databinding.FragmentExerciseDetailBinding
 import es.upsa.mimo.v2021.fitup.extensions.fromUrl
 import es.upsa.mimo.v2021.fitup.extensions.observe
 import es.upsa.mimo.v2021.fitup.model.APIEntities.ExerciseDataSet
-import es.upsa.mimo.v2021.fitup.ui.activities.detail.DetailActivity
-import es.upsa.mimo.v2021.fitup.ui.activities.detail.DetailViewModel
-import es.upsa.mimo.v2021.fitup.ui.activities.detail.MuscleAdapter
+import es.upsa.mimo.v2021.fitup.ui.detail.DetailActivity
+import es.upsa.mimo.v2021.fitup.ui.detail.DetailViewModel
+import es.upsa.mimo.v2021.fitup.ui.detail.MuscleAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 

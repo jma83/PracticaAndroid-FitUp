@@ -8,8 +8,8 @@ import es.upsa.mimo.v2021.fitup.fragments.exercises.ExercisesFragment
 import es.upsa.mimo.v2021.fitup.model.APIEntities.ExerciseDataSet
 import es.upsa.mimo.v2021.fitup.model.DBEntities.TrainingListItem
 import es.upsa.mimo.v2021.fitup.ui.exercises.ExerciseAdapter
-import es.upsa.mimo.v2021.fitup.ui.trainingLists.TrainingListsExercisesActivity
-import es.upsa.mimo.v2021.fitup.ui.trainingLists.TrainingListsExercisesViewModel
+import es.upsa.mimo.v2021.fitup.ui.trainingLists.exercises.TrainingListsExercisesActivity
+import es.upsa.mimo.v2021.fitup.ui.trainingLists.exercises.TrainingListsExercisesViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TrainingListExerciseListFragment: ExercisesFragment() {
@@ -59,7 +59,8 @@ class TrainingListExerciseListFragment: ExercisesFragment() {
         }
 
         setLoading(true)
-        val trainingListItem: TrainingListItem? = getArguments()?.getParcelable<TrainingListItem?>(TrainingListsExercisesActivity.EXTRA_TRAINING_LIST_ITEM)
+        val trainingListItem: TrainingListItem? = getArguments()?.getParcelable<TrainingListItem?>(
+            TrainingListsExercisesActivity.EXTRA_TRAINING_LIST_ITEM)
         viewModel.onLoad(trainingListItem)
 
         setLoading(false)

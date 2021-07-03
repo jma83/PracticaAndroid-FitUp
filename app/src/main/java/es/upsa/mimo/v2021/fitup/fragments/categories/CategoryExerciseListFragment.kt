@@ -1,21 +1,19 @@
 package es.upsa.mimo.v2021.fitup.fragments.categories
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import es.upsa.mimo.v2021.fitup.R
 import es.upsa.mimo.v2021.fitup.extensions.observe
 import es.upsa.mimo.v2021.fitup.fragments.exercises.ExercisesFragment
 import es.upsa.mimo.v2021.fitup.model.APIEntities.Category
 import es.upsa.mimo.v2021.fitup.model.APIEntities.ExerciseDataSet
-import es.upsa.mimo.v2021.fitup.ui.exercises.CategoryExercisesActivity
+import es.upsa.mimo.v2021.fitup.ui.categories.CategoryExercisesActivity
+import es.upsa.mimo.v2021.fitup.ui.categories.CategoryExercisesViewModel
 import es.upsa.mimo.v2021.fitup.ui.exercises.ExerciseAdapter
-import es.upsa.mimo.v2021.fitup.ui.exercises.ExercisesViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CategoryExerciseListFragment : ExercisesFragment() {
-    private val viewModel: ExercisesViewModel by viewModel()
+    private val viewModel: CategoryExercisesViewModel by viewModel()
     val exerciseAdapter by lazy {
         ExerciseAdapter {
             viewModel.onItemClicked(

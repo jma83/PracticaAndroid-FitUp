@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import es.upsa.mimo.v2021.fitup.R
 import es.upsa.mimo.v2021.fitup.model.APIEntities.Category
-import es.upsa.mimo.v2021.fitup.ui.exercises.CategoryExercisesActivity
+import es.upsa.mimo.v2021.fitup.ui.categories.CategoryExercisesActivity
 
 class CategoryExercisesFragment: Fragment() {
 

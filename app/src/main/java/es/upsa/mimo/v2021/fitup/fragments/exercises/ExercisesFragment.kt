@@ -11,10 +11,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.RecyclerView
 import es.upsa.mimo.v2021.fitup.R
 import es.upsa.mimo.v2021.fitup.extensions.startActivity1
-import es.upsa.mimo.v2021.fitup.model.APIEntities.Category
 import es.upsa.mimo.v2021.fitup.model.APIEntities.ExerciseDataSet
-import es.upsa.mimo.v2021.fitup.ui.activities.detail.DetailActivity
-import es.upsa.mimo.v2021.fitup.ui.exercises.CategoryExercisesActivity
+import es.upsa.mimo.v2021.fitup.ui.detail.DetailActivity
 import es.upsa.mimo.v2021.fitup.ui.exercises.ExerciseAdapter
 
 open class ExercisesFragment: Fragment() {

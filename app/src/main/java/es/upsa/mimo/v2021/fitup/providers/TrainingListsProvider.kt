@@ -1,8 +1,7 @@
 package es.upsa.mimo.v2021.fitup.providers
 
-import es.upsa.mimo.v2021.fitup.persistence.FitUpDatabase
+import es.upsa.mimo.v2021.fitup.persistence.db.FitUpDatabase
 import es.upsa.mimo.v2021.fitup.model.DBEntities.TrainingListItem
-import es.upsa.mimo.v2021.fitup.model.DBEntities.UserItem
 
 interface TrainingListsProvider {
     suspend fun getTrainingLists(userEmail: String) : List<TrainingListItem>?

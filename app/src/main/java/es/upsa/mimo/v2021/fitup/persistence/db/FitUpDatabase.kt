@@ -1,4 +1,4 @@
-package es.upsa.mimo.v2021.fitup.persistence
+package es.upsa.mimo.v2021.fitup.persistence.db
 
 import android.content.Context
 import androidx.room.Database
@@ -19,14 +19,22 @@ abstract class FitUpDatabase : RoomDatabase() {
         private val LOCK = Any()
         private val DB_NAME = "fitup_db"
 
-        fun get() = instance
+        fun get() =
+            instance
 
-        operator fun invoke(context: Context) = instance ?: synchronized(LOCK){
-            instance ?: buildDatabase(context).also { instance = it}
+        operator fun invoke(context: Context) = instance
+            ?: synchronized(LOCK){
+            instance
+                ?: buildDatabase(
+                    context
+                )
+                    .also { instance = it}
         }
 
         private fun buildDatabase(context: Context) = Room.databaseBuilder(context,
-            FitUpDatabase::class.java, DB_NAME)
+            FitUpDatabase::class.java,
+            DB_NAME
+        )
             .build()
     }
 }

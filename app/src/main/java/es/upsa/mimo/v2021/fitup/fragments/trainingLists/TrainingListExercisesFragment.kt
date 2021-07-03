@@ -11,14 +11,14 @@ import es.upsa.mimo.v2021.fitup.fragments.categories.CategoryExerciseListFragmen
 import es.upsa.mimo.v2021.fitup.fragments.categories.CategoryExercisesFragment
 import es.upsa.mimo.v2021.fitup.model.APIEntities.Category
 import es.upsa.mimo.v2021.fitup.model.DBEntities.TrainingListItem
-import es.upsa.mimo.v2021.fitup.ui.exercises.CategoryExercisesActivity
-import es.upsa.mimo.v2021.fitup.ui.trainingLists.TrainingListsExercisesActivity
+import es.upsa.mimo.v2021.fitup.ui.categories.CategoryExercisesActivity
+import es.upsa.mimo.v2021.fitup.ui.trainingLists.exercises.TrainingListsExercisesActivity
 
 class TrainingListExercisesFragment: Fragment() {
     companion object {
-        fun newInstance(trainingListItem: TrainingListItem? = null): CategoryExercisesFragment {
+        fun newInstance(trainingListItem: TrainingListItem? = null): TrainingListExercisesFragment {
             val exercisesFragment =
-                CategoryExercisesFragment()
+                TrainingListExercisesFragment()
             if (trainingListItem != null) {
                 val args = Bundle()
                 args.putParcelable(TrainingListsExercisesActivity.EXTRA_TRAINING_LIST_ITEM, trainingListItem)
@@ -34,9 +34,9 @@ class TrainingListExercisesFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val category: Category? = getArguments()?.getSerializable(CategoryExercisesActivity.EXTRA_CATEGORY) as Category?
+        val trainingListItem: TrainingListItem? = getArguments()?.getParcelable<TrainingListItem?>(TrainingListsExercisesActivity.EXTRA_TRAINING_LIST_ITEM)
         parentFragmentManager.beginTransaction()
-            .replace(R.id.flExerciseList, CategoryExerciseListFragment.newInstance(category))
+            .replace(R.id.flExerciseList, TrainingListExerciseListFragment.newInstance(trainingListItem))
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             .commit()
     }

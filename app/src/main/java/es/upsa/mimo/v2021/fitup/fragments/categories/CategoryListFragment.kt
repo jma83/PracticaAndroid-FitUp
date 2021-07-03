@@ -14,7 +14,7 @@ import es.upsa.mimo.v2021.fitup.extensions.startActivity1
 import es.upsa.mimo.v2021.fitup.model.APIEntities.Category
 import es.upsa.mimo.v2021.fitup.ui.categories.CategoriesViewModel
 import es.upsa.mimo.v2021.fitup.ui.categories.CategoryAdapter
-import es.upsa.mimo.v2021.fitup.ui.exercises.CategoryExercisesActivity
+import es.upsa.mimo.v2021.fitup.ui.categories.CategoryExercisesActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CategoryListFragment: Fragment()  {
@@ -84,6 +84,7 @@ class CategoryListFragment: Fragment()  {
     }
 
     private fun showExerciseList(category: Category) {
-        activity?.startActivity1<CategoryExercisesActivity>(CategoryExercisesActivity.EXTRA_CATEGORY to category)
+        activity?.startActivity1<CategoryExercisesActivity>(
+            CategoryExercisesActivity.EXTRA_CATEGORY to category)
     }
 }

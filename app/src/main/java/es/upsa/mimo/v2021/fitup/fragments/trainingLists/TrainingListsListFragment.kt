@@ -11,9 +11,9 @@ import es.upsa.mimo.v2021.fitup.extensions.observe
 import es.upsa.mimo.v2021.fitup.extensions.startActivity1
 import es.upsa.mimo.v2021.fitup.model.DBEntities.TrainingListItem
 import es.upsa.mimo.v2021.fitup.persistence.PreferencesManager
-import es.upsa.mimo.v2021.fitup.ui.exercises.CategoryExercisesActivity
+import es.upsa.mimo.v2021.fitup.ui.categories.CategoryExercisesActivity
 import es.upsa.mimo.v2021.fitup.ui.trainingLists.TrainingListsAdapter
-import es.upsa.mimo.v2021.fitup.ui.trainingLists.TrainingListsExercisesActivity
+import es.upsa.mimo.v2021.fitup.ui.trainingLists.exercises.TrainingListsExercisesActivity
 import es.upsa.mimo.v2021.fitup.ui.trainingLists.TrainingListsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -78,6 +78,7 @@ class TrainingListsListFragment: Fragment() {
     }
 
     private fun showExerciseList(trainingListItem: TrainingListItem) {
-        activity?.startActivity1<CategoryExercisesActivity>(TrainingListsExercisesActivity.EXTRA_TRAINING_LIST_ITEM to trainingListItem)
+        activity?.startActivity1<CategoryExercisesActivity>(
+            TrainingListsExercisesActivity.EXTRA_TRAINING_LIST_ITEM to trainingListItem)
     }
 }

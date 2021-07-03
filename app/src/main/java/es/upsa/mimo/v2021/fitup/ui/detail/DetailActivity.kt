@@ -1,4 +1,4 @@
-package es.upsa.mimo.v2021.fitup.ui.activities.detail
+package es.upsa.mimo.v2021.fitup.ui.detail
 
 import android.R
 import android.os.Bundle
