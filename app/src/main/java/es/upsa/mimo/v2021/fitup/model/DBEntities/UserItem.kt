@@ -7,8 +7,9 @@ import androidx.room.PrimaryKey
 import java.util.*
 
 @Entity
-data class UserItem(@PrimaryKey var id: Int = 0, var email: String?, var name: String?,
+data class UserItem(@PrimaryKey(autoGenerate = true) val id: Int,var email: String?, var name: String?,
                     var password: String?, var birthdate: Date?, var userToken: String?): Parcelable {
+
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString(),

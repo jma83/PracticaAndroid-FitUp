@@ -8,7 +8,6 @@ import androidx.fragment.app.FragmentTransaction
 import es.upsa.mimo.v2021.fitup.R
 import es.upsa.mimo.v2021.fitup.databinding.ActivityMainBinding
 import es.upsa.mimo.v2021.fitup.fragments.categories.CategoriesFragment
-import es.upsa.mimo.v2021.fitup.fragments.exercises.ExercisesFragment
 import es.upsa.mimo.v2021.fitup.fragments.home.HomeFragment
 import es.upsa.mimo.v2021.fitup.fragments.trainingLists.TrainingListsFragment
 import es.upsa.mimo.v2021.fitup.fragments.settings.SettingsFragment

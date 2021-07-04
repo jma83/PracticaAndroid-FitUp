@@ -3,6 +3,7 @@ package es.upsa.mimo.v2021.fitup.providers
 import android.util.Log
 import es.upsa.mimo.v2021.fitup.extensions.getRetrofit
 import es.upsa.mimo.v2021.fitup.model.APIEntities.*
+import es.upsa.mimo.v2021.fitup.utils.Constants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
@@ -41,7 +42,7 @@ object CategoryProviderImpl: CategoryProvider {
             .execute()
         val categories: Categories? = call.body()
         if (!call.isSuccessful) {
-            Log.e("upsa.mimo.v2021.fitup", "ERROR! " + call.errorBody())
+            Log.e(Constants.APP_TAG, "ERROR! " + call.errorBody())
         }
         return@withContext categories
     }

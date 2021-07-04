@@ -6,6 +6,8 @@ import es.upsa.mimo.v2021.fitup.model.APIEntities.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
+import es.upsa.mimo.v2021.fitup.utils.Constants
+
 
 interface MuscleProvider {
         suspend fun getMuscle(id: Int) : Muscle?
@@ -41,7 +43,7 @@ object MuscleProviderImpl: MuscleProvider {
             .execute()
         val muscles: Muscles? = call.body()
         if (!call.isSuccessful) {
-            Log.e("upsa.mimo.v2021.fitup", "ERROR! " + call.errorBody().toString())
+            Log.e(Constants.APP_TAG, "ERROR! " + call.errorBody().toString())
         }
         return@withContext muscles
     }

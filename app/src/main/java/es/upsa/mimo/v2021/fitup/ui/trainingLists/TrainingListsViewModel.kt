@@ -18,15 +18,21 @@ class TrainingListsViewModel(private val trainingListsProvider: TrainingListsPro
 
     private val _navigateToExerciseList = MutableLiveData<Event<TrainingListItem>>()
     val navigateToExerciseList: LiveData<Event<TrainingListItem>> get() = _navigateToExerciseList
+    private val _navigateToCreateList = MutableLiveData<Event<Boolean>>()
+    val navigateToCreateList: LiveData<Event<Boolean>> get() = _navigateToCreateList
 
     fun onItemClicked(item: TrainingListItem) {
         _navigateToExerciseList.value = Event(item)
     }
 
+    fun onCreateClicked() {
+        _navigateToCreateList.value = Event(true)
+    }
+
     fun onCreate(userEmail: String?) {
         viewModelScope.launch {
             io {
-                val result = getItems(userEmail)
+                val result: List<TrainingListItem> = getItems(userEmail)?: emptyList()
                 ui {
                     _items.value = result
                 }

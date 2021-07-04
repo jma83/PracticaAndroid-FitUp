@@ -4,15 +4,16 @@ import androidx.room.*
 import es.upsa.mimo.v2021.fitup.model.DBEntities.TrainingListItem
 import es.upsa.mimo.v2021.fitup.model.DBEntities.UserItem
 
+@Dao
 interface TrainingListDao {
     @Query("SELECT * FROM TrainingListItem")
-    fun getAll(): List<TrainingListDao>
+    fun getAll(): List<TrainingListItem>
 
     @Query("SELECT * FROM TrainingListItem WHERE userItem = :userItem")
     fun getAllByUser(userItem: UserItem): List<TrainingListItem>
 
     @Query("SELECT * FROM TrainingListItem WHERE userItem = :userItem and id = :id")
-    fun getAllByUserAndId(userItem: UserItem, id: Int): TrainingListItem?
+    fun getAllByUserAndId(userItem: UserItem, id: Int): TrainingListItem
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(trainingListItem : TrainingListItem)

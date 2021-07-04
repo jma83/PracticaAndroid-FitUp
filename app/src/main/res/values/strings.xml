@@ -17,4 +17,7 @@
     <string name="suggested_exercises">Suggested exercises:</string>
     <string name="fitup_logo">FitUp logo</string>
     <string name="musclesList">Muscles:</string>
+    <string name="add_training_list">New training list</string>
+    <string name="listName">List name</string>
+    <string name="createList">Create</string>
 </resources>

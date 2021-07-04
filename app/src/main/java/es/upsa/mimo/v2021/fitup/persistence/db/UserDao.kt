@@ -3,6 +3,7 @@ package es.upsa.mimo.v2021.fitup.persistence.db
 import androidx.room.*
 import es.upsa.mimo.v2021.fitup.model.DBEntities.UserItem
 
+@Dao
 interface UserDao {
     @Query("SELECT * FROM UserItem")
     fun getAll(): List<UserItem>?

@@ -3,6 +3,7 @@ package es.upsa.mimo.v2021.fitup.providers
 import android.util.Log
 import es.upsa.mimo.v2021.fitup.extensions.getRetrofit
 import es.upsa.mimo.v2021.fitup.model.APIEntities.*
+import es.upsa.mimo.v2021.fitup.utils.Constants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Response
@@ -56,7 +57,7 @@ object ExerciseProviderImpl: ExerciseProvider {
             .execute()
         val exercise: Exercise? = call.body()
         if (!call.isSuccessful) {
-            Log.e("upsa.mimo.v2021.fitup", "ERROR!2 " + call.errorBody().toString())
+            Log.e(Constants.APP_TAG, "ERROR!2 " + call.errorBody().toString())
         }
         return@withContext exercise
     }
@@ -67,7 +68,7 @@ object ExerciseProviderImpl: ExerciseProvider {
                 .execute()
         val images: ExerciseImages? = call.body()
         if (!call.isSuccessful) {
-            Log.e("upsa.mimo.v2021.fitup", "ERROR!3 " + call.errorBody().toString())
+            Log.e(Constants.APP_TAG, "ERROR!3 " + call.errorBody().toString())
         }
         return@withContext images
     }
@@ -79,12 +80,12 @@ object ExerciseProviderImpl: ExerciseProvider {
             .execute()
         val images: ExerciseImages? = call.body()
         if (!call.isSuccessful) {
-            Log.e("upsa.mimo.v2021.fitup", "ERROR!4 " + call.errorBody().toString())
+            Log.e(Constants.APP_TAG, "ERROR!4 " + call.errorBody().toString())
             return@withContext null
         }
         var image: ExerciseImage? = ExerciseImage(0,"", exerciseId, "https://source.unsplash.com/200x200/?exercise,$exerciseName", true, 0)
         if (images != null && images.images.size > 0) {
-            Log.e("upsa.mimo.v2021.fitup", "se deberia de ver una imagen!!!")
+            Log.e(Constants.APP_TAG, "se deberia de ver una imagen!!!")
             image = images.images.first();
         }
 
@@ -129,7 +130,7 @@ object ExerciseProviderImpl: ExerciseProvider {
             .execute()
         val exercises: Exercises? = call.body()
         if (!call.isSuccessful) {
-            Log.e("upsa.mimo.v2021.fitup", "ERROR!1 " + call.errorBody().toString())
+            Log.e(Constants.APP_TAG, "ERROR!1 " + call.errorBody().toString())
         }
         return@withContext exercises
     }

@@ -23,6 +23,7 @@
         <activity android:name=".ui.detail.DetailActivity"/>
         <activity android:name=".ui.categories.CategoryExercisesActivity"/>
         <activity android:name=".ui.trainingLists.exercises.TrainingListsExercisesActivity"/>
+        <activity android:name=".ui.trainingLists.create.CreateTrainingListActivity"/>
     </application>
 
 </manifest>

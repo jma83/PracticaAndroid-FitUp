@@ -1,9 +1,7 @@
 package es.upsa.mimo.v2021.fitup.fragments.home
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import es.upsa.mimo.v2021.fitup.R
 import es.upsa.mimo.v2021.fitup.extensions.observe
 import es.upsa.mimo.v2021.fitup.fragments.exercises.ExercisesFragment

@@ -2,59 +2,76 @@ package es.upsa.mimo.v2021.fitup.ui.start
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
 import es.upsa.mimo.v2021.fitup.databinding.ActivityStartBinding
+import es.upsa.mimo.v2021.fitup.extensions.observe
 import es.upsa.mimo.v2021.fitup.persistence.db.FitUpDatabase
 import es.upsa.mimo.v2021.fitup.extensions.startActivity1
+import es.upsa.mimo.v2021.fitup.model.DBEntities.UserItem
+import es.upsa.mimo.v2021.fitup.persistence.PreferencesManager
 import es.upsa.mimo.v2021.fitup.ui.MainActivity
 import es.upsa.mimo.v2021.fitup.ui.register.RegisterActivity
-
-private lateinit var binding: ActivityStartBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class StartActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityStartBinding
+    private val viewModel: StartViewModel by viewModel()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityStartBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        FitUpDatabase.invoke(applicationContext)
         setup()
     }
 
+
     private fun setup() {
+        FitUpDatabase.invoke(applicationContext)
+
+        with(viewModel) {
+            observe(navigateToHome) { event ->
+                event.getContentIfNotHandled()?.let {
+                    setPreferences(it)
+                    showHome()
+                }
+            }
+            observe(navigateToRegister) { event ->
+                event.getContentIfNotHandled()?.let { showRegister() }
+            }
+        }
+
         binding.button2.setOnClickListener{
-            showRegister()
+            viewModel.onRegisterClicked()
         }
 
         binding.button1.setOnClickListener{
-            showHome()
-            /*if (binding.editTextEmail.text.isNotEmpty() && binding.editTextPassword.text.isNotEmpty()) {
-                FirebaseAuth.getInstance().signInWithEmailAndPassword(binding.editTextEmail.text.toString(), binding.editTextPassword.text.toString()).addOnCompleteListener{
-                    if (it.isSuccessful){
-                        showHome()
-                    }else{
-                        showAlert("An error ocurred during authentication process. Please try again later.")
-                    }
-                }
-            }*/
+            val email = binding.editTextEmail.text.toString()
+            val password = binding.editTextPassword.text.toString()
+            viewModel.onSubmit(email, password)
         }
     }
 
-    private fun showAlert(message: String) {
+    /*private fun showAlert(message: String) {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Error")
         builder.setMessage(message)
         builder.setPositiveButton("Accept", null)
         val dialog: AlertDialog = builder.create()
         dialog.show()
-    }
+    }*/
 
     private fun showRegister() {
         startActivity1<RegisterActivity>()
     }
 
     private fun showHome() {
-        startActivity1<MainActivity>(
-            MainActivity.EXTRA_EMAIL to binding.editTextEmail.text.toString())
+        startActivity1<MainActivity>()
     }
+
+    private fun setPreferences(user: UserItem) {
+        val preferencesManager = PreferencesManager(applicationContext)
+        preferencesManager.email = user.email
+        preferencesManager.userToken = user.userToken
+    }
+
 
 }

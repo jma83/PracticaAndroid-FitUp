@@ -7,7 +7,10 @@ import androidx.room.PrimaryKey
 import java.util.*
 
 @Entity
-data class TrainingListItem(@PrimaryKey var id: Int, var name: String?, var creationDate: Date?, var userItem: UserItem?, var exercises: List<ExerciseItem>?): Parcelable {
+data class TrainingListItem(@PrimaryKey(autoGenerate = true) val id: Int, var name: String?, var creationDate: Date?,
+                            var userItem: UserItem?, var exercises: List<ExerciseItem>?): Parcelable {
+
+
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString(),

@@ -8,9 +8,10 @@ import es.upsa.mimo.v2021.fitup.extensions.createIntList
 import es.upsa.mimo.v2021.fitup.extensions.writeIntList
 
 @Entity
-data class ExerciseItem(@PrimaryKey var id: Int = 0, var external_id: Int = 0, var name: String?, var exercise_base: Int = 0,
+data class ExerciseItem(@PrimaryKey(autoGenerate = true) val id: Int, var external_id: Int = 0, var name: String?, var exercise_base: Int = 0,
                         var description: String?, var category: Int = 0, var muscles: List<Int>?, val language: Int
 ): Parcelable {
+
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readInt(),

@@ -11,37 +11,12 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.RecyclerView
 import es.upsa.mimo.v2021.fitup.R
 import es.upsa.mimo.v2021.fitup.extensions.startActivity1
+import es.upsa.mimo.v2021.fitup.fragments.CommonRecyclerFragment
 import es.upsa.mimo.v2021.fitup.model.APIEntities.ExerciseDataSet
 import es.upsa.mimo.v2021.fitup.ui.detail.DetailActivity
 import es.upsa.mimo.v2021.fitup.ui.exercises.ExerciseAdapter
 
-open class ExercisesFragment: Fragment() {
-    protected var mDualPane = false
-    protected var mProgressBar: ProgressBar? = null
-    protected var mRecyclerView: RecyclerView? = null
-    protected fun setupRecyclerView(view: View, exerciseAdapter: ExerciseAdapter) {
-        mRecyclerView = view.findViewById(R.id.recyclerExerciseList)
-        if (mRecyclerView != null ) {
-            mRecyclerView!!.adapter = exerciseAdapter
-            mRecyclerView!!.setItemAnimator(DefaultItemAnimator())
-        }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_exercise_list, container, false)
-    }
-
-    protected fun setLoading(loading: Boolean) {
-        if (loading) {
-            mProgressBar!!.visibility = View.VISIBLE
-        } else {
-            mProgressBar!!.visibility = View.GONE
-        }
-    }
+open class ExercisesFragment: CommonRecyclerFragment() {
 
     protected fun showDetail(exerciseDataSet: ExerciseDataSet) {
         if (mDualPane) {
@@ -53,7 +28,6 @@ open class ExercisesFragment: Fragment() {
             navigateToDetail(exerciseDataSet)
         }
     }
-
 
     protected fun navigateToDetail(exerciseDataSet: ExerciseDataSet) {
         activity?.startActivity1<DetailActivity>(DetailActivity.EXTRA_ID to exerciseDataSet)
