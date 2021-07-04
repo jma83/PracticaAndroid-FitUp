@@ -29,7 +29,7 @@ class TrainingListsViewModel(private val trainingListsProvider: TrainingListsPro
         _navigateToCreateList.value = Event(true)
     }
 
-    fun onCreate(userEmail: String?) {
+    fun onLoad(userEmail: String?) {
         viewModelScope.launch {
             io {
                 val result: List<TrainingListItem> = getItems(userEmail)?: emptyList()

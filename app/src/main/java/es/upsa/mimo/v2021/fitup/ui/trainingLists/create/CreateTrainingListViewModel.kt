@@ -38,7 +38,7 @@ class CreateTrainingListViewModel: ViewModel() {
         }
     }
 
-    private suspend fun validTrainingList(name: String, userEmail: String): Boolean{
+    private fun validTrainingList(name: String, userEmail: String): Boolean{
         var checkResult = false
         try {
             if (name.length == 0){
@@ -56,14 +56,17 @@ class CreateTrainingListViewModel: ViewModel() {
             }
         }catch (e: Exception) {
             Log.e(Constants.APP_TAG,"Error validating list")
+            Log.e(Constants.APP_TAG,"${e.message}")
         }
         return checkResult
     }
 
     private suspend fun insertTrainingList(name: String) {
-        val list = TrainingListItem(0,name, Date(), currentUser!!, emptyList<ExerciseItem>())
+        val list = TrainingListItem(name, Date(), currentUser!!, emptyList<ExerciseItem>())
 
         FitUpDatabase.get()?.TrainingListDao()?.insert(list)
+        //val lists: List<TrainingListItem>? = FitUpDatabase.get()?.TrainingListDao()?.getAllByUser(currentUser!!)
+        //Log.i(Constants.APP_TAG, lists.toString())
     }
 
 

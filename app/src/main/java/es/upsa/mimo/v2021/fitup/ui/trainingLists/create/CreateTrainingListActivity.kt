@@ -34,6 +34,6 @@ class CreateTrainingListActivity: AppCompatActivity() {
     }
 
     private fun showTrainingLists() {
-        startActivity1<MainActivity>()
+        finish()
     }
 }

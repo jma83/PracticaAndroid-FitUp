@@ -35,8 +35,8 @@ class TrainingListsAdapter(items: List<TrainingListItem> = emptyList(), private 
 
         fun bind(trainingListItem: TrainingListItem) {
             with(binding) {
-                this.trainingListName.text = trainingListItem.name
-                this.trainingListDate.text = trainingListItem.creationDate.toString()
+                trainingListName.text = trainingListItem.name
+                trainingListDate.text = trainingListItem.creationDate.toString()
 
                 root.setOnClickListener { listener(trainingListItem) }
 

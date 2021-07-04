@@ -35,7 +35,7 @@ class StartViewModel() : ViewModel()  {
                 if (!validUserData(email, password)){
                     return@io
                 }
-                val user = UserItem(24, "pepe@pepe.com", "pepe", "password", Date(), "lfkalsfkal")
+                val user = UserItem("pepe@pepe.com", "pepe", "password", Date(), "lfkalsfkal")
                 if (insertUser(user)) {
                     ui {
                         navigateHome(user)

@@ -7,11 +7,11 @@ import androidx.room.PrimaryKey
 import java.util.*
 
 @Entity
-data class UserItem(@PrimaryKey(autoGenerate = true) val id: Int,var email: String?, var name: String?,
+data class UserItem(var email: String?, var name: String?,
                     var password: String?, var birthdate: Date?, var userToken: String?): Parcelable {
-
+    @PrimaryKey(autoGenerate = true)
+    var id : Int? = null
     constructor(parcel: Parcel) : this(
-        parcel.readInt(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
@@ -21,7 +21,6 @@ data class UserItem(@PrimaryKey(autoGenerate = true) val id: Int,var email: Stri
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(id)
         parcel.writeString(email)
         parcel.writeString(name)
         parcel.writeString(password)

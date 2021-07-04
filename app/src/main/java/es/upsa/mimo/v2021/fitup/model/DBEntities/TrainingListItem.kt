@@ -7,12 +7,12 @@ import androidx.room.PrimaryKey
 import java.util.*
 
 @Entity
-data class TrainingListItem(@PrimaryKey(autoGenerate = true) val id: Int, var name: String?, var creationDate: Date?,
+data class TrainingListItem(var name: String?, var creationDate: Date?,
                             var userItem: UserItem?, var exercises: List<ExerciseItem>?): Parcelable {
-
+    @PrimaryKey(autoGenerate = true)
+    var id : Int? = null
 
     constructor(parcel: Parcel) : this(
-        parcel.readInt(),
         parcel.readString(),
         parcel.readSerializable() as Date?,
         parcel.readParcelable(UserItem::class.java.classLoader),
@@ -20,7 +20,6 @@ data class TrainingListItem(@PrimaryKey(autoGenerate = true) val id: Int, var na
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(id)
         parcel.writeParcelable(userItem, flags)
         parcel.writeParcelableList(exercises, Parcelable.PARCELABLE_WRITE_RETURN_VALUE)
     }

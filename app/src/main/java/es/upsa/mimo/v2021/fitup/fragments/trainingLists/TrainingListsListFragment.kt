@@ -49,6 +49,11 @@ class TrainingListsListFragment: Fragment() {
         return inflater.inflate(R.layout.fragment_training_lists, container, false)
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.onLoad(context?.let { PreferencesManager(it).email })
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mProgressBar = view.findViewById(R.id.progressBar)
@@ -63,7 +68,7 @@ class TrainingListsListFragment: Fragment() {
                 event.getContentIfNotHandled()?.let { showCreateList() }
             }
         }
-        getView()?.let { setupRecyclerView(it) }
+        view.let { setupRecyclerView(it) }
 
         addListButton = view.findViewById(R.id.addTrainingList) as FloatingActionButton
         addListButton?.setOnClickListener { viewModel.onCreateClicked() }
@@ -76,12 +81,12 @@ class TrainingListsListFragment: Fragment() {
         }
 
         setLoading(true)
-        viewModel.onCreate(context?.let { PreferencesManager(it).email })
+        viewModel.onLoad(context?.let { PreferencesManager(it).email })
         setLoading(false)
     }
 
     private fun setupRecyclerView(view: View) {
-        mRecyclerView = view.findViewById(R.id.recyclerCategoryList)
+        mRecyclerView = view.findViewById(R.id.recyclerTrainingList)
         if (mRecyclerView != null ) {
             mRecyclerView!!.adapter = trainingListsAdapter
             mRecyclerView!!.setItemAnimator(DefaultItemAnimator())
