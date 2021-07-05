@@ -13,15 +13,11 @@ class DetailActivity: AppCompatActivity() {
         const val EXTRA_ID = "DetailActivity:extraId"
     }
 
-    private lateinit var binding: FragmentExerciseDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         // if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) { finish(); return; }
-
-        binding = FragmentExerciseDetailBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
         if (savedInstanceState == null) {
             val exercise = intent.extras?.getSerializable(EXTRA_ID) as ExerciseDataSet

@@ -20,4 +20,6 @@
     <string name="add_training_list">New training list</string>
     <string name="listName">List name</string>
     <string name="createList">Create</string>
+    <string name="add_exercise_to_training_list">Add exercise to Training List</string>
+    <string name="empty_training_lists">You don\'t have any Training List yet...</string>
 </resources>

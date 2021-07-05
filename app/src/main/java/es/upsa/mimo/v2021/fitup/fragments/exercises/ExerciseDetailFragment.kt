@@ -14,6 +14,7 @@ import es.upsa.mimo.v2021.fitup.R
 import es.upsa.mimo.v2021.fitup.databinding.FragmentExerciseDetailBinding
 import es.upsa.mimo.v2021.fitup.extensions.fromUrl
 import es.upsa.mimo.v2021.fitup.extensions.observe
+import es.upsa.mimo.v2021.fitup.fragments.trainingLists.add.AddToTrainingListFragment
 import es.upsa.mimo.v2021.fitup.model.APIEntities.ExerciseDataSet
 import es.upsa.mimo.v2021.fitup.ui.detail.DetailActivity
 import es.upsa.mimo.v2021.fitup.ui.detail.DetailViewModel
@@ -63,7 +64,7 @@ class ExerciseDetailFragment: Fragment() {
                         detailThumb.fromUrl(img)
                     }
                     if (item.value?.exerciseInfo?.muscles != null && item.value?.exerciseInfo?.muscles!!.size > 0) {
-                        muscleTitle.text = R.string.musclesList.toString()
+                        muscleTitle.text = getString(R.string.musclesList)
                     }
                     exerciseDescription.text = item.value?.exerciseInfo?.description?.let { it1 ->
                         HtmlCompat.fromHtml(
@@ -77,9 +78,17 @@ class ExerciseDetailFragment: Fragment() {
 
             observe(category) {
                 with(binding) {
-                    categoryText.text = "Category ${category.value?.name}"
+                    if (category.value!=null) {
+                        categoryText.text = "Category ${category.value?.name}"
+                    }
                 }
             }
+        }
+
+        binding.addToTrainingList.setOnClickListener {
+            val addToTrainingListFragment = AddToTrainingListFragment()
+            addToTrainingListFragment.dialog?.setCanceledOnTouchOutside(true)
+            activity?.supportFragmentManager?.let { it1 -> addToTrainingListFragment.show(it1, "addToTrainingList") }
         }
     }
 

@@ -1,4 +1,4 @@
-package es.upsa.mimo.v2021.fitup
+package es.upsa.mimo.v2021.fitup.utils
 
 data class Event<out T>(private val content: T) {
 

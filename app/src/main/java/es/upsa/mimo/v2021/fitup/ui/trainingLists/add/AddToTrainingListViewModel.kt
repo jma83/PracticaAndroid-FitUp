@@ -1,32 +1,30 @@
-package es.upsa.mimo.v2021.fitup.ui.trainingLists
+package es.upsa.mimo.v2021.fitup.ui.trainingLists.add
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import es.upsa.mimo.v2021.fitup.utils.Event
 import es.upsa.mimo.v2021.fitup.extensions.io
 import es.upsa.mimo.v2021.fitup.extensions.ui
+import es.upsa.mimo.v2021.fitup.model.DBEntities.ExerciseItem
 import es.upsa.mimo.v2021.fitup.model.DBEntities.TrainingListItem
+import es.upsa.mimo.v2021.fitup.model.DBEntities.UserItem
 import es.upsa.mimo.v2021.fitup.providers.TrainingListsProvider
 import kotlinx.coroutines.launch
 
-class TrainingListsViewModel(private val trainingListsProvider: TrainingListsProvider): ViewModel() {
+class AddToTrainingListViewModel(private val trainingListsProvider: TrainingListsProvider): ViewModel() {
     private val _items = MutableLiveData<List<TrainingListItem>>()
     val items: LiveData<List<TrainingListItem>> get() = _items
+    private var _exerciseItem = MutableLiveData<ExerciseItem>()
+    private var _userItem = MutableLiveData<UserItem>()
 
-    private val _navigateToExerciseList = MutableLiveData<Event<TrainingListItem>>()
-    val navigateToExerciseList: LiveData<Event<TrainingListItem>> get() = _navigateToExerciseList
-    private val _navigateToCreateList = MutableLiveData<Event<Boolean>>()
-    val navigateToCreateList: LiveData<Event<Boolean>> get() = _navigateToCreateList
-
-    fun onItemClicked(item: TrainingListItem) {
-        _navigateToExerciseList.value =
-            Event(item)
-    }
-
-    fun onCreateClicked() {
-        _navigateToCreateList.value = Event(true)
+    fun onAddToListClicked(trainingListItem: TrainingListItem) {
+        //TODO
+        viewModelScope.launch {
+            io {
+                addExercise(trainingListItem)
+            }
+        }
     }
 
     fun onLoad(userEmail: String?) {
@@ -47,4 +45,7 @@ class TrainingListsViewModel(private val trainingListsProvider: TrainingListsPro
         return trainingListsProvider.getTrainingLists(userEmail)
     }
 
+    private suspend fun addExercise(trainingListItem: TrainingListItem){
+        trainingListsProvider.addExerciseToTrainingList(_exerciseItem.value, trainingListItem, _userItem.value)
+    }
 }

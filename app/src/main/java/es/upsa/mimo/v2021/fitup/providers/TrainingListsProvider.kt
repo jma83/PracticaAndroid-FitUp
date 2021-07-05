@@ -1,14 +1,17 @@
 package es.upsa.mimo.v2021.fitup.providers
 
 import android.util.Log
+import es.upsa.mimo.v2021.fitup.model.DBEntities.ExerciseItem
 import es.upsa.mimo.v2021.fitup.persistence.db.FitUpDatabase
 import es.upsa.mimo.v2021.fitup.model.DBEntities.TrainingListItem
+import es.upsa.mimo.v2021.fitup.model.DBEntities.UserItem
 import es.upsa.mimo.v2021.fitup.utils.Constants
 import java.lang.Exception
 
 interface TrainingListsProvider {
     suspend fun getTrainingLists(userEmail: String) : List<TrainingListItem>?
     suspend fun getTrainingList(id: Int, userEmail: String) : TrainingListItem?
+    suspend fun addExerciseToTrainingList(exerciseItem: ExerciseItem?, trainingListItem: TrainingListItem?, user: UserItem?)
 }
 
 object TrainingListsProviderImpl: TrainingListsProvider {
@@ -37,5 +40,25 @@ object TrainingListsProviderImpl: TrainingListsProvider {
             return null
         }
         return db.TrainingListDao().getAllByUserAndId(user, id)
+    }
+
+    override suspend fun addExerciseToTrainingList(exerciseItem: ExerciseItem?, trainingListItem: TrainingListItem?, user: UserItem?)  {
+        val db = FitUpDatabase.get()
+        if (trainingListItem != null) {
+            if (trainingListItem.userItem !== user) {
+                return
+            }
+        }
+        if (trainingListItem != null) {
+            if (exerciseItem != null) {
+                trainingListItem.exercises?.add(exerciseItem)
+            }
+        }
+        if (db == null) {
+            return
+        }
+        if (trainingListItem != null) {
+            db.TrainingListDao().update(trainingListItem)
+        }
     }
 }

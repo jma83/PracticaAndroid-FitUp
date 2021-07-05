@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
-import es.upsa.mimo.v2021.fitup.Event
+import es.upsa.mimo.v2021.fitup.utils.Event
 import es.upsa.mimo.v2021.fitup.extensions.io
 import es.upsa.mimo.v2021.fitup.extensions.ui
 import es.upsa.mimo.v2021.fitup.model.DBEntities.UserItem

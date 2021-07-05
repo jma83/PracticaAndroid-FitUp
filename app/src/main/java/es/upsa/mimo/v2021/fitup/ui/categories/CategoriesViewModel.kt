@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import es.upsa.mimo.v2021.fitup.Event
+import es.upsa.mimo.v2021.fitup.utils.Event
 import es.upsa.mimo.v2021.fitup.extensions.io
 import es.upsa.mimo.v2021.fitup.extensions.ui
 import es.upsa.mimo.v2021.fitup.model.APIEntities.Categories
@@ -20,7 +20,8 @@ class CategoriesViewModel(val categoryProvider: CategoryProvider): ViewModel() {
     val navigateToExerciseList: LiveData<Event<Category>> get() = _navigateToExerciseList
 
     fun onItemClicked(item: Category) {
-        _navigateToExerciseList.value = Event(item)
+        _navigateToExerciseList.value =
+            Event(item)
     }
 
     fun onCreate() {

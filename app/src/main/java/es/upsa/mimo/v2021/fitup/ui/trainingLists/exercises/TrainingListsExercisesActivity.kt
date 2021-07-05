@@ -12,13 +12,8 @@ class TrainingListsExercisesActivity: AppCompatActivity() {
         const val EXTRA_TRAINING_LIST_ITEM = "TrainingListsExercisesActivity:extraTrainingListItem"
     }
 
-    private lateinit var binding: ActivityTrainingListsBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        binding = ActivityTrainingListsBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
         if (savedInstanceState == null) {
             val trainingListItem = intent.extras?.getParcelable(EXTRA_TRAINING_LIST_ITEM) as TrainingListItem?

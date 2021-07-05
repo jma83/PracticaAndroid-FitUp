@@ -8,7 +8,7 @@ import java.util.*
 
 @Entity
 data class TrainingListItem(var name: String?, var creationDate: Date?,
-                            var userItem: UserItem?, var exercises: List<ExerciseItem>?): Parcelable {
+                            var userItem: UserItem?, var exercises: MutableList<ExerciseItem>?): Parcelable {
     @PrimaryKey(autoGenerate = true)
     var id : Int? = null
 

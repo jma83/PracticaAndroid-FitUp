@@ -1,12 +1,15 @@
 package es.upsa.mimo.v2021.fitup.fragments.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import es.upsa.mimo.v2021.fitup.R
+import es.upsa.mimo.v2021.fitup.ui.home.HomeViewModel
+import es.upsa.mimo.v2021.fitup.utils.Constants
 
 class HomeFragment: Fragment() {
 
