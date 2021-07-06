@@ -22,13 +22,14 @@ val appModule = module {
     single<MuscleProvider> { MuscleProviderImpl }
     single<CategoryProvider> { CategoryProviderImpl }
     single<TrainingListsProvider> { TrainingListsProviderImpl }
-    viewModel { StartViewModel() }
+    single<UserProvider> { UserProviderImpl }
+    viewModel { StartViewModel(get()) }
     viewModel { HomeViewModel(get()) }
     viewModel { DetailViewModel(get(), get()) }
     viewModel { CategoriesViewModel(get()) }
     viewModel { CategoryExercisesViewModel(get()) }
-    viewModel { TrainingListsViewModel(get()) }
+    viewModel { TrainingListsViewModel(get(), get()) }
     viewModel { TrainingListsExercisesViewModel(get()) }
     viewModel { CreateTrainingListViewModel() }
-    viewModel { AddToTrainingListViewModel(get()) }
+    viewModel { AddToTrainingListViewModel(get(), get()) }
 }

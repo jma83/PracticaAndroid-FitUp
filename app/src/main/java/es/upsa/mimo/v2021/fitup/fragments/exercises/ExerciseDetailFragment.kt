@@ -16,6 +16,7 @@ import es.upsa.mimo.v2021.fitup.extensions.fromUrl
 import es.upsa.mimo.v2021.fitup.extensions.observe
 import es.upsa.mimo.v2021.fitup.fragments.trainingLists.add.AddToTrainingListFragment
 import es.upsa.mimo.v2021.fitup.model.APIEntities.ExerciseDataSet
+import es.upsa.mimo.v2021.fitup.model.DBEntities.ExerciseItem
 import es.upsa.mimo.v2021.fitup.ui.detail.DetailActivity
 import es.upsa.mimo.v2021.fitup.ui.detail.DetailViewModel
 import es.upsa.mimo.v2021.fitup.ui.detail.MuscleAdapter
@@ -86,9 +87,16 @@ class ExerciseDetailFragment: Fragment() {
         }
 
         binding.addToTrainingList.setOnClickListener {
-            val addToTrainingListFragment = AddToTrainingListFragment()
-            addToTrainingListFragment.dialog?.setCanceledOnTouchOutside(true)
-            activity?.supportFragmentManager?.let { it1 -> addToTrainingListFragment.show(it1, "addToTrainingList") }
+            with(viewModel.item.value!!) {
+                val exerciseItem = ExerciseItem(exerciseInfo.id, exerciseInfo.name, this.exerciseInfo.exercise_base,
+                    this.exerciseInfo.description, this.exerciseInfo.category, this.exerciseInfo.muscles,
+                    this.exerciseInfo.language,this.exerciseImage?.image)
+
+                val addToTrainingListFragment = AddToTrainingListFragment.newInstance(exerciseItem)
+                addToTrainingListFragment.dialog?.setCanceledOnTouchOutside(true)
+                activity?.supportFragmentManager?.let { it1 -> addToTrainingListFragment.show(it1, "addToTrainingList") }
+            }
+
         }
     }
 

@@ -11,11 +11,12 @@ import es.upsa.mimo.v2021.fitup.extensions.io
 import es.upsa.mimo.v2021.fitup.extensions.ui
 import es.upsa.mimo.v2021.fitup.model.DBEntities.UserItem
 import es.upsa.mimo.v2021.fitup.persistence.db.FitUpDatabase
+import es.upsa.mimo.v2021.fitup.providers.UserProvider
 import es.upsa.mimo.v2021.fitup.utils.Constants
 import kotlinx.coroutines.launch
 import java.util.*
 
-class StartViewModel() : ViewModel()  {
+class StartViewModel(private val userProvider: UserProvider) : ViewModel()  {
     private val _navigateToHome = MutableLiveData<Event<UserItem>>()
     private val _navigateToRegister = MutableLiveData<Event<Boolean>>()
     val navigateToHome: LiveData<Event<UserItem>> get() = _navigateToHome
@@ -45,7 +46,7 @@ class StartViewModel() : ViewModel()  {
         }
     }
 
-    private suspend fun validUserData(email: String, password: String): Boolean{
+    private suspend fun validUserData(email: String, password: String): Boolean {
         var result = true
         if (!result && email.isNotEmpty() && password.isNotEmpty()) {
             FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener {
@@ -59,13 +60,7 @@ class StartViewModel() : ViewModel()  {
     }
 
     private suspend fun insertUser(user: UserItem): Boolean {
-        try {
-            FitUpDatabase.get()?.UserDao()?.insert(user)
-            return true
-        }catch (e: Exception) {
-            Log.e(Constants.APP_TAG,"Error inserting user")
-        }
-        return false
+        return userProvider.insertUser(user)
     }
 
 }

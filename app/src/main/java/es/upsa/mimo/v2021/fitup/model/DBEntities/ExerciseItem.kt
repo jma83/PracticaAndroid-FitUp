@@ -9,7 +9,7 @@ import es.upsa.mimo.v2021.fitup.extensions.writeIntList
 
 @Entity
 data class ExerciseItem(var external_id: Int = 0, var name: String?, var exercise_base: Int = 0,
-                        var description: String?, var category: Int = 0, var muscles: List<Int>?, val language: Int
+                        var description: String?, var category: Int = 0, var muscles: List<Int>?, val language: Int, val image: String?
 ): Parcelable {
     @PrimaryKey(autoGenerate = true)
     var id : Int? = null
@@ -20,7 +20,8 @@ data class ExerciseItem(var external_id: Int = 0, var name: String?, var exercis
         parcel.readString(),
         parcel.readInt(),
         parcel.createIntList(),
-        parcel.readInt()
+        parcel.readInt(),
+        parcel.readString()
     ) {
     }
 
@@ -31,6 +32,7 @@ data class ExerciseItem(var external_id: Int = 0, var name: String?, var exercis
         parcel.writeString(description)
         parcel.writeInt(category)
         muscles?.let { parcel.writeIntList(it) }
+        parcel.writeString(image)
     }
 
     override fun describeContents(): Int {

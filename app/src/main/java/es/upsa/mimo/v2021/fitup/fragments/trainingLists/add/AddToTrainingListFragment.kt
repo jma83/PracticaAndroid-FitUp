@@ -16,14 +16,16 @@ import es.upsa.mimo.v2021.fitup.ui.trainingLists.add.AddToTrainingListViewModel
 import es.upsa.mimo.v2021.fitup.ui.trainingLists.add.AddToTrainingListsAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+val TAG_EXERCISE_ITEM: String = "exerciseItem"
+
 class AddToTrainingListFragment: DialogFragment() {
     private val viewModel: AddToTrainingListViewModel by viewModel()
     private var mProgressBar: ProgressBar? = null
     private var mRecyclerView: RecyclerView? = null
     val addToTrainingListsAdapter by lazy {
-        AddToTrainingListsAdapter {
+        AddToTrainingListsAdapter { it, isChecked ->
             viewModel.onAddToListClicked(
-                it
+                it, isChecked
             )
         }
     }
@@ -32,7 +34,7 @@ class AddToTrainingListFragment: DialogFragment() {
             val addToTrainingListFragment =
                 AddToTrainingListFragment()
             val args = Bundle()
-            args.putParcelable("exerciseItem", exerciseItem)
+            args.putParcelable(TAG_EXERCISE_ITEM, exerciseItem)
             addToTrainingListFragment.setArguments(args)
 
             return addToTrainingListFragment
@@ -52,6 +54,7 @@ class AddToTrainingListFragment: DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         mProgressBar = view.findViewById(R.id.progressBar)
         with(viewModel) {
+            setLoading(false)
             observe(items) {
                 addToTrainingListsAdapter.items = it
             }
@@ -66,9 +69,8 @@ class AddToTrainingListFragment: DialogFragment() {
         }
 
         setLoading(true)
-        viewModel
-        viewModel.onLoad(context?.let { PreferencesManager(it).email })
-        setLoading(false)
+        val exerciseItem = getArguments()?.getParcelable(TAG_EXERCISE_ITEM) as ExerciseItem?
+        viewModel.onLoad(context?.let { PreferencesManager(it).email }, exerciseItem!!)
     }
 
     private fun setupRecyclerView(view: View) {

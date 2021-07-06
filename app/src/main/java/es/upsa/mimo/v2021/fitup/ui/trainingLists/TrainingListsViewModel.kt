@@ -8,10 +8,12 @@ import es.upsa.mimo.v2021.fitup.utils.Event
 import es.upsa.mimo.v2021.fitup.extensions.io
 import es.upsa.mimo.v2021.fitup.extensions.ui
 import es.upsa.mimo.v2021.fitup.model.DBEntities.TrainingListItem
+import es.upsa.mimo.v2021.fitup.model.DBEntities.UserItem
 import es.upsa.mimo.v2021.fitup.providers.TrainingListsProvider
+import es.upsa.mimo.v2021.fitup.providers.UserProvider
 import kotlinx.coroutines.launch
 
-class TrainingListsViewModel(private val trainingListsProvider: TrainingListsProvider): ViewModel() {
+class TrainingListsViewModel(private val trainingListsProvider: TrainingListsProvider, private val userProvider: UserProvider): ViewModel() {
     private val _items = MutableLiveData<List<TrainingListItem>>()
     val items: LiveData<List<TrainingListItem>> get() = _items
 
@@ -19,10 +21,10 @@ class TrainingListsViewModel(private val trainingListsProvider: TrainingListsPro
     val navigateToExerciseList: LiveData<Event<TrainingListItem>> get() = _navigateToExerciseList
     private val _navigateToCreateList = MutableLiveData<Event<Boolean>>()
     val navigateToCreateList: LiveData<Event<Boolean>> get() = _navigateToCreateList
+    private var _userItem = MutableLiveData<UserItem>()
 
     fun onItemClicked(item: TrainingListItem) {
-        _navigateToExerciseList.value =
-            Event(item)
+        _navigateToExerciseList.value = Event(item)
     }
 
     fun onCreateClicked() {
@@ -32,7 +34,8 @@ class TrainingListsViewModel(private val trainingListsProvider: TrainingListsPro
     fun onLoad(userEmail: String?) {
         viewModelScope.launch {
             io {
-                val result: List<TrainingListItem> = getItems(userEmail)?: emptyList()
+                val user = userEmail?.let { userProvider.getUserByEmail(it) }
+                val result: List<TrainingListItem> = getItems(user)
                 ui {
                     _items.value = result
                 }
@@ -40,11 +43,8 @@ class TrainingListsViewModel(private val trainingListsProvider: TrainingListsPro
         }
     }
 
-    private suspend fun getItems(userEmail: String?): List<TrainingListItem>? {
-        if (userEmail == null){
-            return null
-        }
-        return trainingListsProvider.getTrainingLists(userEmail)
+    private suspend fun getItems(user: UserItem?): List<TrainingListItem> {
+        return user?.let { trainingListsProvider.getTrainingLists(it) } ?: emptyList()
     }
 
 }

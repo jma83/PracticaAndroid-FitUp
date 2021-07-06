@@ -9,23 +9,18 @@ import es.upsa.mimo.v2021.fitup.utils.Constants
 import java.lang.Exception
 
 interface TrainingListsProvider {
-    suspend fun getTrainingLists(userEmail: String) : List<TrainingListItem>?
-    suspend fun getTrainingList(id: Int, userEmail: String) : TrainingListItem?
-    suspend fun addExerciseToTrainingList(exerciseItem: ExerciseItem?, trainingListItem: TrainingListItem?, user: UserItem?)
+    suspend fun getTrainingLists(user: UserItem) : List<TrainingListItem>?
+    suspend fun getTrainingList(id: Int, user: UserItem) : TrainingListItem?
+    suspend fun manageExerciseToTrainingList(exerciseItem: ExerciseItem?, trainingListItem: TrainingListItem?, user: UserItem?, isChecked: Boolean): Boolean
 }
 
 object TrainingListsProviderImpl: TrainingListsProvider {
 
-    override suspend fun getTrainingLists(userEmail: String): List<TrainingListItem>? {
+    override suspend fun getTrainingLists(user: UserItem): List<TrainingListItem>? {
         var result: List<TrainingListItem>? = emptyList()
         try {
-            val db = FitUpDatabase.get()
-            val user = db?.UserDao()?.getUserByEmail(userEmail)
-            if (user == null) {
-                return result
-            }
+            val db = getConnection()
             result = db.TrainingListDao().getAllByUser(user)
-
         }catch (e: Exception){
             Log.e(Constants.APP_TAG, "Error when retrieving lists: ${e.message}")
         }
@@ -33,32 +28,33 @@ object TrainingListsProviderImpl: TrainingListsProvider {
 
     }
 
-    override suspend fun getTrainingList(id: Int, userEmail: String): TrainingListItem? {
-        val db = FitUpDatabase.get()
-        val user = db?.UserDao()?.getUserByEmail(userEmail)
-        if (user == null) {
-            return null
-        }
+    override suspend fun getTrainingList(id: Int, user: UserItem): TrainingListItem? {
+        val db = getConnection()
         return db.TrainingListDao().getAllByUserAndId(user, id)
     }
 
-    override suspend fun addExerciseToTrainingList(exerciseItem: ExerciseItem?, trainingListItem: TrainingListItem?, user: UserItem?)  {
-        val db = FitUpDatabase.get()
-        if (trainingListItem != null) {
-            if (trainingListItem.userItem !== user) {
-                return
-            }
+    override suspend fun manageExerciseToTrainingList(exerciseItem: ExerciseItem?, trainingListItem: TrainingListItem?, user: UserItem?, isChecked: Boolean): Boolean  {
+        val db = getConnection()
+        if (trainingListItem == null) {
+            return false
         }
-        if (trainingListItem != null) {
-            if (exerciseItem != null) {
-                trainingListItem.exercises?.add(exerciseItem)
-            }
+        if (user == null || trainingListItem.userItem !== user) {
+            return false
         }
-        if (db == null) {
-            return
+        if (exerciseItem == null) {
+            return false
         }
-        if (trainingListItem != null) {
-            db.TrainingListDao().update(trainingListItem)
+
+        if (!isChecked && trainingListItem.exercises?.contains(exerciseItem)!!) {
+            trainingListItem.exercises!!.remove(exerciseItem)
+        }else{
+            trainingListItem.exercises!!.add(exerciseItem)
         }
+        db.TrainingListDao().update(trainingListItem)
+        return true
+    }
+
+    private fun getConnection(): FitUpDatabase {
+        return FitUpDatabase.get()!!
     }
 }

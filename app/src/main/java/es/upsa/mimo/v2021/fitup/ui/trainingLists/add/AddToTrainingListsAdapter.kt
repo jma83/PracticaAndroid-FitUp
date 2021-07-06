@@ -5,16 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import es.upsa.mimo.v2021.fitup.R
 import es.upsa.mimo.v2021.fitup.databinding.ItemTrainingListAddBinding
-import es.upsa.mimo.v2021.fitup.databinding.ItemTrainingListBinding
 import es.upsa.mimo.v2021.fitup.extensions.inflate
-import es.upsa.mimo.v2021.fitup.model.DBEntities.TrainingListItem
 import kotlin.properties.Delegates
 
 
-private typealias TrainingListListener = (TrainingListItem) -> Unit
+private typealias TrainingListListener = (TrainingListItemActive, Boolean) -> Unit
 
 
-class AddToTrainingListsAdapter(items: List<TrainingListItem> = emptyList(), private val listener: TrainingListListener):
+class AddToTrainingListsAdapter(items: List<TrainingListItemActive> = emptyList(), private val listener: TrainingListListener):
     RecyclerView.Adapter<AddToTrainingListsAdapter.ViewHolder>() {
 
     var items by Delegates.observable(items) { _, _, _ -> notifyDataSetChanged() }
@@ -34,12 +32,15 @@ class AddToTrainingListsAdapter(items: List<TrainingListItem> = emptyList(), pri
 
         private val binding = ItemTrainingListAddBinding.bind(view)
 
-        fun bind(trainingListItem: TrainingListItem) {
+        fun bind(trainingListItem: TrainingListItemActive) {
             with(binding) {
-                trainingListName.text = trainingListItem.name
-                trainingListDate.text = trainingListItem.creationDate.toString()
+                trainingListName.text = trainingListItem.trainingListItem.name
+                trainingListDate.text = trainingListItem.trainingListItem.creationDate.toString()
+                switchTrainingList.isChecked = trainingListItem.active
 
-                switchTrainingList.setOnClickListener { listener(trainingListItem) }
+                switchTrainingList.setOnCheckedChangeListener { _, isChecked ->
+                    listener(trainingListItem, isChecked)
+                }
 
             }
         }

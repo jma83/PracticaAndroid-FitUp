@@ -20,8 +20,7 @@ class CategoriesViewModel(val categoryProvider: CategoryProvider): ViewModel() {
     val navigateToExerciseList: LiveData<Event<Category>> get() = _navigateToExerciseList
 
     fun onItemClicked(item: Category) {
-        _navigateToExerciseList.value =
-            Event(item)
+        _navigateToExerciseList.value = Event(item)
     }
 
     fun onCreate() {

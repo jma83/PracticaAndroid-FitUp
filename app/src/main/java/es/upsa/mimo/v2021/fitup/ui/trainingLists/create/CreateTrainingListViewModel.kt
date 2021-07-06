@@ -62,7 +62,7 @@ class CreateTrainingListViewModel: ViewModel() {
     }
 
     private suspend fun insertTrainingList(name: String) {
-        val list = TrainingListItem(name, Date(), currentUser!!, emptyList<ExerciseItem>())
+        val list = TrainingListItem(name, Date(), currentUser!!, mutableListOf())
 
         FitUpDatabase.get()?.TrainingListDao()?.insert(list)
         //val lists: List<TrainingListItem>? = FitUpDatabase.get()?.TrainingListDao()?.getAllByUser(currentUser!!)
