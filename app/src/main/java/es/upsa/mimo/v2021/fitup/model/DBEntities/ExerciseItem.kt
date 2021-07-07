@@ -4,12 +4,12 @@ import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import es.upsa.mimo.v2021.fitup.extensions.createIntList
-import es.upsa.mimo.v2021.fitup.extensions.writeIntList
+import es.upsa.mimo.v2021.fitup.utils.extensions.createIntList
+import es.upsa.mimo.v2021.fitup.utils.extensions.writeIntList
 
 @Entity
 data class ExerciseItem(var external_id: Int = 0, var name: String?, var exercise_base: Int = 0,
-                        var description: String?, var category: Int = 0, var muscles: List<Int>?, val language: Int, val image: String?
+                        var description: String?, var category: Int = 0, var muscles: List<Int>?, val language: Int = 2, val image: String?
 ): Parcelable {
     @PrimaryKey(autoGenerate = true)
     var id : Int? = null
@@ -32,6 +32,7 @@ data class ExerciseItem(var external_id: Int = 0, var name: String?, var exercis
         parcel.writeString(description)
         parcel.writeInt(category)
         muscles?.let { parcel.writeIntList(it) }
+        parcel.writeInt(language)
         parcel.writeString(image)
     }
 

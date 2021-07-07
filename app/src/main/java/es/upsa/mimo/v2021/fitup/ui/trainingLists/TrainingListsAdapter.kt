@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import es.upsa.mimo.v2021.fitup.R
 import es.upsa.mimo.v2021.fitup.databinding.ItemTrainingListBinding
-import es.upsa.mimo.v2021.fitup.extensions.inflate
+import es.upsa.mimo.v2021.fitup.utils.extensions.inflate
 import es.upsa.mimo.v2021.fitup.model.DBEntities.TrainingListItem
 import kotlin.properties.Delegates
 

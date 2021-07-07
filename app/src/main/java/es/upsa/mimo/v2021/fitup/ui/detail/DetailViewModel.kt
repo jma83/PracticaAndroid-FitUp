@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import es.upsa.mimo.v2021.fitup.extensions.io
-import es.upsa.mimo.v2021.fitup.extensions.ui
+import es.upsa.mimo.v2021.fitup.utils.io
+import es.upsa.mimo.v2021.fitup.utils.ui
 import es.upsa.mimo.v2021.fitup.model.APIEntities.Category
 import es.upsa.mimo.v2021.fitup.model.APIEntities.ExerciseDataSet
 import es.upsa.mimo.v2021.fitup.model.APIEntities.Muscle
@@ -24,8 +24,10 @@ class DetailViewModel(private val musclePrvoider: MuscleProvider, private val ca
     fun onCreate(exerciseDataSet: ExerciseDataSet) {
         viewModelScope.launch {
             io {
-                val muscleList: List<Muscle>? = musclePrvoider.getMusclesByIds(exerciseDataSet.exerciseInfo.muscles)
-                val category: Category? = categoryProvider.getCategory(exerciseDataSet.exerciseInfo.category)
+                val muscleList: List<Muscle>? =
+                    musclePrvoider.getMusclesByIds(exerciseDataSet.exerciseInfo.muscles)
+                val category: Category? =
+                    categoryProvider.getCategory(exerciseDataSet.exerciseInfo.category)
                 ui {
                     _item.value = exerciseDataSet
                     _muscles.value = muscleList

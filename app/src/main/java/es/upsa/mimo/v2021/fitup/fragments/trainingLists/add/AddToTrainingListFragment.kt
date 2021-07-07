@@ -9,7 +9,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.RecyclerView
 import es.upsa.mimo.v2021.fitup.R
-import es.upsa.mimo.v2021.fitup.extensions.observe
+import es.upsa.mimo.v2021.fitup.utils.extensions.observe
 import es.upsa.mimo.v2021.fitup.model.DBEntities.ExerciseItem
 import es.upsa.mimo.v2021.fitup.persistence.PreferencesManager
 import es.upsa.mimo.v2021.fitup.ui.trainingLists.add.AddToTrainingListViewModel
@@ -54,8 +54,8 @@ class AddToTrainingListFragment: DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         mProgressBar = view.findViewById(R.id.progressBar)
         with(viewModel) {
-            setLoading(false)
             observe(items) {
+                setLoading(false)
                 addToTrainingListsAdapter.items = it
             }
         }

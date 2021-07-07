@@ -1,20 +1,11 @@
 package es.upsa.mimo.v2021.fitup.fragments.exercises
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ProgressBar
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.RecyclerView
 import es.upsa.mimo.v2021.fitup.R
-import es.upsa.mimo.v2021.fitup.extensions.startActivity1
+import es.upsa.mimo.v2021.fitup.utils.extensions.startActivity1
 import es.upsa.mimo.v2021.fitup.fragments.CommonRecyclerFragment
 import es.upsa.mimo.v2021.fitup.model.APIEntities.ExerciseDataSet
 import es.upsa.mimo.v2021.fitup.ui.detail.DetailActivity
-import es.upsa.mimo.v2021.fitup.ui.exercises.ExerciseAdapter
 
 open class ExercisesFragment: CommonRecyclerFragment() {
 

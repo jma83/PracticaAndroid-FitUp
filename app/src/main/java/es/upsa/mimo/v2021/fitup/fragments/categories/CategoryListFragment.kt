@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.RecyclerView
 import es.upsa.mimo.v2021.fitup.R
-import es.upsa.mimo.v2021.fitup.extensions.observe
-import es.upsa.mimo.v2021.fitup.extensions.startActivity1
+import es.upsa.mimo.v2021.fitup.utils.extensions.observe
+import es.upsa.mimo.v2021.fitup.utils.extensions.startActivity1
 import es.upsa.mimo.v2021.fitup.model.APIEntities.Category
 import es.upsa.mimo.v2021.fitup.ui.categories.CategoriesViewModel
 import es.upsa.mimo.v2021.fitup.ui.categories.CategoryAdapter

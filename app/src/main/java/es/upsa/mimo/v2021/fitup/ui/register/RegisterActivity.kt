@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import es.upsa.mimo.v2021.fitup.databinding.ActivityRegisterBinding
-import es.upsa.mimo.v2021.fitup.extensions.startActivity1
+import es.upsa.mimo.v2021.fitup.utils.extensions.startActivity1
 import es.upsa.mimo.v2021.fitup.ui.MainActivity
 import es.upsa.mimo.v2021.fitup.utils.Constants
 

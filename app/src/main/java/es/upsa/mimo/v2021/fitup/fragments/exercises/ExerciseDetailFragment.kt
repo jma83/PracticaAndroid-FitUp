@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.RecyclerView
 import es.upsa.mimo.v2021.fitup.R
 import es.upsa.mimo.v2021.fitup.databinding.FragmentExerciseDetailBinding
-import es.upsa.mimo.v2021.fitup.extensions.fromUrl
-import es.upsa.mimo.v2021.fitup.extensions.observe
+import es.upsa.mimo.v2021.fitup.utils.extensions.fromUrl
+import es.upsa.mimo.v2021.fitup.utils.extensions.observe
 import es.upsa.mimo.v2021.fitup.fragments.trainingLists.add.AddToTrainingListFragment
 import es.upsa.mimo.v2021.fitup.model.APIEntities.ExerciseDataSet
 import es.upsa.mimo.v2021.fitup.model.DBEntities.ExerciseItem

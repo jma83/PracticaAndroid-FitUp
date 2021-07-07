@@ -14,13 +14,8 @@ class CategoryExercisesActivity: AppCompatActivity() {
         const val EXTRA_CATEGORY = "CategoryExercisesActivity:extraCategory"
     }
 
-    private lateinit var binding: ActivityCategoriesBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        binding = ActivityCategoriesBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
         if (savedInstanceState == null) {
             val category = intent.extras?.getSerializable(EXTRA_CATEGORY) as Category?

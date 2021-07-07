@@ -3,11 +3,8 @@ package es.upsa.mimo.v2021.fitup.ui.trainingLists.create
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import es.upsa.mimo.v2021.fitup.databinding.ActivityCreateTrainingListBinding
-import es.upsa.mimo.v2021.fitup.extensions.observe
-import es.upsa.mimo.v2021.fitup.extensions.startActivity1
+import es.upsa.mimo.v2021.fitup.utils.extensions.observe
 import es.upsa.mimo.v2021.fitup.persistence.PreferencesManager
-import es.upsa.mimo.v2021.fitup.ui.MainActivity
-import es.upsa.mimo.v2021.fitup.ui.detail.DetailActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CreateTrainingListActivity: AppCompatActivity() {

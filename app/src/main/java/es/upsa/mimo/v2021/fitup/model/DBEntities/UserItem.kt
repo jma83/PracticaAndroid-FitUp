@@ -15,7 +15,7 @@ data class UserItem(var email: String?, var name: String?,
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
-        parcel.readSerializable() as Date?,
+        Date(parcel.readLong()),
         parcel.readString()
     ) {
     }
@@ -25,6 +25,7 @@ data class UserItem(var email: String?, var name: String?,
         parcel.writeString(name)
         parcel.writeString(password)
         parcel.writeString(userToken)
+        parcel.writeLong(birthdate?.time?: 0)
     }
 
     override fun describeContents(): Int {

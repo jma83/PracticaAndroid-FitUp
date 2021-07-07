@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import es.upsa.mimo.v2021.fitup.utils.Event
-import es.upsa.mimo.v2021.fitup.extensions.io
-import es.upsa.mimo.v2021.fitup.extensions.ui
+import es.upsa.mimo.v2021.fitup.utils.io
+import es.upsa.mimo.v2021.fitup.utils.ui
 import es.upsa.mimo.v2021.fitup.model.APIEntities.Category
 import es.upsa.mimo.v2021.fitup.model.APIEntities.Exercise
 import es.upsa.mimo.v2021.fitup.model.APIEntities.ExerciseDataSet
@@ -30,7 +30,8 @@ class CategoryExercisesViewModel (private val exerciseProvider: ExerciseProvider
         viewModelScope.launch {
             io {
                 val exercises = getExercises(category)
-                var exerciseDataSets: List<ExerciseDataSet>? = exercises?.exercises?.map { ExerciseDataSet(it, null) }
+                var exerciseDataSets: List<ExerciseDataSet>? =
+                    exercises?.exercises?.map { ExerciseDataSet(it, null) }
                 ui {
                     _items.value = exerciseDataSets
                 }

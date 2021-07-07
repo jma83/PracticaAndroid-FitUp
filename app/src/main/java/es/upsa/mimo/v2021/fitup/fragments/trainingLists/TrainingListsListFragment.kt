@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import es.upsa.mimo.v2021.fitup.R
-import es.upsa.mimo.v2021.fitup.extensions.observe
-import es.upsa.mimo.v2021.fitup.extensions.startActivity1
+import es.upsa.mimo.v2021.fitup.utils.extensions.observe
+import es.upsa.mimo.v2021.fitup.utils.extensions.startActivity1
 import es.upsa.mimo.v2021.fitup.model.DBEntities.TrainingListItem
 import es.upsa.mimo.v2021.fitup.persistence.PreferencesManager
 import es.upsa.mimo.v2021.fitup.ui.categories.CategoryExercisesActivity
@@ -102,7 +102,7 @@ class TrainingListsListFragment: Fragment() {
     }
 
     private fun showExerciseList(trainingListItem: TrainingListItem) {
-        activity?.startActivity1<CategoryExercisesActivity>(
+        activity?.startActivity1<TrainingListsExercisesActivity>(
             TrainingListsExercisesActivity.EXTRA_TRAINING_LIST_ITEM to trainingListItem)
     }
 

@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import es.upsa.mimo.v2021.fitup.R
-import es.upsa.mimo.v2021.fitup.extensions.observe
+import es.upsa.mimo.v2021.fitup.utils.extensions.observe
 import es.upsa.mimo.v2021.fitup.fragments.exercises.ExercisesFragment
 import es.upsa.mimo.v2021.fitup.model.APIEntities.ExerciseDataSet
 import es.upsa.mimo.v2021.fitup.ui.exercises.ExerciseAdapter

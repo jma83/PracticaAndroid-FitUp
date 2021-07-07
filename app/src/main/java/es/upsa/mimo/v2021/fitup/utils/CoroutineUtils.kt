@@ -1,4 +1,4 @@
-package es.upsa.mimo.v2021.fitup.extensions
+package es.upsa.mimo.v2021.fitup.utils
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

@@ -3,9 +3,9 @@ package es.upsa.mimo.v2021.fitup.ui.start
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import es.upsa.mimo.v2021.fitup.databinding.ActivityStartBinding
-import es.upsa.mimo.v2021.fitup.extensions.observe
+import es.upsa.mimo.v2021.fitup.utils.extensions.observe
 import es.upsa.mimo.v2021.fitup.persistence.db.FitUpDatabase
-import es.upsa.mimo.v2021.fitup.extensions.startActivity1
+import es.upsa.mimo.v2021.fitup.utils.extensions.startActivity1
 import es.upsa.mimo.v2021.fitup.model.DBEntities.UserItem
 import es.upsa.mimo.v2021.fitup.persistence.PreferencesManager
 import es.upsa.mimo.v2021.fitup.ui.MainActivity

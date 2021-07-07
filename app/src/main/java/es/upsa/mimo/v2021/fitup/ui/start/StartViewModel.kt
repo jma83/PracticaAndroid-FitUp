@@ -7,10 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import es.upsa.mimo.v2021.fitup.utils.Event
-import es.upsa.mimo.v2021.fitup.extensions.io
-import es.upsa.mimo.v2021.fitup.extensions.ui
+import es.upsa.mimo.v2021.fitup.utils.io
+import es.upsa.mimo.v2021.fitup.utils.ui
 import es.upsa.mimo.v2021.fitup.model.DBEntities.UserItem
-import es.upsa.mimo.v2021.fitup.persistence.db.FitUpDatabase
 import es.upsa.mimo.v2021.fitup.providers.UserProvider
 import es.upsa.mimo.v2021.fitup.utils.Constants
 import kotlinx.coroutines.launch
@@ -33,7 +32,7 @@ class StartViewModel(private val userProvider: UserProvider) : ViewModel()  {
     fun onSubmit(email: String, password: String) {
         viewModelScope.launch {
             io {
-                if (!validUserData(email, password)){
+                if (!validUserData(email, password)) {
                     return@io
                 }
                 val user = UserItem("pepe@pepe.com", "pepe", "password", Date(), "lfkalsfkal")

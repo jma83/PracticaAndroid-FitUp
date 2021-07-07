@@ -6,9 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import es.upsa.mimo.v2021.fitup.utils.Event
-import es.upsa.mimo.v2021.fitup.extensions.io
-import es.upsa.mimo.v2021.fitup.extensions.ui
-import es.upsa.mimo.v2021.fitup.model.DBEntities.ExerciseItem
+import es.upsa.mimo.v2021.fitup.utils.io
+import es.upsa.mimo.v2021.fitup.utils.ui
 import es.upsa.mimo.v2021.fitup.model.DBEntities.TrainingListItem
 import es.upsa.mimo.v2021.fitup.model.DBEntities.UserItem
 import es.upsa.mimo.v2021.fitup.persistence.db.FitUpDatabase
@@ -27,7 +26,7 @@ class CreateTrainingListViewModel: ViewModel() {
     fun onSubmit(name: String, userEmail: String) {
         viewModelScope.launch {
             io {
-                if (!validTrainingList(name,userEmail)){
+                if (!validTrainingList(name, userEmail)) {
                     return@io
                 }
                 insertTrainingList(name)
@@ -62,7 +61,7 @@ class CreateTrainingListViewModel: ViewModel() {
     }
 
     private suspend fun insertTrainingList(name: String) {
-        val list = TrainingListItem(name, Date(), currentUser!!, mutableListOf())
+        val list = TrainingListItem(name, Date(), mutableListOf(),  currentUser!!)
 
         FitUpDatabase.get()?.TrainingListDao()?.insert(list)
         //val lists: List<TrainingListItem>? = FitUpDatabase.get()?.TrainingListDao()?.getAllByUser(currentUser!!)

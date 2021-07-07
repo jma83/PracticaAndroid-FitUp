@@ -1,7 +1,7 @@
 package es.upsa.mimo.v2021.fitup.providers
 
 import android.util.Log
-import es.upsa.mimo.v2021.fitup.extensions.getRetrofit
+import es.upsa.mimo.v2021.fitup.utils.extensions.getRetrofit
 import es.upsa.mimo.v2021.fitup.model.APIEntities.*
 import es.upsa.mimo.v2021.fitup.utils.Constants
 import kotlinx.coroutines.Dispatchers

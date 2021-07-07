@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import es.upsa.mimo.v2021.fitup.extensions.io
-import es.upsa.mimo.v2021.fitup.extensions.ui
+import es.upsa.mimo.v2021.fitup.utils.io
+import es.upsa.mimo.v2021.fitup.utils.ui
 import es.upsa.mimo.v2021.fitup.model.DBEntities.ExerciseItem
 import es.upsa.mimo.v2021.fitup.model.DBEntities.TrainingListItem
 import es.upsa.mimo.v2021.fitup.model.DBEntities.UserItem
@@ -33,26 +33,19 @@ class AddToTrainingListViewModel(private val trainingListsProvider: TrainingList
         viewModelScope.launch {
             io {
                 val user = userEmail?.let { userProvider.getUserByEmail(it) }
+                if (user == null) return@io
                 val result: List<TrainingListItemActive> = getItems(exerciseItem, user)
                 ui {
                     _items.value = result
+                    _userItem.value = user
+                    _exerciseItem.value = exerciseItem
                 }
             }
         }
     }
 
-    private suspend fun getItems(exerciseItem: ExerciseItem, user: UserItem?): List<TrainingListItemActive> {
-        if (_userItem.value == null){
-            return emptyList()
-        }
-        if (user == null){
-            return emptyList()
-        }
+    private suspend fun getItems(exerciseItem: ExerciseItem, user: UserItem): List<TrainingListItemActive> {
         val result = trainingListsProvider.getTrainingLists(user)
-        if (result == null) {
-            return emptyList()
-        }
-        _exerciseItem.value = exerciseItem
         return result.map {
             TrainingListItemActive(it, it.exercises?.contains(exerciseItem)?: false)
         }

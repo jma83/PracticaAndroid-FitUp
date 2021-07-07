@@ -1,4 +1,4 @@
-package es.upsa.mimo.v2021.fitup.extensions
+package es.upsa.mimo.v2021.fitup.utils.extensions
 
 import android.app.Activity
 import android.content.Context

@@ -7,19 +7,24 @@ import androidx.room.PrimaryKey
 import java.util.*
 
 @Entity
-data class TrainingListItem(var name: String?, var creationDate: Date?,
-                            var userItem: UserItem?, var exercises: MutableList<ExerciseItem>?): Parcelable {
+data class TrainingListItem(var name: String?, var creationDate: Date?,var exercises: MutableList<ExerciseItem>?,
+                            var userItem: UserItem?): Parcelable {
     @PrimaryKey(autoGenerate = true)
     var id : Int? = null
 
     constructor(parcel: Parcel) : this(
         parcel.readString(),
-        parcel.readSerializable() as Date?,
-        parcel.readParcelable(UserItem::class.java.classLoader),
-        parcel.readParcelableList(emptyList<ExerciseItem>(), ExerciseItem::class.java.classLoader)
+        Date(parcel.readLong()),
+        arrayListOf<ExerciseItem>().apply {
+            parcel.readList(this as List<ExerciseItem>, ExerciseItem::class.java.classLoader)
+        },
+        parcel.readParcelable(UserItem::class.java.classLoader)
+
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(name)
+        parcel.writeLong(creationDate?.time ?: 0)
         parcel.writeParcelable(userItem, flags)
         parcel.writeParcelableList(exercises, Parcelable.PARCELABLE_WRITE_RETURN_VALUE)
     }

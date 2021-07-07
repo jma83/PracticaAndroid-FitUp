@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import es.upsa.mimo.v2021.fitup.utils.Event
-import es.upsa.mimo.v2021.fitup.extensions.io
-import es.upsa.mimo.v2021.fitup.extensions.ui
+import es.upsa.mimo.v2021.fitup.utils.io
+import es.upsa.mimo.v2021.fitup.utils.ui
 import es.upsa.mimo.v2021.fitup.model.DBEntities.TrainingListItem
 import es.upsa.mimo.v2021.fitup.model.DBEntities.UserItem
 import es.upsa.mimo.v2021.fitup.providers.TrainingListsProvider
@@ -35,16 +35,18 @@ class TrainingListsViewModel(private val trainingListsProvider: TrainingListsPro
         viewModelScope.launch {
             io {
                 val user = userEmail?.let { userProvider.getUserByEmail(it) }
+                if (user == null) return@io
                 val result: List<TrainingListItem> = getItems(user)
                 ui {
+                    _userItem.value = user
                     _items.value = result
                 }
             }
         }
     }
 
-    private suspend fun getItems(user: UserItem?): List<TrainingListItem> {
-        return user?.let { trainingListsProvider.getTrainingLists(it) } ?: emptyList()
+    private suspend fun getItems(user: UserItem): List<TrainingListItem> {
+        return trainingListsProvider.getTrainingLists(user)
     }
 
 }

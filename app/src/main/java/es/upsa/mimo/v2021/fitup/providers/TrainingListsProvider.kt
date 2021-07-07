@@ -6,18 +6,18 @@ import es.upsa.mimo.v2021.fitup.persistence.db.FitUpDatabase
 import es.upsa.mimo.v2021.fitup.model.DBEntities.TrainingListItem
 import es.upsa.mimo.v2021.fitup.model.DBEntities.UserItem
 import es.upsa.mimo.v2021.fitup.utils.Constants
-import java.lang.Exception
+import kotlin.Exception
 
 interface TrainingListsProvider {
-    suspend fun getTrainingLists(user: UserItem) : List<TrainingListItem>?
+    suspend fun getTrainingLists(user: UserItem) : List<TrainingListItem>
     suspend fun getTrainingList(id: Int, user: UserItem) : TrainingListItem?
     suspend fun manageExerciseToTrainingList(exerciseItem: ExerciseItem?, trainingListItem: TrainingListItem?, user: UserItem?, isChecked: Boolean): Boolean
 }
 
 object TrainingListsProviderImpl: TrainingListsProvider {
 
-    override suspend fun getTrainingLists(user: UserItem): List<TrainingListItem>? {
-        var result: List<TrainingListItem>? = emptyList()
+    override suspend fun getTrainingLists(user: UserItem): List<TrainingListItem> {
+        var result: List<TrainingListItem> = emptyList()
         try {
             val db = getConnection()
             result = db.TrainingListDao().getAllByUser(user)
@@ -35,23 +35,42 @@ object TrainingListsProviderImpl: TrainingListsProvider {
 
     override suspend fun manageExerciseToTrainingList(exerciseItem: ExerciseItem?, trainingListItem: TrainingListItem?, user: UserItem?, isChecked: Boolean): Boolean  {
         val db = getConnection()
-        if (trainingListItem == null) {
+        if (trainingListItem == null || user == null || exerciseItem == null) {
             return false
         }
-        if (user == null || trainingListItem.userItem !== user) {
-            return false
-        }
-        if (exerciseItem == null) {
+        if (trainingListItem.userItem?.id != user.id) {
             return false
         }
 
-        if (!isChecked && trainingListItem.exercises?.contains(exerciseItem)!!) {
-            trainingListItem.exercises!!.remove(exerciseItem)
-        }else{
-            trainingListItem.exercises!!.add(exerciseItem)
+        val result: TrainingListItem
+        if (!isChecked && trainingListItem.exercises!!.contains(exerciseItem)) {
+            result = removeFromList(exerciseItem, trainingListItem)
+        } else {
+            result = addToList(exerciseItem, trainingListItem)
         }
-        db.TrainingListDao().update(trainingListItem)
-        return true
+        try {
+            db.TrainingListDao().update(result)
+            return true
+        }catch (e: Exception){
+            Log.e(Constants.APP_TAG, "Error updating: ${e.message}")
+        }
+        return false
+    }
+
+    private fun addToList(exerciseItem: ExerciseItem, trainingListItem: TrainingListItem): TrainingListItem {
+        if (trainingListItem.exercises == null) {
+            trainingListItem.exercises = mutableListOf()
+        }
+        trainingListItem.exercises!!.add(exerciseItem)
+        return trainingListItem
+    }
+
+    private fun removeFromList(exerciseItem: ExerciseItem, trainingListItem: TrainingListItem): TrainingListItem {
+        if (trainingListItem.exercises == null) {
+            trainingListItem.exercises = mutableListOf()
+        }
+        trainingListItem.exercises!!.remove(exerciseItem)
+        return trainingListItem
     }
 
     private fun getConnection(): FitUpDatabase {

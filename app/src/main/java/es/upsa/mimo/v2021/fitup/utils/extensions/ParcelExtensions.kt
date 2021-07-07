@@ -1,8 +1,6 @@
-package es.upsa.mimo.v2021.fitup.extensions
+package es.upsa.mimo.v2021.fitup.utils.extensions
 
-import android.app.Activity
 import android.os.Parcel
-import android.os.Parcelable
 
 fun Parcel.writeIntList(input:List<Int>) {
     writeInt(input.size) // Save number of elements.
