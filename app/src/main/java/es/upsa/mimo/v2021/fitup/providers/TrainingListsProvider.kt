@@ -30,7 +30,14 @@ object TrainingListsProviderImpl: TrainingListsProvider {
 
     override suspend fun getTrainingList(id: Int, user: UserItem): TrainingListItem? {
         val db = getConnection()
-        return db.TrainingListDao().getAllByUserAndId(user, id)
+        try {
+            val result = db.TrainingListDao().getAllByUserAndId(user, id)
+            return result
+        }catch (e: Exception){
+            Log.e(Constants.APP_TAG,"Error retrieving TrainingList: ${e.message}")
+        }
+
+        return null
     }
 
     override suspend fun manageExerciseToTrainingList(exerciseItem: ExerciseItem?, trainingListItem: TrainingListItem?, user: UserItem?, isChecked: Boolean): Boolean  {

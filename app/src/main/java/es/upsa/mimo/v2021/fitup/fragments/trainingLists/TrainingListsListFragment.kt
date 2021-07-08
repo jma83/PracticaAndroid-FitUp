@@ -10,15 +10,17 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import es.upsa.mimo.v2021.fitup.R
-import es.upsa.mimo.v2021.fitup.utils.extensions.observe
-import es.upsa.mimo.v2021.fitup.utils.extensions.startActivity1
+import es.upsa.mimo.v2021.fitup.fragments.alert.AlertFragment
+import es.upsa.mimo.v2021.fitup.fragments.trainingLists.add.AddToTrainingListFragment
 import es.upsa.mimo.v2021.fitup.model.DBEntities.TrainingListItem
 import es.upsa.mimo.v2021.fitup.persistence.PreferencesManager
 import es.upsa.mimo.v2021.fitup.ui.categories.CategoryExercisesActivity
+import es.upsa.mimo.v2021.fitup.ui.trainingLists.ErrorData
 import es.upsa.mimo.v2021.fitup.ui.trainingLists.TrainingListsAdapter
 import es.upsa.mimo.v2021.fitup.ui.trainingLists.exercises.TrainingListsExercisesActivity
 import es.upsa.mimo.v2021.fitup.ui.trainingLists.TrainingListsViewModel
 import es.upsa.mimo.v2021.fitup.ui.trainingLists.create.CreateTrainingListActivity
+import es.upsa.mimo.v2021.fitup.utils.extensions.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TrainingListsListFragment: Fragment() {
@@ -67,6 +69,9 @@ class TrainingListsListFragment: Fragment() {
             observe(navigateToCreateList) { event ->
                 event.getContentIfNotHandled()?.let { showCreateList() }
             }
+            observe(showError) {event ->
+                event.getContentIfNotHandled()?.let { showAlertError(it) }
+            }
         }
         view.let { setupRecyclerView(it) }
 
@@ -108,5 +113,11 @@ class TrainingListsListFragment: Fragment() {
 
     private fun showCreateList() {
         activity?.startActivity1<CreateTrainingListActivity>()
+    }
+
+    private fun showAlertError(errorData: ErrorData) {
+        val alertFragment = AlertFragment.newInstance(errorData.title, errorData.message)
+        alertFragment.dialog?.setCanceledOnTouchOutside(true)
+        activity?.supportFragmentManager?.let { it1 -> alertFragment.show(it1, "alertError") }
     }
 }

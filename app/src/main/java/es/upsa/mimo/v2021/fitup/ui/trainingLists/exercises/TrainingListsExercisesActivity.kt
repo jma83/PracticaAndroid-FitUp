@@ -3,10 +3,8 @@ package es.upsa.mimo.v2021.fitup.ui.trainingLists.exercises
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import es.upsa.mimo.v2021.fitup.R
-import es.upsa.mimo.v2021.fitup.databinding.ActivityCategoriesBinding
 import es.upsa.mimo.v2021.fitup.databinding.ActivityTrainingListsBinding
 import es.upsa.mimo.v2021.fitup.fragments.trainingLists.TrainingListExercisesFragment
-import es.upsa.mimo.v2021.fitup.model.DBEntities.TrainingListItem
 
 class TrainingListsExercisesActivity: AppCompatActivity() {
     companion object {
