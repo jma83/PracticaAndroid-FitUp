@@ -29,7 +29,7 @@ val appModule = module {
     viewModel { CategoriesViewModel(get()) }
     viewModel { CategoryExercisesViewModel(get()) }
     viewModel { TrainingListsViewModel(get(), get()) }
-    viewModel { TrainingListsExercisesViewModel(get()) }
+    viewModel { TrainingListsExercisesViewModel(get(),get(), get()) }
     viewModel { CreateTrainingListViewModel() }
     viewModel { AddToTrainingListViewModel(get(), get()) }
 }

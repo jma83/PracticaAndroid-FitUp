@@ -103,7 +103,7 @@ class TrainingListsListFragment: Fragment() {
 
     private fun showExerciseList(trainingListItem: TrainingListItem) {
         activity?.startActivity1<TrainingListsExercisesActivity>(
-            TrainingListsExercisesActivity.EXTRA_TRAINING_LIST_ITEM to trainingListItem)
+            TrainingListsExercisesActivity.EXTRA_TRAINING_LIST_ITEM to trainingListItem.id)
     }
 
     private fun showCreateList() {

@@ -24,8 +24,8 @@ data class UserItem(var email: String?, var name: String?,
         parcel.writeString(email)
         parcel.writeString(name)
         parcel.writeString(password)
-        parcel.writeString(userToken)
         parcel.writeLong(birthdate?.time?: 0)
+        parcel.writeString(userToken)
     }
 
     override fun describeContents(): Int {

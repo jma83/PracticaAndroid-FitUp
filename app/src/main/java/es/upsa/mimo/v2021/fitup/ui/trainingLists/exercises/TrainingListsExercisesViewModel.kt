@@ -11,11 +11,14 @@ import es.upsa.mimo.v2021.fitup.model.APIEntities.Exercise
 import es.upsa.mimo.v2021.fitup.model.APIEntities.ExerciseDataSet
 import es.upsa.mimo.v2021.fitup.model.APIEntities.Exercises
 import es.upsa.mimo.v2021.fitup.model.DBEntities.TrainingListItem
+import es.upsa.mimo.v2021.fitup.model.DBEntities.UserItem
 import es.upsa.mimo.v2021.fitup.providers.ExerciseProvider
+import es.upsa.mimo.v2021.fitup.providers.TrainingListsProvider
+import es.upsa.mimo.v2021.fitup.providers.UserProvider
 import kotlinx.coroutines.launch
 
 
-class TrainingListsExercisesViewModel(private val exerciseProvider: ExerciseProvider): ViewModel() {
+class TrainingListsExercisesViewModel(private val exerciseProvider: ExerciseProvider, private val trainingListsProvider: TrainingListsProvider, private val userProvider: UserProvider): ViewModel() {
     private val _items = MutableLiveData<List<ExerciseDataSet>>()
     val items: LiveData<List<ExerciseDataSet>> get() = _items
 
@@ -27,9 +30,13 @@ class TrainingListsExercisesViewModel(private val exerciseProvider: ExerciseProv
         _navigateToDetail.value = Event(item)
     }
 
-    fun onLoad(trainingListItem: TrainingListItem?) {
+    fun onLoad(trainingListItemId: Int?, email: String?) {
         viewModelScope.launch {
             io {
+                if (email == null || trainingListItemId == null) return@io
+                val userItem: UserItem? = userProvider.getUserByEmail(email)
+                if (userItem == null) return@io
+                val trainingListItem: TrainingListItem? = trainingListsProvider.getTrainingList(trainingListItemId, userItem)
                 val exercises = getExercises(trainingListItem)
                 var exerciseDataSets: List<ExerciseDataSet>? =
                     exercises?.exercises?.map { ExerciseDataSet(it, null) }

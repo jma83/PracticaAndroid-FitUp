@@ -7,6 +7,7 @@ import es.upsa.mimo.v2021.fitup.utils.extensions.observe
 import es.upsa.mimo.v2021.fitup.fragments.exercises.ExercisesFragment
 import es.upsa.mimo.v2021.fitup.model.APIEntities.ExerciseDataSet
 import es.upsa.mimo.v2021.fitup.model.DBEntities.TrainingListItem
+import es.upsa.mimo.v2021.fitup.persistence.PreferencesManager
 import es.upsa.mimo.v2021.fitup.ui.exercises.ExerciseAdapter
 import es.upsa.mimo.v2021.fitup.ui.trainingLists.exercises.TrainingListsExercisesActivity
 import es.upsa.mimo.v2021.fitup.ui.trainingLists.exercises.TrainingListsExercisesViewModel
@@ -23,12 +24,17 @@ class TrainingListExerciseListFragment: ExercisesFragment() {
     }
 
     companion object {
-        fun newInstance(trainingListItem: TrainingListItem? = null): TrainingListExerciseListFragment {
+        fun newInstance(idTrainingListItem: Int? = null): TrainingListExerciseListFragment {
             val exerciseListFragment =
                 TrainingListExerciseListFragment()
-            val args = Bundle()
-            args.putParcelable(TrainingListsExercisesActivity.EXTRA_TRAINING_LIST_ITEM, trainingListItem)
-            exerciseListFragment.setArguments(args)
+            if (idTrainingListItem != null) {
+                val args = Bundle()
+                args.putInt(
+                    TrainingListsExercisesActivity.EXTRA_TRAINING_LIST_ITEM,
+                    idTrainingListItem
+                )
+                exerciseListFragment.setArguments(args)
+            }
             return exerciseListFragment
         }
     }
@@ -59,9 +65,9 @@ class TrainingListExerciseListFragment: ExercisesFragment() {
         }
 
         setLoading(true)
-        val trainingListItem: TrainingListItem? = getArguments()?.getParcelable<TrainingListItem?>(
-            TrainingListsExercisesActivity.EXTRA_TRAINING_LIST_ITEM)
-        viewModel.onLoad(trainingListItem)
+        val trainingListItem: Int? = getArguments()?.getInt(TrainingListsExercisesActivity.EXTRA_TRAINING_LIST_ITEM)
+        val email = activity?.applicationContext?.let { PreferencesManager(it).email }
+        viewModel.onLoad(trainingListItem, email)
 
         setLoading(false)
     }

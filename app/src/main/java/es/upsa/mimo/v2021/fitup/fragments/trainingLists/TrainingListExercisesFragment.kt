@@ -16,12 +16,12 @@ import es.upsa.mimo.v2021.fitup.ui.trainingLists.exercises.TrainingListsExercise
 
 class TrainingListExercisesFragment: Fragment() {
     companion object {
-        fun newInstance(trainingListItem: TrainingListItem? = null): TrainingListExercisesFragment {
+        fun newInstance(trainingListItemId: Int? = null): TrainingListExercisesFragment {
             val exercisesFragment =
                 TrainingListExercisesFragment()
-            if (trainingListItem != null) {
+            if (trainingListItemId != null) {
                 val args = Bundle()
-                args.putParcelable(TrainingListsExercisesActivity.EXTRA_TRAINING_LIST_ITEM, trainingListItem)
+                args.putInt(TrainingListsExercisesActivity.EXTRA_TRAINING_LIST_ITEM, trainingListItemId)
                 exercisesFragment.setArguments(args)
             }
             return exercisesFragment
@@ -34,7 +34,7 @@ class TrainingListExercisesFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val trainingListItem: TrainingListItem? = getArguments()?.getParcelable<TrainingListItem?>(TrainingListsExercisesActivity.EXTRA_TRAINING_LIST_ITEM)
+        val trainingListItem: Int? = getArguments()?.getInt(TrainingListsExercisesActivity.EXTRA_TRAINING_LIST_ITEM)
         parentFragmentManager.beginTransaction()
             .replace(R.id.flExerciseList, TrainingListExerciseListFragment.newInstance(trainingListItem))
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
