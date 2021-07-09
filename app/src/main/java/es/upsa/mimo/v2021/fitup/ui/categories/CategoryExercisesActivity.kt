@@ -3,7 +3,7 @@ package es.upsa.mimo.v2021.fitup.ui.categories
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import es.upsa.mimo.v2021.fitup.R
-import es.upsa.mimo.v2021.fitup.databinding.ActivityCategoriesBinding
+import es.upsa.mimo.v2021.fitup.databinding.FragmentCategoriesContainerBinding
 import es.upsa.mimo.v2021.fitup.fragments.categories.CategoryExerciseListFragment
 import es.upsa.mimo.v2021.fitup.fragments.categories.CategoryExercisesFragment
 import es.upsa.mimo.v2021.fitup.fragments.exercises.ExercisesFragment
@@ -14,12 +14,12 @@ class CategoryExercisesActivity: AppCompatActivity() {
         const val EXTRA_CATEGORY = "CategoryExercisesActivity:extraCategory"
     }
 
-    private lateinit var binding: ActivityCategoriesBinding
+    private lateinit var binding: FragmentCategoriesContainerBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityCategoriesBinding.inflate(layoutInflater)
+        binding = FragmentCategoriesContainerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         if (savedInstanceState == null) {

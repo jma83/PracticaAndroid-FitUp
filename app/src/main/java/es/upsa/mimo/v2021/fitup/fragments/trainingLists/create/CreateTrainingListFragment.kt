@@ -41,8 +41,8 @@ class CreateTrainingListFragment: Fragment() {
         val createListButton: Button = view.findViewById(R.id.createListButton)
         val newNameList: EditText = view.findViewById(R.id.newNameList)
         createListButton.setOnClickListener {
-            val newNameList: String = newNameList.text.toString()
-            viewModel.onSubmit(newNameList, userEmail)
+            val newName: String = newNameList.text.toString()
+            viewModel.onSubmit(newName, userEmail)
         }
     }
 

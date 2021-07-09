@@ -23,7 +23,9 @@ object CategoryProviderImpl: CategoryProvider {
             .getCategory("$route$idParam$language")
             .execute()
         val category: Category? = call.body()
-
+        if (category != null) {
+            category.image = "https://source.unsplash.com/200x200/?muscle,${category.name}"
+        }
         return@withContext category
     }
 
@@ -43,6 +45,9 @@ object CategoryProviderImpl: CategoryProvider {
         val categories: Categories? = call.body()
         if (!call.isSuccessful) {
             Log.e(Constants.APP_TAG, "ERROR! " + call.errorBody())
+        }
+        if (categories != null) {
+            categories.categories.forEach { it.image = "https://source.unsplash.com/200x200/?muscle,${it.name}" }
         }
         return@withContext categories
     }

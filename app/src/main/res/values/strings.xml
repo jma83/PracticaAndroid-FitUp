@@ -23,4 +23,14 @@
     <string name="add_exercise_to_training_list">Add exercise to Training List</string>
     <string name="empty_training_lists">You don\'t have any Training List yet...</string>
     <string name="confirm_alert">OK</string>
+    <string name="category_image">Category Image</string>
+    <string name="settings_title">Settings</string>
+    <string name="daily_exercise_reminder">Daily exercise reminder</string>
+    <string name="user_settings">User settings:</string>
+    <string name="notification_settings">Notification settings:</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="email_data">Email: </string>
+    <string name="name_data">Name: </string>
+    <string name="age_data">Age: </string>
+    <string name="change_password">Change password</string>
 </resources>

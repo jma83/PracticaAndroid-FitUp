@@ -7,6 +7,7 @@ import es.upsa.mimo.v2021.fitup.R
 import es.upsa.mimo.v2021.fitup.databinding.ItemCategoryBinding
 import es.upsa.mimo.v2021.fitup.utils.extensions.inflate
 import es.upsa.mimo.v2021.fitup.model.APIEntities.Category
+import es.upsa.mimo.v2021.fitup.utils.extensions.fromUrl
 import kotlin.properties.Delegates
 
 private typealias CategoryListener = (Category) -> Unit
@@ -36,7 +37,7 @@ class CategoryAdapter(items: List<Category> = emptyList(), private val listener:
         fun bind(category: Category) {
             with(binding) {
                 categoryName.text = category.name
-
+                category.image?.let { categoryImage.fromUrl(it) }
                 root.setOnClickListener { listener(category) }
 
             }

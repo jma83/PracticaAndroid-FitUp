@@ -4,4 +4,4 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 //https://wger.de/api/v2/exercisecategory/
-class Category(val id: Int, val name: String): Serializable
+class Category(val id: Int, val name: String, var image: String?): Serializable
