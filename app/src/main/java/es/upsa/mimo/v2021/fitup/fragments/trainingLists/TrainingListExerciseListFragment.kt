@@ -6,15 +6,14 @@ import es.upsa.mimo.v2021.fitup.R
 import es.upsa.mimo.v2021.fitup.utils.extensions.observe
 import es.upsa.mimo.v2021.fitup.fragments.exercises.ExercisesFragment
 import es.upsa.mimo.v2021.fitup.model.APIEntities.ExerciseDataSet
-import es.upsa.mimo.v2021.fitup.model.DBEntities.TrainingListItem
 import es.upsa.mimo.v2021.fitup.persistence.PreferencesManager
 import es.upsa.mimo.v2021.fitup.ui.exercises.ExerciseAdapter
 import es.upsa.mimo.v2021.fitup.ui.trainingLists.exercises.TrainingListsExercisesActivity
 import es.upsa.mimo.v2021.fitup.ui.trainingLists.exercises.TrainingListsExercisesViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class TrainingListExerciseListFragment: ExercisesFragment() {
-    private val viewModel: TrainingListsExercisesViewModel by viewModel()
+    private val viewModel: TrainingListsExercisesViewModel by sharedViewModel()
     val exerciseAdapter by lazy {
         ExerciseAdapter {
             viewModel.onItemClicked(
@@ -56,7 +55,7 @@ class TrainingListExerciseListFragment: ExercisesFragment() {
                 event.getContentIfNotHandled()?.let { showDetail(it) }
             }
         }
-        getView()?.let { setupRecyclerView(it, exerciseAdapter) }
+        getView()?.let { setupRecyclerView(it, exerciseAdapter, R.id.recyclerExerciseList) }
         if (viewModel.items.value != null && viewModel.items.value?.size!! > 0) {
             return
         }

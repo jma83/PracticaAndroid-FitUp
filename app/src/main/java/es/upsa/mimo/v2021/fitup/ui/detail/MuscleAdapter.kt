@@ -31,10 +31,6 @@ class MuscleAdapter(items: List<Muscle> = emptyList()) :
         fun bind(muscle: Muscle) {
             with(binding) {
                 muscleText.text = muscle.name
-                val endpointImg = "https://wger.de"
-
-                val img: String = endpointImg + muscle.image_url_main
-                muscleImage.fromUrl(img)
             }
         }
     }

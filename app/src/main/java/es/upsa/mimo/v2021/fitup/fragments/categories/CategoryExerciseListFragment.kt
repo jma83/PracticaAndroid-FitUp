@@ -10,10 +10,10 @@ import es.upsa.mimo.v2021.fitup.model.APIEntities.ExerciseDataSet
 import es.upsa.mimo.v2021.fitup.ui.categories.CategoryExercisesActivity
 import es.upsa.mimo.v2021.fitup.ui.categories.CategoryExercisesViewModel
 import es.upsa.mimo.v2021.fitup.ui.exercises.ExerciseAdapter
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class CategoryExerciseListFragment : ExercisesFragment() {
-    private val viewModel: CategoryExercisesViewModel by viewModel()
+    private val viewModel: CategoryExercisesViewModel by sharedViewModel()
     val exerciseAdapter by lazy {
         ExerciseAdapter {
             viewModel.onItemClicked(
@@ -50,7 +50,7 @@ class CategoryExerciseListFragment : ExercisesFragment() {
                 event.getContentIfNotHandled()?.let { showDetail(it) }
             }
         }
-        getView()?.let { setupRecyclerView(it, exerciseAdapter) }
+        getView()?.let { setupRecyclerView(it, exerciseAdapter, R.id.recyclerExerciseList) }
         if (viewModel.items.value != null && viewModel.items.value?.size!! > 0) {
              return
         }

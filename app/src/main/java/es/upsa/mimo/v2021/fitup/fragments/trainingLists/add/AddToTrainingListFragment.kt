@@ -14,12 +14,12 @@ import es.upsa.mimo.v2021.fitup.model.DBEntities.ExerciseItem
 import es.upsa.mimo.v2021.fitup.persistence.PreferencesManager
 import es.upsa.mimo.v2021.fitup.ui.trainingLists.add.AddToTrainingListViewModel
 import es.upsa.mimo.v2021.fitup.ui.trainingLists.add.AddToTrainingListsAdapter
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 val TAG_EXERCISE_ITEM: String = "exerciseItem"
 
 class AddToTrainingListFragment: DialogFragment() {
-    private val viewModel: AddToTrainingListViewModel by viewModel()
+    private val viewModel: AddToTrainingListViewModel by sharedViewModel()
     private var mProgressBar: ProgressBar? = null
     private var mRecyclerView: RecyclerView? = null
     val addToTrainingListsAdapter by lazy {

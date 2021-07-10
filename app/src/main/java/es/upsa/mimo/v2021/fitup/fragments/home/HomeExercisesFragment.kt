@@ -12,10 +12,11 @@ import es.upsa.mimo.v2021.fitup.model.APIEntities.ExerciseDataSet
 import es.upsa.mimo.v2021.fitup.ui.exercises.ExerciseAdapter
 import es.upsa.mimo.v2021.fitup.ui.home.HomeViewModel
 import es.upsa.mimo.v2021.fitup.utils.Constants
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeExercisesFragment: ExercisesFragment() {
-    private val viewModel: HomeViewModel by viewModel()
+    private val viewModel: HomeViewModel by sharedViewModel()
     val exerciseAdapter by lazy {
         ExerciseAdapter {
             viewModel.onItemClicked(
@@ -71,7 +72,7 @@ class HomeExercisesFragment: ExercisesFragment() {
                 event.getContentIfNotHandled()?.let { showDetail(it) }
             }
         }
-        getView()?.let { setupRecyclerView(it, exerciseAdapter) }
+        getView()?.let { setupRecyclerView(it, exerciseAdapter, R.id.recyclerExerciseList) }
         if (viewModel.items.value != null && viewModel.items.value?.size!! > 0) {
             return
         }

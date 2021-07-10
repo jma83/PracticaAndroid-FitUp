@@ -1,36 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="2dp">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2">
-
-        <ImageView
-            android:id="@+id/muscleImage"
-            android:layout_height="80dp"
-            android:scaleType="centerCrop"
-            android:layout_weight="0.8"
-            android:layout_width="0dip"
-            android:adjustViewBounds="true"
-            tools:src="@mipmap/ic_launcher"/>
+    app:cardElevation="50dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="20dp"
+    android:layout_marginVertical="8dp"
+    android:layout_marginHorizontal="12dp">
 
         <TextView
             android:id="@+id/muscleText"
             android:layout_height="match_parent"
-            android:background="#555"
+            android:layout_width="match_parent"
             android:padding="16dp"
-            android:layout_weight="1.2"
-            android:layout_width="0dip"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
+            android:textAlignment="center"
+            style="@style/MyTextView.Title.Small"
             tools:text="Title"/>
-    </LinearLayout>
 
-</LinearLayout>
+</androidx.cardview.widget.CardView>

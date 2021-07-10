@@ -2,10 +2,11 @@ package es.upsa.mimo.v2021.fitup.ui.start
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import es.upsa.mimo.v2021.fitup.databinding.ActivityStartBinding
 import es.upsa.mimo.v2021.fitup.utils.extensions.observe
 import es.upsa.mimo.v2021.fitup.persistence.db.FitUpDatabase
-import es.upsa.mimo.v2021.fitup.utils.extensions.startActivity1
+import es.upsa.mimo.v2021.fitup.utils.extensions.startNewActivity
 import es.upsa.mimo.v2021.fitup.model.DBEntities.UserItem
 import es.upsa.mimo.v2021.fitup.persistence.PreferencesManager
 import es.upsa.mimo.v2021.fitup.ui.MainActivity
@@ -50,21 +51,21 @@ class StartActivity : AppCompatActivity() {
         }
     }
 
-    /*private fun showAlert(message: String) {
+    private fun showAlert(message: String) {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Error")
         builder.setMessage(message)
         builder.setPositiveButton("Accept", null)
         val dialog: AlertDialog = builder.create()
         dialog.show()
-    }*/
+    }
 
     private fun showRegister() {
-        startActivity1<RegisterActivity>()
+        startNewActivity<RegisterActivity>()
     }
 
     private fun showHome() {
-        startActivity1<MainActivity>()
+        startNewActivity<MainActivity>()
     }
 
     private fun setPreferences(user: UserItem) {

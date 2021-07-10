@@ -37,7 +37,7 @@ object UserProviderImpl: UserProvider {
     }
 
     fun generateUserToken(username: String): String {
-        val currentDate: String = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
+        val currentDate: String = SimpleDateFormat(Constants.DATE_FORMAT, Locale.getDefault()).format(Date())
         val keySource = username + currentDate + Math.random()
         val bytes = android.util.Base64.encode(keySource.toByteArray(), android.util.Base64.DEFAULT)
         return String(bytes)

@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import es.upsa.mimo.v2021.fitup.databinding.ActivityRegisterBinding
-import es.upsa.mimo.v2021.fitup.utils.extensions.startActivity1
+import es.upsa.mimo.v2021.fitup.utils.extensions.startNewActivity
 import es.upsa.mimo.v2021.fitup.ui.MainActivity
 import es.upsa.mimo.v2021.fitup.utils.Constants
 
@@ -58,7 +58,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun showHome() {
-        startActivity1<MainActivity>(
+        startNewActivity<MainActivity>(
             MainActivity.EXTRA_EMAIL to "email")
     }
 

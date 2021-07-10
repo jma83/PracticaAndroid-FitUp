@@ -7,6 +7,10 @@ import es.upsa.mimo.v2021.fitup.R
 import es.upsa.mimo.v2021.fitup.databinding.ItemTrainingListBinding
 import es.upsa.mimo.v2021.fitup.utils.extensions.inflate
 import es.upsa.mimo.v2021.fitup.model.DBEntities.TrainingListItem
+import es.upsa.mimo.v2021.fitup.utils.Constants
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.properties.Delegates
 
 
@@ -36,7 +40,10 @@ class TrainingListsAdapter(items: List<TrainingListItem> = emptyList(), private 
         fun bind(trainingListItem: TrainingListItem) {
             with(binding) {
                 trainingListName.text = trainingListItem.name
-                trainingListDate.text = trainingListItem.creationDate.toString()
+                if (trainingListItem.creationDate != null) {
+                    val currentDate: String = SimpleDateFormat(Constants.DATE_FORMAT, Locale.getDefault()).format(trainingListItem.creationDate)
+                    trainingListDate.text = currentDate
+                }
 
                 root.setOnClickListener { listener(trainingListItem) }
 

@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
             R.id.navigation_home -> fragmentClicked = HomeFragment.newInstance()
             R.id.navigation_categories -> fragmentClicked = CategoriesFragment.newInstance()
             R.id.navigation_lists -> fragmentClicked = TrainingListsFragment.newInstance()
-            R.id.navigation_profile -> fragmentClicked = SettingsFragment.newInstance()
+            R.id.navigation_settings -> fragmentClicked = SettingsFragment.newInstance()
             else -> fragmentClicked = HomeFragment.newInstance()
         }
 

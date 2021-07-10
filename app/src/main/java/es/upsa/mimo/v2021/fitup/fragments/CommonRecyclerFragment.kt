@@ -12,23 +12,14 @@ import es.upsa.mimo.v2021.fitup.R
 import es.upsa.mimo.v2021.fitup.ui.exercises.ExerciseAdapter
 
 open class CommonRecyclerFragment: Fragment() {
-    protected var mDualPane = false
     protected var mProgressBar: ProgressBar? = null
     protected var mRecyclerView: RecyclerView? = null
-    protected fun setupRecyclerView(view: View, exerciseAdapter: ExerciseAdapter) {
-        mRecyclerView = view.findViewById(R.id.recyclerExerciseList)
+    protected fun setupRecyclerView(view: View, exerciseAdapter: RecyclerView.Adapter<*>, recyclerId: Int) {
+        mRecyclerView = view.findViewById(recyclerId)
         if (mRecyclerView != null ) {
             mRecyclerView!!.adapter = exerciseAdapter
             mRecyclerView!!.setItemAnimator(DefaultItemAnimator())
         }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_exercise_list, container, false)
     }
 
     protected fun setLoading(loading: Boolean) {

@@ -20,11 +20,11 @@ import es.upsa.mimo.v2021.fitup.model.DBEntities.ExerciseItem
 import es.upsa.mimo.v2021.fitup.ui.detail.DetailActivity
 import es.upsa.mimo.v2021.fitup.ui.detail.DetailViewModel
 import es.upsa.mimo.v2021.fitup.ui.detail.MuscleAdapter
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
 class ExerciseDetailFragment: Fragment() {
-    private val viewModel: DetailViewModel by viewModel()
+    private val viewModel: DetailViewModel by sharedViewModel()
     private lateinit var binding: FragmentExerciseDetailBinding
     val muscleAdapter by lazy{ MuscleAdapter() }
     private var mRecyclerView: RecyclerView? = null
