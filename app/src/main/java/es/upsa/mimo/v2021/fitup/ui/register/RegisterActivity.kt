@@ -1,21 +1,22 @@
 package es.upsa.mimo.v2021.fitup.ui.register
 
 import android.os.Bundle
-import android.util.Log
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthException
 import es.upsa.mimo.v2021.fitup.databinding.ActivityRegisterBinding
+import es.upsa.mimo.v2021.fitup.model.DBEntities.UserItem
+import es.upsa.mimo.v2021.fitup.persistence.PreferencesManager
 import es.upsa.mimo.v2021.fitup.utils.extensions.startNewActivity
 import es.upsa.mimo.v2021.fitup.ui.MainActivity
-import es.upsa.mimo.v2021.fitup.utils.Constants
-
+import es.upsa.mimo.v2021.fitup.utils.extensions.observe
+import es.upsa.mimo.v2021.fitup.utils.extensions.showAlert
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 private lateinit var binding: ActivityRegisterBinding
 
 class RegisterActivity : AppCompatActivity() {
+    private val viewModel: RegisterViewModel by viewModel()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
@@ -24,42 +25,37 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     fun setup() {
-        binding.button1.setOnClickListener {
-            if (binding.editTextEmail.text.isNotEmpty() && binding.editTextPassword.text.isNotEmpty()) {
-                Log.d(Constants.APP_TAG, binding.editTextEmail.text.toString())
-                Log.d(Constants.APP_TAG, binding.editTextPassword.text.toString())
-                FirebaseAuth.getInstance().createUserWithEmailAndPassword(binding.editTextEmail.text.toString(), binding.editTextPassword.text.toString()).addOnCompleteListener {
-
-                    if (!it.isSuccessful) {
-                        showHome()
-                        try {
-                            throw it.getException()!!
-                        } catch (e: FirebaseAuthException) {
-                            showAlert(e.message ?: "Error")
-
-                        } catch (e: Exception) {
-                            Log.e(Constants.APP_TAG, e.message!!)
-                        }
-                    }
+        with(viewModel) {
+            observe(navigateToHome) { event ->
+                event.getContentIfNotHandled()?.let {
+                    setPreferences(it)
+                    showHome()
                 }
-            } else {
-                showAlert("Fields must be filled")
+            }
+            observe(showMessage){ event ->
+                event.getContentIfNotHandled()?.let { showAlert(it.title, it.message) }
             }
         }
-    }
 
-    private fun showAlert(message: String) {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Error")
-        builder.setMessage(message)
-        builder.setPositiveButton("Accept", null)
-        val dialog: AlertDialog = builder.create()
-        dialog.show()
+        binding.button1.setOnClickListener{
+            val email = binding.editTextEmail.text.toString()
+            val password = binding.editTextPassword.text.toString()
+            val name = binding.editTextName.text.toString()
+            val age: String = binding.editTextAge.text.toString()
+            viewModel.onSubmit(email, password, name, age.toIntOrNull())
+        }
     }
 
     private fun showHome() {
         startNewActivity<MainActivity>(
             MainActivity.EXTRA_EMAIL to "email")
+        finish()
+    }
+
+    private fun setPreferences(user: UserItem) {
+        val preferencesManager = PreferencesManager(applicationContext)
+        preferencesManager.email = user.email
+        preferencesManager.userToken = user.userToken
     }
 
 }

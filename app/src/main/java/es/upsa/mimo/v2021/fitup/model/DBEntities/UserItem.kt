@@ -8,14 +8,14 @@ import java.util.*
 
 @Entity
 data class UserItem(var email: String?, var name: String?,
-                    var password: String?, var birthdate: Date?, var userToken: String?): Parcelable {
+                    var password: String?, var age: Int = 0, var userToken: String?): Parcelable {
     @PrimaryKey(autoGenerate = true)
     var id : Int? = null
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
-        Date(parcel.readLong()),
+        parcel.readInt(),
         parcel.readString()
     ) {
     }
@@ -24,7 +24,7 @@ data class UserItem(var email: String?, var name: String?,
         parcel.writeString(email)
         parcel.writeString(name)
         parcel.writeString(password)
-        parcel.writeLong(birthdate?.time?: 0)
+        parcel.writeInt(age)
         parcel.writeString(userToken)
     }
 

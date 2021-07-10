@@ -8,6 +8,8 @@ import es.upsa.mimo.v2021.fitup.ui.categories.CategoriesViewModel
 import es.upsa.mimo.v2021.fitup.ui.categories.CategoryExercisesViewModel
 import es.upsa.mimo.v2021.fitup.ui.detail.DetailViewModel
 import es.upsa.mimo.v2021.fitup.ui.home.HomeViewModel
+import es.upsa.mimo.v2021.fitup.ui.register.RegisterViewModel
+import es.upsa.mimo.v2021.fitup.ui.settings.SettingsViewModel
 import es.upsa.mimo.v2021.fitup.ui.start.StartViewModel
 import es.upsa.mimo.v2021.fitup.ui.trainingLists.TrainingListsViewModel
 import es.upsa.mimo.v2021.fitup.ui.trainingLists.add.AddToTrainingListViewModel
@@ -24,6 +26,7 @@ val appModule = module {
     single<TrainingListsProvider> { TrainingListsProviderImpl }
     single<UserProvider> { UserProviderImpl }
     viewModel { StartViewModel(get()) }
+    viewModel { RegisterViewModel(get()) }
     viewModel { HomeViewModel(get()) }
     viewModel { DetailViewModel(get(), get()) }
     viewModel { CategoriesViewModel(get()) }
@@ -32,4 +35,5 @@ val appModule = module {
     viewModel { TrainingListsExercisesViewModel(get(),get(), get()) }
     viewModel { CreateTrainingListViewModel() }
     viewModel { AddToTrainingListViewModel(get(), get()) }
+    viewModel { SettingsViewModel(get()) }
 }

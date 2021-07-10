@@ -33,9 +33,9 @@
         <item name="android:drawablePadding">5dp</item>
     </style>
 
-    <style name="MyEditText.Drawable.Date">
+    <style name="MyEditText.Drawable.Age">
         <item name="android:drawableStart">@drawable/ic_baseline_edit_calendar_24</item>
-        <item name="android:inputType">date</item>
+        <item name="android:inputType">number</item>
     </style>
 
     <style name="MyEditText.Drawable.Person">

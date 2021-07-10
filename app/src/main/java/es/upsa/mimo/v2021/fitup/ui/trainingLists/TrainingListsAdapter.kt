@@ -7,14 +7,16 @@ import es.upsa.mimo.v2021.fitup.R
 import es.upsa.mimo.v2021.fitup.databinding.ItemTrainingListBinding
 import es.upsa.mimo.v2021.fitup.utils.extensions.inflate
 import es.upsa.mimo.v2021.fitup.model.DBEntities.TrainingListItem
+import es.upsa.mimo.v2021.fitup.persistence.PreferencesManager
 import es.upsa.mimo.v2021.fitup.utils.Constants
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.coroutines.coroutineContext
 import kotlin.properties.Delegates
 
 
-private typealias TrainingListListener = (TrainingListItem) -> Unit
+private typealias TrainingListListener = (TrainingListItem, Boolean) -> Unit
 
 
 class TrainingListsAdapter(items: List<TrainingListItem> = emptyList(), private val listener: TrainingListListener):
@@ -35,6 +37,7 @@ class TrainingListsAdapter(items: List<TrainingListItem> = emptyList(), private 
     class ViewHolder(view: View, private val listener: TrainingListListener) :
         RecyclerView.ViewHolder(view) {
 
+        private val preferences = PreferencesManager(view.context)
         private val binding = ItemTrainingListBinding.bind(view)
 
         fun bind(trainingListItem: TrainingListItem) {
@@ -45,7 +48,11 @@ class TrainingListsAdapter(items: List<TrainingListItem> = emptyList(), private 
                     trainingListDate.text = currentDate
                 }
 
-                root.setOnClickListener { listener(trainingListItem) }
+                if (!preferences.lockDelete) {
+                    deleteButton.visibility = View.VISIBLE
+                }
+                deleteButton.setOnClickListener{ listener(trainingListItem, true) }
+                root.setOnClickListener { listener(trainingListItem, false) }
 
             }
         }

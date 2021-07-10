@@ -12,6 +12,7 @@ interface TrainingListsProvider {
     suspend fun getTrainingLists(user: UserItem) : List<TrainingListItem>
     suspend fun getTrainingList(id: Int, user: UserItem) : TrainingListItem?
     suspend fun manageExerciseToTrainingList(exerciseItem: ExerciseItem?, trainingListItem: TrainingListItem?, user: UserItem?, isChecked: Boolean): Boolean
+    suspend fun deleteTrainingList(trainingListItem: TrainingListItem, user: UserItem): Boolean
 }
 
 object TrainingListsProviderImpl: TrainingListsProvider {
@@ -60,6 +61,20 @@ object TrainingListsProviderImpl: TrainingListsProvider {
             return true
         }catch (e: Exception){
             Log.e(Constants.APP_TAG, "Error updating: ${e.message}")
+        }
+        return false
+    }
+
+    override suspend fun deleteTrainingList(trainingListItem: TrainingListItem, user: UserItem): Boolean {
+        val db = getConnection()
+        try {
+            if (trainingListItem.userItem!!.id != user.id){
+                return false
+            }
+            db.TrainingListDao().delete(trainingListItem)
+            return true
+        }catch (e: Exception){
+            Log.e(Constants.APP_TAG,"Error retrieving TrainingList: ${e.message}")
         }
         return false
     }

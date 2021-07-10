@@ -2,7 +2,7 @@ package es.upsa.mimo.v2021.fitup.ui.start
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatDelegate
 import es.upsa.mimo.v2021.fitup.databinding.ActivityStartBinding
 import es.upsa.mimo.v2021.fitup.utils.extensions.observe
 import es.upsa.mimo.v2021.fitup.persistence.db.FitUpDatabase
@@ -11,6 +11,7 @@ import es.upsa.mimo.v2021.fitup.model.DBEntities.UserItem
 import es.upsa.mimo.v2021.fitup.persistence.PreferencesManager
 import es.upsa.mimo.v2021.fitup.ui.MainActivity
 import es.upsa.mimo.v2021.fitup.ui.register.RegisterActivity
+import es.upsa.mimo.v2021.fitup.utils.extensions.showAlert
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class StartActivity : AppCompatActivity() {
@@ -33,10 +34,14 @@ class StartActivity : AppCompatActivity() {
                 event.getContentIfNotHandled()?.let {
                     setPreferences(it)
                     showHome()
+                    finish()
                 }
             }
             observe(navigateToRegister) { event ->
                 event.getContentIfNotHandled()?.let { showRegister() }
+            }
+            observe(showMessage){ event ->
+                event.getContentIfNotHandled()?.let { showAlert(it.title, it.message) }
             }
         }
 
@@ -49,15 +54,13 @@ class StartActivity : AppCompatActivity() {
             val password = binding.editTextPassword.text.toString()
             viewModel.onSubmit(email, password)
         }
-    }
 
-    private fun showAlert(message: String) {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Error")
-        builder.setMessage(message)
-        builder.setPositiveButton("Accept", null)
-        val dialog: AlertDialog = builder.create()
-        dialog.show()
+        val preferences = PreferencesManager(applicationContext)
+        if (preferences.darkMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            //ActivityCompat.recreate(this)
+        }
+        viewModel.onLoad(preferences.email, preferences.userToken)
     }
 
     private fun showRegister() {

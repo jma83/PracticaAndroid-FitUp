@@ -8,10 +8,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import es.upsa.mimo.v2021.fitup.R
 import es.upsa.mimo.v2021.fitup.databinding.FragmentTrainingListsBinding
 import es.upsa.mimo.v2021.fitup.fragments.CommonRecyclerFragment
-import es.upsa.mimo.v2021.fitup.fragments.alert.AlertFragment
 import es.upsa.mimo.v2021.fitup.model.DBEntities.TrainingListItem
 import es.upsa.mimo.v2021.fitup.persistence.PreferencesManager
-import es.upsa.mimo.v2021.fitup.ui.trainingLists.ErrorData
 import es.upsa.mimo.v2021.fitup.ui.trainingLists.TrainingListsAdapter
 import es.upsa.mimo.v2021.fitup.ui.trainingLists.exercises.TrainingListsExercisesActivity
 import es.upsa.mimo.v2021.fitup.ui.trainingLists.TrainingListsViewModel
@@ -24,9 +22,9 @@ class TrainingListsListFragment: CommonRecyclerFragment() {
     private var addListButton: FloatingActionButton? = null
     private val viewModel: TrainingListsViewModel by sharedViewModel()
     val trainingListsAdapter by lazy {
-        TrainingListsAdapter {
+        TrainingListsAdapter { item: TrainingListItem, deleteFlag: Boolean ->
             viewModel.onItemClicked(
-                it
+                item, deleteFlag
             )
         }
     }
@@ -65,8 +63,8 @@ class TrainingListsListFragment: CommonRecyclerFragment() {
             observe(navigateToCreateList) { event ->
                 event.getContentIfNotHandled()?.let { showCreateList() }
             }
-            observe(showError) {event ->
-                event.getContentIfNotHandled()?.let { showAlertError(it) }
+            observe(showMessage) { event ->
+                event.getContentIfNotHandled()?.let { requireActivity().showAlert(it.title, it.message) }
             }
         }
         view.let { setupRecyclerView(it, trainingListsAdapter, R.id.recyclerTrainingList) }
@@ -92,11 +90,5 @@ class TrainingListsListFragment: CommonRecyclerFragment() {
 
     private fun showCreateList() {
         activity?.startNewActivity<CreateTrainingListActivity>()
-    }
-
-    private fun showAlertError(errorData: ErrorData) {
-        val alertFragment = AlertFragment.newInstance(errorData.title, errorData.message)
-        alertFragment.dialog?.setCanceledOnTouchOutside(true)
-        activity?.supportFragmentManager?.let { it1 -> alertFragment.show(it1, "alertError") }
     }
 }

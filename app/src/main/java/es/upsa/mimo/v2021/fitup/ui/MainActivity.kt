@@ -24,23 +24,23 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.navigation.setOnNavigationItemSelectedListener {
-            selectFragment(it)
+            selectFragment(it.itemId)
             true
         }
 
-        binding.navigation.selectedItemId = R.id.navigation_home
+        selectFragment(binding.navigation.selectedItemId)
     }
 
-    private fun selectFragment(it: MenuItem) {
+    private fun selectFragment(itemId: Int) {
 
         val fragmentClicked: Fragment
 
-        when (it.itemId) {
+        when (itemId) {
             R.id.navigation_home -> fragmentClicked = HomeFragment.newInstance()
             R.id.navigation_categories -> fragmentClicked = CategoriesFragment.newInstance()
             R.id.navigation_lists -> fragmentClicked = TrainingListsFragment.newInstance()
             R.id.navigation_settings -> fragmentClicked = SettingsFragment.newInstance()
-            else -> fragmentClicked = HomeFragment.newInstance()
+            else -> fragmentClicked = SettingsFragment.newInstance()
         }
 
         val ft = supportFragmentManager.beginTransaction()

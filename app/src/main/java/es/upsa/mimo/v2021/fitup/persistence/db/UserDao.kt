@@ -11,6 +11,12 @@ interface UserDao {
     @Query("SELECT * FROM UserItem WHERE email = :email")
     fun getUserByEmail(email: String): UserItem?
 
+    @Query("SELECT * FROM UserItem WHERE email = :email and userToken = :userToken")
+    fun getUserSession(email: String, userToken: String): UserItem?
+
+    @Query("SELECT * FROM UserItem WHERE email = :email and password = :password")
+    fun checkUser(email: String, password: String): UserItem?
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(userItem : UserItem)
 

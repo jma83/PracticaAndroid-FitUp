@@ -34,5 +34,14 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:visibility="gone" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/emptyList"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/suggested_exercises"
+        android:padding="8dp"
+        android:textSize="20sp"/>
 
 </RelativeLayout>

@@ -9,7 +9,7 @@
     <string name="emailText">Email</string>
     <string name="passwordText">Password</string>
     <string name="nameText">Name</string>
-    <string name="birthday">Birthday</string>
+    <string name="age">Age</string>
     <string name="loginButtonText">Login</string>
     <string name="newUserText">¿Are you new?</string>
     <string name="registerButtonText">Register</string>
@@ -29,9 +29,11 @@
     <string name="lock_delete">Lock delete training lists</string>
     <string name="user_settings">User settings:</string>
     <string name="app_settings">Application settings:</string>
-    <string name="confirm_password">Confirm password</string>
+    <string name="new_password">New password</string>
+    <string name="current_password">Current password</string>
     <string name="email_data">Email: </string>
     <string name="name_data">Name: </string>
     <string name="age_data">Age: </string>
     <string name="change_password">Change password</string>
+    <string name="logout">Logout</string>
 </resources>

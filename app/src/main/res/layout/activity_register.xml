@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:id="@+id/firstDetailContainer"
+            android:id="@+id/linearContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -69,14 +69,14 @@
 
 
             <EditText
-                android:id="@+id/editTextDate"
+                android:id="@+id/editTextAge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginTop="25dp"
-                android:hint="@string/birthday"
-                style="@style/MyEditText.Drawable.Date" />
+                android:hint="@string/age"
+                style="@style/MyEditText.Drawable.Age" />
 
 
             <Button

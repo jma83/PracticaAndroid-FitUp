@@ -13,25 +13,41 @@ import es.upsa.mimo.v2021.fitup.providers.TrainingListsProvider
 import es.upsa.mimo.v2021.fitup.providers.UserProvider
 import kotlinx.coroutines.launch
 
-data class ErrorData(val title: String, val message: String) {
+data class MessageData(val title: String, val message: String) {
 }
 
 class TrainingListsViewModel(private val trainingListsProvider: TrainingListsProvider, private val userProvider: UserProvider): ViewModel() {
-    private val _items = MutableLiveData<List<TrainingListItem>>()
-    val items: LiveData<List<TrainingListItem>> get() = _items
+    private val _items = MutableLiveData<MutableList<TrainingListItem>>()
+    val items: LiveData<MutableList<TrainingListItem>> get() = _items
 
     private val _navigateToExerciseList = MutableLiveData<Event<TrainingListItem>>()
     val navigateToExerciseList: LiveData<Event<TrainingListItem>> get() = _navigateToExerciseList
     private val _navigateToCreateList = MutableLiveData<Event<Boolean>>()
     val navigateToCreateList: LiveData<Event<Boolean>> get() = _navigateToCreateList
-    private val _showError = MutableLiveData<Event<ErrorData>>()
-    val showError: LiveData<Event<ErrorData>> get() = _showError
+    private val _showMessage = MutableLiveData<Event<MessageData>>()
+    val showMessage: LiveData<Event<MessageData>> get() = _showMessage
     private var _userItem = MutableLiveData<UserItem>()
 
 
-    fun onItemClicked(item: TrainingListItem) {
+    fun onItemClicked(item: TrainingListItem, deleteFlag: Boolean) {
+        if (deleteFlag){
+            viewModelScope.launch {
+                io {
+                    if (deleteItem(item)){
+                        ui {
+                            val items = _items.value?.toMutableList()
+                            if (items != null) {
+                                items.remove(item)
+                                _items.value =  items
+                            }
+                        }
+                    }
+                }
+            }
+            return
+        }
         if (item.exercises == null || item.exercises?.isEmpty()!!) {
-            _showError.value = Event(ErrorData("Error", "This Training List has no exercises yet"))
+            _showMessage.value = Event(MessageData("Error", "This Training List has no exercises yet"))
             return
         }
         _navigateToExerciseList.value = Event(item)
@@ -47,7 +63,7 @@ class TrainingListsViewModel(private val trainingListsProvider: TrainingListsPro
             io {
                 val user = userEmail?.let { userProvider.getUserByEmail(it) }
                 if (user == null) return@io
-                val result: List<TrainingListItem> = getItems(user)
+                val result: MutableList<TrainingListItem> = getItems(user).toMutableList()
                 ui {
                     _userItem.value = user
                     _items.value = result
@@ -56,8 +72,24 @@ class TrainingListsViewModel(private val trainingListsProvider: TrainingListsPro
         }
     }
 
+    private suspend fun deleteItem(trainingListItem: TrainingListItem): Boolean {
+        if (!trainingListsProvider.deleteTrainingList(trainingListItem, _userItem.value!!) ){
+            setMessage("Error deleting", "Couldn't delete this item. Please, try again")
+            return false
+        }
+        setMessage("Success!", "Training list has been deleted")
+        return true
+
+    }
+
     private suspend fun getItems(user: UserItem): List<TrainingListItem> {
         return trainingListsProvider.getTrainingLists(user)
+    }
+
+    private suspend fun setMessage(title: String, message: String){
+        ui {
+            _showMessage.value = Event(MessageData(title, message))
+        }
     }
 
 }
