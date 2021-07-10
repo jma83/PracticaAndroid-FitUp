@@ -41,7 +41,7 @@ class TrainingListsAdapter(items: List<TrainingListItem> = emptyList(), private 
             with(binding) {
                 trainingListName.text = trainingListItem.name
                 if (trainingListItem.creationDate != null) {
-                    val currentDate: String = SimpleDateFormat(Constants.DATE_FORMAT, Locale.getDefault()).format(trainingListItem.creationDate)
+                    val currentDate: String = SimpleDateFormat(Constants.DATE_TIME_FORMAT, Locale.getDefault()).format(trainingListItem.creationDate!!)
                     trainingListDate.text = currentDate
                 }
 

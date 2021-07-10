@@ -11,6 +11,7 @@
     <color name="colorPrimaryVariant">#FF5722</color>
     <color name="colorSecondary">#1D38C1</color>
     <color name="backgroundPrimary">#03A9F4</color>
+    <color name="colorGreyPrimary">#555555</color>
 
 
 </resources>

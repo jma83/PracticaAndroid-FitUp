@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustoTraininglistLayoutAttrs">
+        <attr name="customtraininglistlayout_visible_image" format="boolean"/>
+        <attr name="customtraininglistlayout_image" format="reference"/>
+        <attr name="customtraininglistlayout_name" format="string"/>
+        <attr name="customtraininglistlayout_date" format="string"/>
+    </declare-styleable>
+</resources>
