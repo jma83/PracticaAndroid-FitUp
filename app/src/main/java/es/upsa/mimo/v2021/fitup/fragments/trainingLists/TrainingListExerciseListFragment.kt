@@ -61,10 +61,8 @@ class TrainingListExerciseListFragment: ExercisesFragment() {
             }
         }
         getView()?.let { setupRecyclerView(it, exerciseAdapter, R.id.recyclerExerciseList) }
-        if (viewModel.items.value != null && viewModel.items.value?.size!! > 0) {
-            return
-        }
-        if (savedInstanceState != null) {
+
+        if (savedInstanceState != null || viewModel.items.value != null) {
             return
         }
 

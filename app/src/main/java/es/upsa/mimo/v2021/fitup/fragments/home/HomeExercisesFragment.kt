@@ -13,7 +13,6 @@ import es.upsa.mimo.v2021.fitup.ui.exercises.ExerciseAdapter
 import es.upsa.mimo.v2021.fitup.ui.home.HomeViewModel
 import es.upsa.mimo.v2021.fitup.utils.Constants
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeExercisesFragment: ExercisesFragment() {
     private val viewModel: HomeViewModel by sharedViewModel()

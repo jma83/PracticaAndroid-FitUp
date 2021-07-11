@@ -3,7 +3,6 @@ package es.upsa.mimo.v2021.fitup.ui.detail
 import android.R
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import es.upsa.mimo.v2021.fitup.databinding.FragmentExerciseDetailBinding
 import es.upsa.mimo.v2021.fitup.fragments.exercises.ExerciseDetailFragment
 import es.upsa.mimo.v2021.fitup.model.APIEntities.ExerciseDataSet
 
