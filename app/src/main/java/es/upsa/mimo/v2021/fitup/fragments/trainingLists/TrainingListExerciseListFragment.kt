@@ -42,11 +42,10 @@ class TrainingListExerciseListFragment: ExercisesFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentExerciseListBinding.bind(view)
-        mProgressBar = binding.progressBar
-        val detailsFrame: View? = activity?.findViewById(R.id.flExerciseDetail)
-        mDualPane = detailsFrame != null && detailsFrame.visibility == View.VISIBLE
+
         with(viewModel) {
             observe(items) {
+                setLoading(false)
                 exerciseAdapter.items = it
                 val exerciseDataSet: ExerciseDataSet? = it.first()
                 if (mDualPane && exerciseDataSet != null) {
@@ -69,8 +68,8 @@ class TrainingListExerciseListFragment: ExercisesFragment() {
         setLoading(true)
         val trainingListItem: Int? = getArguments()?.getInt(TrainingListsExercisesActivity.EXTRA_TRAINING_LIST_ITEM)
         val email = activity?.applicationContext?.let { PreferencesManager(it).email }
-        viewModel.onLoad(trainingListItem, email)
+        val userToken = activity?.applicationContext?.let { PreferencesManager(it).userToken }
+        viewModel.onLoad(trainingListItem, email, userToken)
 
-        setLoading(false)
     }
 }

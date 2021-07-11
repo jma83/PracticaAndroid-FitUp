@@ -45,7 +45,9 @@ class TrainingListsListFragment: CommonRecyclerFragment() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.onLoad(context?.let { PreferencesManager(it).email })
+        val email = activity?.applicationContext?.let { PreferencesManager(it).email }
+        val userToken = activity?.applicationContext?.let { PreferencesManager(it).userToken }
+        viewModel.onLoad(email, userToken)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,6 +60,8 @@ class TrainingListsListFragment: CommonRecyclerFragment() {
                 trainingListsAdapter.items = it
                 if (it.size == 0) {
                     binding.emptyList.visibility = View.VISIBLE
+                }else{
+                    binding.emptyList.visibility = View.GONE
                 }
             }
             observe(navigateToExerciseList) { event ->
@@ -83,7 +87,7 @@ class TrainingListsListFragment: CommonRecyclerFragment() {
         }
 
         setLoading(true)
-        viewModel.onLoad(context?.let { PreferencesManager(it).email })
+
     }
 
     private fun showExerciseList(trainingListItem: TrainingListItem) {

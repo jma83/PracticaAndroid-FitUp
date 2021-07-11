@@ -9,11 +9,11 @@ interface TrainingListDao {
     @Query("SELECT * FROM TrainingListItem")
     fun getAll(): List<TrainingListItem>
 
-    @Query("SELECT * FROM TrainingListItem WHERE userItem = :userItem")
-    fun getAllByUser(userItem: UserItem): List<TrainingListItem>
+    @Query("SELECT * FROM TrainingListItem WHERE userId = :userItem")
+    fun getAllByUser(userItem: Int): List<TrainingListItem>
 
-    @Query("SELECT * FROM TrainingListItem WHERE userItem = :userItem and id = :id")
-    fun getAllByUserAndId(userItem: UserItem, id: Int): TrainingListItem
+    @Query("SELECT * FROM TrainingListItem WHERE userId = :userItem and id = :id")
+    fun getAllByUserAndId(userItem: Int, id: Int): TrainingListItem
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(trainingListItem : TrainingListItem)

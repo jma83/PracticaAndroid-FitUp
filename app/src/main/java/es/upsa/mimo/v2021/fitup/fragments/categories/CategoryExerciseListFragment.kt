@@ -25,8 +25,7 @@ class CategoryExerciseListFragment : ExercisesFragment() {
 
     companion object {
         fun newInstance(category: Category? = null): CategoryExerciseListFragment {
-            val exerciseListFragment =
-                CategoryExerciseListFragment()
+            val exerciseListFragment = CategoryExerciseListFragment()
             val args = Bundle()
             args.putSerializable(CategoryExercisesActivity.EXTRA_CATEGORY, category)
             exerciseListFragment.setArguments(args)
@@ -38,11 +37,9 @@ class CategoryExerciseListFragment : ExercisesFragment() {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentExerciseListBinding.bind(view)
 
-        mProgressBar = binding.progressBar
-        val detailsFrame: View? = activity?.findViewById(R.id.flExerciseDetail)
-        mDualPane = detailsFrame != null && detailsFrame.visibility == View.VISIBLE
         with(viewModel) {
             observe(items) {
+                setLoading(false)
                 exerciseAdapter.items = it
                 val exerciseDataSet: ExerciseDataSet? = it.first()
                 if (mDualPane && exerciseDataSet != null) {
@@ -54,18 +51,15 @@ class CategoryExerciseListFragment : ExercisesFragment() {
             }
         }
         getView()?.let { setupRecyclerView(it, exerciseAdapter, R.id.recyclerExerciseList) }
-        if (viewModel.items.value != null && viewModel.items.value?.size!! > 0) {
+
+        val category: Category? = getArguments()?.getSerializable(CategoryExercisesActivity.EXTRA_CATEGORY) as Category?
+        binding.headerText.text = "${category?.name} exercises:"
+
+        if (viewModel.items.value != null && savedInstanceState != null) {
              return
-        }
-        if (savedInstanceState != null) {
-            return
         }
 
         setLoading(true)
-        val category: Category? = getArguments()?.getSerializable(CategoryExercisesActivity.EXTRA_CATEGORY) as Category?
-        binding.headerText.text = "${category?.name} exercises:"
         viewModel.onLoad(category)
-
-        setLoading(false)
     }
 }

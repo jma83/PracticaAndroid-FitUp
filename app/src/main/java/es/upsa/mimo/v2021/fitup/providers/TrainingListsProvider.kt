@@ -22,7 +22,7 @@ object TrainingListsProviderImpl: TrainingListsProvider {
         var result: List<TrainingListItem> = emptyList()
         try {
             val db = getConnection()
-            result = db.TrainingListDao().getAllByUser(user)
+            result = db.TrainingListDao().getAllByUser(user.id!!)
         }catch (e: Exception){
             Log.e(Constants.APP_TAG, "Error when retrieving lists: ${e.message}")
         }
@@ -33,7 +33,7 @@ object TrainingListsProviderImpl: TrainingListsProvider {
     override suspend fun getTrainingList(id: Int, user: UserItem): TrainingListItem? {
         val db = getConnection()
         try {
-            val result = db.TrainingListDao().getAllByUserAndId(user, id)
+            val result = db.TrainingListDao().getAllByUserAndId(user.id!!, id)
             return result
         }catch (e: Exception){
             Log.e(Constants.APP_TAG,"Error retrieving TrainingList: ${e.message}")
@@ -47,7 +47,7 @@ object TrainingListsProviderImpl: TrainingListsProvider {
         if (trainingListItem == null || user == null || exerciseItem == null) {
             return false
         }
-        if (trainingListItem.userItem?.id != user.id) {
+        if (trainingListItem.userId != user.id) {
             return false
         }
 
@@ -80,7 +80,7 @@ object TrainingListsProviderImpl: TrainingListsProvider {
     override suspend fun deleteTrainingList(trainingListItem: TrainingListItem, user: UserItem): Boolean {
         val db = getConnection()
         try {
-            if (trainingListItem.userItem!!.id != user.id){
+            if (trainingListItem.userId != user.id){
                 return false
             }
             db.TrainingListDao().delete(trainingListItem)

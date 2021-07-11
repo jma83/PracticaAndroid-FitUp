@@ -56,10 +56,8 @@ class CategoryListFragment: CommonRecyclerFragment()  {
             }
         }
         getView()?.let { setupRecyclerView(it, categoryAdapter, R.id.recyclerCategoryList) }
-        if (viewModel.items.value != null && viewModel.items.value?.categories != null && viewModel.items.value?.categories?.size!! > 0) {
-            return
-        }
-        if (savedInstanceState != null) {
+
+        if (savedInstanceState != null && viewModel.items.value != null) {
             return
         }
 

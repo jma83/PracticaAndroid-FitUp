@@ -59,10 +59,11 @@ class TrainingListsViewModel(private val trainingListsProvider: TrainingListsPro
         _navigateToCreateList.value = Event(true)
     }
 
-    fun onLoad(userEmail: String?) {
+    fun onLoad(userEmail: String?, userToken: String?) {
         viewModelScope.launch {
             io {
-                val user = userEmail?.let { userProvider.getUserByEmail(it) }
+                if (userEmail.isNullOrEmpty() || userToken.isNullOrEmpty()) return@io
+                val user = userProvider.getUserSession(userEmail, userToken)
                 if (user == null) return@io
                 val result: MutableList<TrainingListItem> = getItems(user).toMutableList()
                 ui {

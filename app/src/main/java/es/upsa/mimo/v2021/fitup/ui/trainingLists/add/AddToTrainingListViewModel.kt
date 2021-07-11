@@ -29,10 +29,11 @@ class AddToTrainingListViewModel(private val trainingListsProvider: TrainingList
         }
     }
 
-    fun onLoad(userEmail: String?, exerciseItem: ExerciseItem) {
+    fun onLoad(userEmail: String?, userToken: String?, exerciseItem: ExerciseItem) {
         viewModelScope.launch {
             io {
-                val user = userEmail?.let { userProvider.getUserByEmail(it) }
+                if (userEmail.isNullOrEmpty() || userToken.isNullOrEmpty()) return@io
+                val user = userProvider.getUserSession(userEmail, userToken)
                 if (user == null) return@io
                 val result: List<TrainingListItemActive> = getItems(exerciseItem, user)
                 ui {

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.gson.reflect.TypeToken
 import es.upsa.mimo.v2021.fitup.utils.Event
 import es.upsa.mimo.v2021.fitup.utils.io
 import es.upsa.mimo.v2021.fitup.utils.ui
@@ -31,11 +32,11 @@ class TrainingListsExercisesViewModel(private val exerciseProvider: ExerciseProv
         _navigateToDetail.value = Event(item)
     }
 
-    fun onLoad(trainingListItemId: Int?, email: String?) {
+    fun onLoad(trainingListItemId: Int?, email: String?, userToken: String?) {
         viewModelScope.launch {
             io {
-                if (email == null || trainingListItemId == null) return@io
-                val userItem: UserItem? = userProvider.getUserByEmail(email)
+                if (email.isNullOrEmpty() || trainingListItemId == null || userToken.isNullOrEmpty()) return@io
+                val userItem: UserItem? = userProvider.getUserSession(email, userToken)
                 if (userItem == null) return@io
                 val trainingListItem: TrainingListItem? = trainingListsProvider.getTrainingList(trainingListItemId, userItem)
                 val exercises = getExercises(trainingListItem)

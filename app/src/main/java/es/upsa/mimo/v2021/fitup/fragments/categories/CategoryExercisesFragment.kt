@@ -14,8 +14,7 @@ class CategoryExercisesFragment: Fragment() {
 
     companion object {
         fun newInstance(category: Category? = null): CategoryExercisesFragment {
-            val exercisesFragment =
-                CategoryExercisesFragment()
+            val exercisesFragment = CategoryExercisesFragment()
             if (category != null) {
                 val args = Bundle()
                 args.putSerializable(CategoryExercisesActivity.EXTRA_CATEGORY, category)

@@ -78,7 +78,7 @@ class CreateTrainingListViewModel(private val trainingListsProvider: TrainingLis
     }
 
     private suspend fun insertTrainingList(name: String) {
-        val list = TrainingListItem(name, Date(), mutableListOf(),  currentUser!!)
+        val list = TrainingListItem(name, Date(), mutableListOf(),  currentUser!!.id!!)
         trainingListsProvider.insertTrainingList(list)
     }
 

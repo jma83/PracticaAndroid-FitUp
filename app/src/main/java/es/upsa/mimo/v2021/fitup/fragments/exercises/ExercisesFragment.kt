@@ -41,6 +41,9 @@ open class ExercisesFragment: CommonRecyclerFragment() {
         if (mRecyclerView?.adapter?.itemCount == 0) {
             binding.emptyList.visibility = View.VISIBLE
         }
+        mProgressBar = binding.progressBar
+        val detailsFrame: View? = activity?.findViewById(R.id.flExerciseDetail)
+        mDualPane = detailsFrame != null && detailsFrame.visibility == View.VISIBLE
     }
 
     protected fun navigateToDetail(exerciseDataSet: ExerciseDataSet) {

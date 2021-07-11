@@ -75,7 +75,9 @@ class AddToTrainingListFragment: DialogFragment() {
 
         setLoading(true)
         val exerciseItem = getArguments()?.getParcelable(TAG_EXERCISE_ITEM) as ExerciseItem?
-        viewModel.onLoad(context?.let { PreferencesManager(it).email }, exerciseItem!!)
+        val email = activity?.applicationContext?.let { PreferencesManager(it).email }
+        val userToken = activity?.applicationContext?.let { PreferencesManager(it).userToken }
+        viewModel.onLoad(email, userToken, exerciseItem!!)
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {

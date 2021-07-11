@@ -55,9 +55,7 @@ class HomeExercisesFragment: ExercisesFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mProgressBar = view.findViewById(R.id.progressBar)
-        val detailsFrame: View? = activity?.findViewById(R.id.flExerciseDetail)
-        mDualPane = detailsFrame != null && detailsFrame.visibility == View.VISIBLE
+
         with(viewModel) {
             observe(items) {
                 setLoading(false)

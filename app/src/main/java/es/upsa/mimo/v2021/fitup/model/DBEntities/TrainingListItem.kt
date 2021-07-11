@@ -3,12 +3,13 @@ package es.upsa.mimo.v2021.fitup.model.DBEntities
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import androidx.room.Relation
 import java.util.*
 
-@Entity
-data class TrainingListItem(var name: String?, var creationDate: Date?, var exercises: MutableList<ExerciseItem>?,
-                            var userItem: UserItem?): Parcelable {
+@Entity()
+data class TrainingListItem(var name: String?, var creationDate: Date?, var exercises: MutableList<ExerciseItem>?, var userId: Int = 0): Parcelable {
     @PrimaryKey(autoGenerate = true)
     var id : Int? = null
 
@@ -18,7 +19,7 @@ data class TrainingListItem(var name: String?, var creationDate: Date?, var exer
         arrayListOf<ExerciseItem>().apply {
             parcel.readList(this as List<ExerciseItem>, ExerciseItem::class.java.classLoader)
         },
-        parcel.readParcelable(UserItem::class.java.classLoader)
+        parcel.readInt()
 
     )
 
@@ -26,7 +27,7 @@ data class TrainingListItem(var name: String?, var creationDate: Date?, var exer
         parcel.writeString(name)
         parcel.writeLong(creationDate?.time ?: 0)
         parcel.writeParcelableList(exercises, Parcelable.PARCELABLE_WRITE_RETURN_VALUE)
-        parcel.writeParcelable(userItem, flags)
+        parcel.writeInt(userId)
     }
 
     override fun describeContents(): Int {
