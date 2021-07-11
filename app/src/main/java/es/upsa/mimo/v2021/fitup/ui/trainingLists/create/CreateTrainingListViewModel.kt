@@ -11,25 +11,31 @@ import es.upsa.mimo.v2021.fitup.utils.ui
 import es.upsa.mimo.v2021.fitup.model.DBEntities.TrainingListItem
 import es.upsa.mimo.v2021.fitup.model.DBEntities.UserItem
 import es.upsa.mimo.v2021.fitup.persistence.db.FitUpDatabase
+import es.upsa.mimo.v2021.fitup.providers.TrainingListsProvider
+import es.upsa.mimo.v2021.fitup.providers.UserProvider
+import es.upsa.mimo.v2021.fitup.ui.trainingLists.MessageData
 import es.upsa.mimo.v2021.fitup.utils.Constants
 import kotlinx.coroutines.launch
 import java.util.*
 
-class CreateTrainingListViewModel: ViewModel() {
+class CreateTrainingListViewModel(private val trainingListsProvider: TrainingListsProvider, private val userProvider: UserProvider): ViewModel() {
     private val _navigateToLists = MutableLiveData<Event<Boolean>>()
     val navigateToLists: LiveData<Event<Boolean>> get() = _navigateToLists
     private var currentUser: UserItem? = null
+    private val _showMessage = MutableLiveData<Event<MessageData>>()
+    val showMessage: LiveData<Event<MessageData>> get() = _showMessage
+
     fun returnToListsView() {
         _navigateToLists.value = Event(true)
     }
 
-    fun onSubmit(name: String, userEmail: String) {
+    fun onSubmit(name: String?) {
         viewModelScope.launch {
             io {
-                if (!validTrainingList(name, userEmail)) {
+                if (!validTrainingList(name)) {
                     return@io
                 }
-                insertTrainingList(name)
+                insertTrainingList(name!!)
                 ui {
                     returnToListsView()
                 }
@@ -37,35 +43,49 @@ class CreateTrainingListViewModel: ViewModel() {
         }
     }
 
-    private fun validTrainingList(name: String, userEmail: String): Boolean{
-        var checkResult = false
-        try {
-            if (name.length == 0){
-                return false
-            }
-            if (currentUser == null) {
-                currentUser = FitUpDatabase.get()?.UserDao()?.getUserByEmail(userEmail)
-                if (currentUser == null) {
-                    return false
+    fun onLoad(email: String?, userToken: String?) {
+        viewModelScope.launch {
+            io {
+                if (email.isNullOrEmpty() || userToken.isNullOrEmpty()){
+                    return@io
+                }
+                val user = userProvider.getUserSession(email, userToken)
+                ui {
+                    currentUser = user
                 }
             }
-            val lists: List<TrainingListItem>? = FitUpDatabase.get()?.TrainingListDao()?.getAllByUser(currentUser!!)
-            if (lists != null) {
-                checkResult = !lists.any  { it.name == name }
-            }
-        }catch (e: Exception) {
-            Log.e(Constants.APP_TAG,"Error validating list")
-            Log.e(Constants.APP_TAG,"${e.message}")
         }
-        return checkResult
+    }
+
+    private suspend fun validTrainingList(name: String?): Boolean{
+        if (name.isNullOrEmpty()){
+            setMessage("Error creating list", "Name can not be empty or null")
+            return false
+        }
+
+        if (currentUser == null) {
+            setMessage("Error creating list", "Couldn't find user, please try again later.")
+            return false
+        }
+
+        val lists: List<TrainingListItem> = trainingListsProvider.getTrainingLists(currentUser!!)
+        val compareResult =  lists.any  { it.name == name }
+        if (compareResult){
+            setMessage("Error creating list", "You have already created a list with this name")
+            return false
+        }
+        return true
     }
 
     private suspend fun insertTrainingList(name: String) {
         val list = TrainingListItem(name, Date(), mutableListOf(),  currentUser!!)
+        trainingListsProvider.insertTrainingList(list)
+    }
 
-        FitUpDatabase.get()?.TrainingListDao()?.insert(list)
-        //val lists: List<TrainingListItem>? = FitUpDatabase.get()?.TrainingListDao()?.getAllByUser(currentUser!!)
-        //Log.i(Constants.APP_TAG, lists.toString())
+    private suspend fun setMessage(title: String, message: String){
+        ui {
+            _showMessage.value = Event(MessageData(title, message))
+        }
     }
 
 

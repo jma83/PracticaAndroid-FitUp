@@ -21,7 +21,8 @@ import kotlinx.coroutines.launch
 class TrainingListsExercisesViewModel(private val exerciseProvider: ExerciseProvider, private val trainingListsProvider: TrainingListsProvider, private val userProvider: UserProvider): ViewModel() {
     private val _items = MutableLiveData<List<ExerciseDataSet>>()
     val items: LiveData<List<ExerciseDataSet>> get() = _items
-
+    private val _trainingListItem = MutableLiveData<TrainingListItem>()
+    val trainingListItem: LiveData<TrainingListItem> get() = _trainingListItem
     private val _navigateToDetail = MutableLiveData<Event<ExerciseDataSet>>()
     val navigateToDetail: LiveData<Event<ExerciseDataSet>> get() = _navigateToDetail
 
@@ -42,6 +43,7 @@ class TrainingListsExercisesViewModel(private val exerciseProvider: ExerciseProv
                     exercises?.exercises?.map { ExerciseDataSet(it, null) }
                 ui {
                     _items.value = exerciseDataSets
+                    _trainingListItem.value = trainingListItem
                 }
                 exerciseDataSets = getExerciseDataSets(exercises?.exercises)
                 ui {

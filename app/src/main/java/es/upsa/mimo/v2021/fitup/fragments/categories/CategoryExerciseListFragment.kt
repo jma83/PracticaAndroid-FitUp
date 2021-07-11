@@ -3,6 +3,7 @@ package es.upsa.mimo.v2021.fitup.fragments.categories
 import android.os.Bundle
 import android.view.View
 import es.upsa.mimo.v2021.fitup.R
+import es.upsa.mimo.v2021.fitup.databinding.FragmentExerciseListBinding
 import es.upsa.mimo.v2021.fitup.utils.extensions.observe
 import es.upsa.mimo.v2021.fitup.fragments.exercises.ExercisesFragment
 import es.upsa.mimo.v2021.fitup.model.APIEntities.Category
@@ -35,7 +36,9 @@ class CategoryExerciseListFragment : ExercisesFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mProgressBar = view.findViewById(R.id.progressBar)
+        val binding = FragmentExerciseListBinding.bind(view)
+
+        mProgressBar = binding.progressBar
         val detailsFrame: View? = activity?.findViewById(R.id.flExerciseDetail)
         mDualPane = detailsFrame != null && detailsFrame.visibility == View.VISIBLE
         with(viewModel) {
@@ -60,6 +63,7 @@ class CategoryExerciseListFragment : ExercisesFragment() {
 
         setLoading(true)
         val category: Category? = getArguments()?.getSerializable(CategoryExercisesActivity.EXTRA_CATEGORY) as Category?
+        binding.headerText.text = "${category?.name} exercises:"
         viewModel.onLoad(category)
 
         setLoading(false)

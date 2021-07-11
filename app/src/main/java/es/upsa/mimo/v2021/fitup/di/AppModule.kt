@@ -1,9 +1,6 @@
 package es.upsa.mimo.v2021.fitup.di
 
-import es.upsa.mimo.v2021.fitup.fragments.home.HomeExercisesFragment
-import es.upsa.mimo.v2021.fitup.fragments.home.HomeFragment
 import es.upsa.mimo.v2021.fitup.providers.*
-import es.upsa.mimo.v2021.fitup.ui.MainActivity
 import es.upsa.mimo.v2021.fitup.ui.categories.CategoriesViewModel
 import es.upsa.mimo.v2021.fitup.ui.categories.CategoryExercisesViewModel
 import es.upsa.mimo.v2021.fitup.ui.detail.DetailViewModel
@@ -15,7 +12,6 @@ import es.upsa.mimo.v2021.fitup.ui.trainingLists.TrainingListsViewModel
 import es.upsa.mimo.v2021.fitup.ui.trainingLists.add.AddToTrainingListViewModel
 import es.upsa.mimo.v2021.fitup.ui.trainingLists.create.CreateTrainingListViewModel
 import es.upsa.mimo.v2021.fitup.ui.trainingLists.exercises.TrainingListsExercisesViewModel
-import org.koin.androidx.fragment.dsl.fragment
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -33,7 +29,7 @@ val appModule = module {
     viewModel { CategoryExercisesViewModel(get()) }
     viewModel { TrainingListsViewModel(get(), get()) }
     viewModel { TrainingListsExercisesViewModel(get(),get(), get()) }
-    viewModel { CreateTrainingListViewModel() }
+    viewModel { CreateTrainingListViewModel(get(), get()) }
     viewModel { AddToTrainingListViewModel(get(), get()) }
     viewModel { SettingsViewModel(get()) }
 }

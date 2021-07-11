@@ -11,8 +11,7 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/fituplogo"
         android:supportsRtl="true"
-        android:theme="@style/Theme.FitUp"
-        android:debuggable="true">
+        android:theme="@style/Theme.FitUp">
         <activity android:name="es.upsa.mimo.v2021.fitup.ui.start.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
