@@ -36,4 +36,9 @@
     <string name="age_data">Age: </string>
     <string name="change_password">Change password</string>
     <string name="logout">Logout</string>
+    <string name="no_results_exercises">No exercises were found! Please, try again later</string>
+    <string name="no_results_training_lists">No training lists were found! Start adding a new one!</string>
+    <string name="muscles_list">Muscles list:</string>
+    <string name="exercises_category_list">Category list:</string>
+    <string name="my_training_lists">My Training Lists:</string>
 </resources>

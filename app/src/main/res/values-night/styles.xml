@@ -15,12 +15,17 @@
         <item name="android:backgroundTint">@null</item>
     </style>
 
-    <style name="MyFloatingButton">
+    <style name="MyFloatingElement">
         <item name="android:backgroundTint">@color/colorPrimary</item>
     </style>
 
-    <style name="MyFloatingButton.BottomEnd">
+    <style name="MyFloatingElement.BottomEnd">
         <item name="android:layout_gravity">end|bottom</item>
+        <item name="android:layout_margin">16dp</item>
+    </style>
+
+    <style name="MyFloatingElement.Center">
+        <item name="android:layout_gravity">center</item>
         <item name="android:layout_margin">16dp</item>
     </style>
 
@@ -82,6 +87,13 @@
     <style name="MyTextView.Title.Medium">
         <item name="android:textAlignment">textStart</item>
         <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/colorGreyText</item>
+
+    </style>
+
+    <style name="MyTextView.Title.Medium.Dark">
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:textSize">24sp</item>
         <item name="android:textColor">@color/colorGreyPrimary</item>
 
     </style>
@@ -89,7 +101,7 @@
     <style name="MyTextView.Title.Small">
         <item name="android:textAlignment">textStart</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@color/colorGreyPrimary</item>
+        <item name="android:textColor">@color/colorGreyText</item>
     </style>
 
 </resources>

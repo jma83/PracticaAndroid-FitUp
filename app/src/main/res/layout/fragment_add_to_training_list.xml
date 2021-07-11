@@ -17,17 +17,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:textSize="26sp"
-                android:text="@string/add_exercise_to_training_list"/>
-
-            <TextView
-                android:id="@+id/emptyTrainingLists"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:textSize="21sp"
-                android:text="@string/empty_training_lists"
-                android:visibility="gone"/>
+                android:text="@string/add_exercise_to_training_list"
+                style="@style/MyTextView.Title.Medium"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerTrainingList"
@@ -41,13 +32,22 @@
                 app:spanCount="1"
                 tools:listitem="@layout/item_training_list_add"/>
         </LinearLayout>
+
         <ProgressBar
             android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:indeterminateDrawable="@drawable/progress"
+            style="@style/MyFloatingElement.Center" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/emptyList"
+            android:text="@string/no_results_training_lists"
+            android:visibility="gone"
+            style="@style/MyTextView.Title.Medium.CenterMessage"/>
     </FrameLayout>
 
 </RelativeLayout>

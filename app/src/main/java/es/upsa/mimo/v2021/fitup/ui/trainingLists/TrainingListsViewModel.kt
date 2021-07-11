@@ -33,13 +33,14 @@ class TrainingListsViewModel(private val trainingListsProvider: TrainingListsPro
         if (deleteFlag){
             viewModelScope.launch {
                 io {
-                    if (deleteItem(item)){
-                        ui {
-                            val items = _items.value?.toMutableList()
-                            if (items != null) {
-                                items.remove(item)
-                                _items.value =  items
-                            }
+                    if (!deleteItem(item)){
+                        return@io
+                    }
+                    ui {
+                        val items = _items.value?.toMutableList()
+                        if (items != null) {
+                            items.remove(item)
+                            _items.value = items
                         }
                     }
                 }

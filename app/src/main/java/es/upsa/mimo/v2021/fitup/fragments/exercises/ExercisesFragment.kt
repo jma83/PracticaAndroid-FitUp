@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentTransaction
 import es.upsa.mimo.v2021.fitup.R
+import es.upsa.mimo.v2021.fitup.databinding.FragmentExerciseListBinding
+import es.upsa.mimo.v2021.fitup.databinding.FragmentExercisesBinding
 import es.upsa.mimo.v2021.fitup.utils.extensions.startNewActivity
 import es.upsa.mimo.v2021.fitup.fragments.CommonRecyclerFragment
 import es.upsa.mimo.v2021.fitup.model.APIEntities.ExerciseDataSet
@@ -31,6 +33,14 @@ open class ExercisesFragment: CommonRecyclerFragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_exercise_list, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val binding = FragmentExerciseListBinding.bind(view)
+        if (mRecyclerView?.adapter?.itemCount == 0) {
+            binding.emptyList.visibility = View.VISIBLE
+        }
     }
 
     protected fun navigateToDetail(exerciseDataSet: ExerciseDataSet) {

@@ -40,9 +40,9 @@
                 android:layout_width="0dp"
                 android:layout_weight="0.2"
                 android:layout_height="match_parent"
-                android:background="@color/white"
                 android:visibility="gone"
-                android:src="@drawable/ic_baseline_delete_outline_24"/>
+                android:src="@drawable/ic_baseline_delete_outline_24"
+                style="@style/IconPrimary" />
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

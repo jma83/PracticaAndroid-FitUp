@@ -56,6 +56,9 @@ class TrainingListsListFragment: CommonRecyclerFragment() {
             observe(items) {
                 setLoading(false)
                 trainingListsAdapter.items = it
+                if (it.size == 0) {
+                    binding.emptyList.visibility = View.VISIBLE
+                }
             }
             observe(navigateToExerciseList) { event ->
                 event.getContentIfNotHandled()?.let { showExerciseList(it) }

@@ -9,6 +9,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.RecyclerView
 import es.upsa.mimo.v2021.fitup.R
+import es.upsa.mimo.v2021.fitup.databinding.FragmentAddToTrainingListBinding
 import es.upsa.mimo.v2021.fitup.utils.extensions.observe
 import es.upsa.mimo.v2021.fitup.model.DBEntities.ExerciseItem
 import es.upsa.mimo.v2021.fitup.persistence.PreferencesManager
@@ -52,14 +53,18 @@ class AddToTrainingListFragment: DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mProgressBar = view.findViewById(R.id.progressBar)
+        val binding = FragmentAddToTrainingListBinding.bind(view)
+        mProgressBar = binding.progressBar
         with(viewModel) {
             observe(items) {
                 setLoading(false)
                 addToTrainingListsAdapter.items = it
+                if (it.size == 0) {
+                    binding.emptyList.visibility = View.VISIBLE
+                }
             }
         }
-        view.let { setupRecyclerView(it) }
+        setupRecyclerView(binding.recyclerTrainingList)
 
         if (viewModel.items.value != null && viewModel.items.value?.size!! > 0) {
             return
@@ -73,8 +78,8 @@ class AddToTrainingListFragment: DialogFragment() {
         viewModel.onLoad(context?.let { PreferencesManager(it).email }, exerciseItem!!)
     }
 
-    private fun setupRecyclerView(view: View) {
-        mRecyclerView = view.findViewById(R.id.recyclerTrainingList)
+    private fun setupRecyclerView(recyclerView: RecyclerView) {
+        mRecyclerView = recyclerView
         if (mRecyclerView != null ) {
             mRecyclerView!!.adapter = addToTrainingListsAdapter
             mRecyclerView!!.setItemAnimator(DefaultItemAnimator())

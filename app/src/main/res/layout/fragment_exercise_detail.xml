@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:id="@+id/scrollView">
 
         <LinearLayout
@@ -28,20 +28,29 @@
                 android:id="@+id/exerciseTitle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#333"
+                android:background="@color/colorGreyPrimary"
                 android:padding="16dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
-                tools:text="Title"/>
-
-            <TextView
-                android:id="@+id/exerciseDescription"
+                tools:text="Title"
+                android:textColor="@color/white"
+                style="@style/MyTextView.Title.Medium"/>
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="10dp"
-                tools:text="Description"
-                android:background="@color/white"/>
+                android:layout_marginVertical="8dp"
+                android:layout_marginHorizontal="8dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="50dp"
+                app:cardCornerRadius="20dp">
+                <TextView
+                    android:id="@+id/exerciseDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="10dp"
+                    tools:text="Description"
+                    style="@style/MyTextView.Text.Medium"/>
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/categoryText"
@@ -49,7 +58,9 @@
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:layout_marginStart="8dp"
-                tools:text="Category" />
+                android:background="@color/white"
+                tools:text="Category"
+                style="@style/MyTextView.Title.Small"/>
 
             <TextView
                 android:id="@+id/muscleTitle"
@@ -58,7 +69,8 @@
                 android:padding="8dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginStart="8dp"
-                tools:text="Muscles list:" />
+                tools:text="Muscle list:"
+                style="@style/MyTextView.Title.Small"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerMuscleList"
@@ -76,11 +88,8 @@
         android:id="@+id/addToTrainingList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:src="@drawable/ic_baseline_add_24"
+        android:src="@drawable/ic_baseline_bookmark_add_24"
         android:contentDescription="@string/add_training_list"
-        android:layout_margin="16dp"
-        style="@style/MyFloatingButton.BottomEnd"
-        />
+        style="@style/MyFloatingElement.BottomEnd"/>
 
 </FrameLayout>
